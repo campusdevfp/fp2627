@@ -1,0 +1,75 @@
+site_name: CMO-313 · Fundamentos de programación
+site_description: Materiales y ejercicios del alumnado
+site_author: Departamento de Informática
+site_author: Iván Jiménez
+site_url: https://ivanjimenez.github.io/campusdevfp/fp2627
+docs_dir: docs
+
+theme:
+  name: material
+  language: es
+  font: false          # tipografía del sistema → funciona 100 % offline
+  features:
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - navigation.instant
+    - content.code.copy
+    - search.suggest
+    - search.highlight
+    - toc.follow
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/weather-night
+        name: Modo oscuro
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Modo claro
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/imprimir.js
+
+hooks:
+  - hooks/pagina_completa.py
+
+nav:
+  - Inicio: index.md
+  - Unidades:
+      - 1 · Estructura del programa: ud1/index.md
+      - 2 · Funciones y librerías: ud2/index.md
+      - 3 · Control y excepciones: ud3/index.md
+      - 4 · Orientación a objetos: ud4/index.md
+      - 5 · Entrada/salida y ficheros: ud5/index.md
+      - 6 · Bases de datos: ud6/index.md
+  - Recursos:
+      - Entorno de trabajo: recursos/entorno.md
+      - Proyectos: proyectos/index.md
+  - Todo el material (PDF): completo.md
+
+plugins:
+  - search:
+      lang: es
+  - offline
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
