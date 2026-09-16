@@ -32,123 +32,144 @@ no tienes ni idea, déjalo en blanco.**
 **1.** ¿Qué imprime este programa?
 
 ```python
-def saludar(nombre):
-    mensaje = f"Hola, {nombre}"
+IVA = 21
 
-print(saludar("Ada"))
+
+def con_iva(precio):
+    print(round(precio * (1 + IVA / 100), 2))
+
+
+resultado = con_iva(25.0)
+print(resultado)
 ```
 
-- **a)** `Hola, Ada`
-- **b)** `TypeError`
-- **c)** `Ada`
-- **d)** `None`
+- **a)** `30.25 ⏎ 30.25`
+- **b)** `25 ⏎ None`
+- **c)** `None ⏎ 30.25`
+- **d)** `30.25 ⏎ None`
 
-**2.** ¿Qué imprime?
-
-```python
-def doble(x):
-    print(x * 2)
-
-print(doble(5))
-```
-
-- **a)** `10 ⏎ None`
-- **b)** `10 ⏎ 10`
-- **c)** `5 ⏎ None`
-- **d)** `None ⏎ 10`
-
-**3.** ¿Qué error lanza?
+**2.** ¿Qué error lanza este programa?
 
 ```python
-def doble(x):
-    print(x * 2)
+def media(notas):
+    print(sum(notas) / len(notas))
 
-print(doble(5) + 1)
+
+total = media([5.0, 7.0]) * 2
+print(total)
 ```
 
 - **a)** `TypeError`
-- **b)** `AttributeError`
-- **c)** `ValueError`
+- **b)** `ValueError`
+- **c)** `AttributeError`
 - **d)** `NameError`
+
+**3.** ¿Qué imprime?
+
+```python
+def base(unidades, precio):
+    return unidades * precio
+
+
+def con_iva(importe):
+    return round(importe * 1.21, 2)
+
+
+print(con_iva(base(3, 10.0)))
+```
+
+- **a)** `36.3`
+- **b)** `TypeError`
+- **c)** `18.15`
+- **d)** `None`
 
 **4.** ¿Qué imprime?
 
 ```python
-def doble(x):
-    return x * 2
+def medidas(base, altura):
+    """Área y perímetro de un rectángulo."""
+    return base * altura, 2 * (base + altura)
 
-print(doble(5) + doble(3))
+
+print(medidas(4.0, 3.0))
 ```
 
-- **a)** `TypeError`
-- **b)** `None`
-- **c)** `8`
-- **d)** `16`
+- **a)** `[12.0, 14.0]`
+- **b)** `12.0`
+- **c)** `12.0 14.0`
+- **d)** `(12.0, 14.0)`
 
 **5.** ¿Qué imprime?
 
 ```python
-def f():
-    return 1
-    return 2
+def medidas(base, altura):
+    return base * altura, 2 * (base + altura)
 
-print(f())
+
+area, perimetro = medidas(4.0, 3.0)
+print(area, perimetro)
 ```
 
-- **a)** `1 2 3`
-- **b)** `3`
-- **c)** `1`
-- **d)** `None`
+- **a)** `(12.0, 14.0)`
+- **b)** `12.0`
+- **c)** `12.0 14.0`
+- **d)** `TypeError`
 
 **6.** ¿Qué imprime?
 
 ```python
-def medidas(b, h):
-    return b * h, 2 * (b + h)
+def doble(n):
+    return n * 2
+    return n * 4
 
-print(medidas(4, 3))
+
+print(doble(5))
 ```
 
-- **a)** `12`
-- **b)** `[12, 14]`
-- **c)** `12 14`
-- **d)** `(12, 14)`
+- **a)** `None`
+- **b)** `10\n20`
+- **c)** `20`
+- **d)** `10`
 
 **7.** ¿Qué imprime?
 
 ```python
-def saludar(nombre, saludo="Hola"):
-    return f"{saludo}, {nombre}"
+def con_impuesto(base, tipo=21):
+    """Importe con el impuesto aplicado."""
+    return base * (1 + tipo / 100)
 
-print(saludar("Ada"))
+
+print(f"{con_impuesto(100.0):.2f} | {con_impuesto(100.0, 30):.2f}")
 ```
 
-- **a)** `Hola, Ada`
+- **a)** `121.00 | 130.00`
 - **b)** `TypeError`
-- **c)** `Hola Ada`
-- **d)** `Ada, Hola`
+- **c)** `130.00 | 130.00`
+- **d)** `121.00 | 121.00`
 
 **8.** ¿Qué imprime?
 
 ```python
-def saludar(nombre, saludo="Hola"):
-    return f"{saludo}, {nombre}"
+def con_impuesto(base, tipo=21):
+    return base * (1 + tipo / 100)
 
-print(saludar(saludo="Buenas", nombre="Ada"))
+
+print(f"{con_impuesto(tipo=21, base=100.0):.2f}")
 ```
 
-- **a)** `Ada, Buenas`
-- **b)** `Buenas, Ada`
-- **c)** `Hola, Ada`
+- **a)** `110.00`
+- **b)** `121.00`
+- **c)** `100.00`
 - **d)** `TypeError`
 
-**9.** ¿Qué error lanza este programa?
+**9.** ¿Qué error lanza?
 
 ```python
-def f(a=1, b):
-    return a + b
+def linea(etiqueta="Total", valor):
+    return f"{etiqueta}: {valor:.2f}"
 
-print(f(2, 3))
+
+print(linea("Base", 10.0))
 ```
 
 - **a)** `SyntaxError`
@@ -159,47 +180,53 @@ print(f(2, 3))
 **10.** ¿Qué error lanza?
 
 ```python
-def area(base, altura):
-    return base * altura
+def area_triangulo(base, altura):
+    """Área de un triángulo."""
+    return base * altura / 2
 
-print(area(3))
+
+print(area_triangulo(10.0))
 ```
 
-- **a)** `IndexError`
+- **a)** `NameError`
 - **b)** `ValueError`
 - **c)** `TypeError`
-- **d)** `NameError`
+- **d)** `IndexError`
 
 **11.** ¿Qué imprime?
 
 ```python
-def potencia(base, exponente=2):
-    return base ** exponente
+def potencia(base, exponente=3):
+    return float(base ** exponente)
 
-print(potencia(2, 10))
+
+print(potencia(2), potencia(2, 10))
 ```
 
-- **a)** `32`
-- **b)** `25`
+- **a)** `1024.0 1024.0`
+- **b)** `8.0 8.0`
 - **c)** `TypeError`
-- **d)** `1024`
+- **d)** `8.0 1024.0`
 
 **12.** ¿Qué imprime?
 
 ```python
-x = 10
+def acumular(lista, valor):
+    """Añade el valor a la lista."""
+    lista.append(valor)
+    return lista
 
-def f():
-    x = 99
 
-f()
-print(x)
+original = [1, 2]
+nueva = acumular(original, 3)
+print(original)
+print(nueva)
 ```
 
-- **a)** `None`
-- **b)** `NameError`
-- **c)** `99`
-- **d)** `10`
+- **a)** `[1, 2] ⏎ [1, 2]`
+- **b)** `TypeError`
+- **c)** `[1, 2] ⏎ [1, 2, 3]`
+- **d)** `[1, 2, 3] ⏎ [1, 2, 3]`
 
 ---
 

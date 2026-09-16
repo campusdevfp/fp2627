@@ -32,141 +32,199 @@ no tienes ni idea, déjalo en blanco.**
 **1.** ¿Qué imprime este programa?
 
 ```python
-print(7 / 2)
+IVA = 21
+DESCUENTO = 15
+
+precio = 80.0
+unidades = 3
+
+base = unidades * precio
+base = base - base * DESCUENTO / 100
+total = base * (1 + IVA / 100)
+
+print(f"{total:.2f}")
 ```
 
-- **a)** `3.5`
-- **b)** `3`
-- **c)** `4`
-- **d)** `3.0`
+- **a)** `246.84`
+- **b)** `290.40`
+- **c)** `246.83`
+- **d)** `205.70`
 
 **2.** ¿Qué imprime?
 
 ```python
-print(7 // 2)
+IVA = 21
+
+precio_unidad = 19.95
+unidades = 3
+
+subtotal = unidades * precio_unidad
+iva = subtotal * IVA / 100
+
+print(f"Subtotal: {subtotal:.2f} | IVA: {iva:.2f}")
 ```
 
-- **a)** `3.5`
-- **b)** `4`
-- **c)** `3.0`
-- **d)** `3`
+- **a)** `Subtotal: 59.85 | IVA: 12.56`
+- **b)** `Subtotal: 59.85 | IVA: 72.42`
+- **c)** `Subtotal: 60.00 | IVA: 12.60`
+- **d)** `Subtotal: 59.85 | IVA: 12.57`
 
-**3.** ¿Qué imprime?
+**3.** El descuento se aplica **antes** del IVA. ¿Qué imprime?
 
 ```python
-print(-7 // 2)
+IVA = 21
+DESCUENTO = 10
+
+base = 100.0
+con_descuento = base * (1 - DESCUENTO / 100)
+total = con_descuento * (1 + IVA / 100)
+
+print(f"{total:.2f}")
 ```
 
-- **a)** `-4`
-- **b)** `-3`
-- **c)** `3`
-- **d)** `-3.5`
+- **a)** `108.90`
+- **b)** `121.00`
+- **c)** `108.89`
+- **d)** `110.00`
 
 **4.** ¿Qué imprime?
 
 ```python
-print(-7 % 2 - 2)
+precio = 1.33
+unidades = 2.25
+
+importe = precio * unidades
+print(f"{importe:.2f}")
 ```
 
-- **a)** `1`
-- **b)** `ValueError`
-- **c)** `-1`
-- **d)** `0`
+- **a)** `2.99`
+- **b)** `3`
+- **c)** `3.00`
+- **d)** `2.9925`
 
-**5.** ¿Qué tipo se muestra?
+**5.** ¿Qué imprime este programa?
 
 ```python
-print(type(6 / 3))
+PRECIO_CENTIMOS = 251
+
+dinero = 800
+unidades = dinero // PRECIO_CENTIMOS
+resto = dinero % PRECIO_CENTIMOS
+
+print(f"Quedan {unidades} unidades y sobran {resto} centimos")
 ```
 
-- **a)** `<class 'bool'>`
-- **b)** `<class 'str'>`
-- **c)** `<class 'int'>`
-- **d)** `<class 'float'>`
+- **a)** `Quedan 3 unidades y sobran 53 centimos`
+- **b)** `Quedan 4 unidades y sobran 47 centimos`
+- **c)** `Quedan 3 unidades y sobran 0.47 centimos`
+- **d)** `Quedan 3 unidades y sobran 47 centimos`
 
 **6.** ¿Qué imprime?
 
 ```python
-print(6 / 3 == 2)
+centimos = 287
+
+m100 = centimos // 100
+centimos = centimos % 100
+m50 = centimos // 50
+centimos = centimos % 50
+m20 = centimos // 20
+centimos = centimos % 20
+
+print(m100, m50, m20, centimos)
 ```
 
-- **a)** `False`
-- **b)** `1`
-- **c)** `True`
+- **a)** `2 1 1 7`
+- **b)** `2 0 1 17`
+- **c)** `2 1 1 17`
+- **d)** `2 1 0 17`
+
+**7.** El usuario escribe `1.234,56`. ¿Qué imprime?
+
+```python
+texto = "1.234,56"
+
+limpio = texto.replace(".", "")
+limpio = limpio.replace(",", ".")
+valor = float(limpio)
+
+print(f"{valor:,.2f}")
+```
+
+- **a)** `1234,56`
+- **b)** `ValueError`
+- **c)** `1.23`
+- **d)** `1,234.56`
+
+**8.** ¿Qué error lanza este programa?
+
+```python
+cantidad = "12 unidades"
+n = int(cantidad)
+print(n * 2)
+```
+
+- **a)** `ValueError`
+- **b)** `AttributeError`
+- **c)** `SyntaxError`
 - **d)** `TypeError`
 
-**7.** ¿Qué imprime?
+**9.** ¿Qué imprime?
 
 ```python
-a = 5
-b = 9
-a, b = b, a
-print(a, b)
+entrada_1 = "15"
+entrada_2 = "2"
+
+media = int(entrada_1) // int(entrada_2)
+print(media)
 ```
 
-- **a)** `9 9`
-- **b)** `5 5`
-- **c)** `5 9`
-- **d)** `9 5`
+- **a)** `7.5`
+- **b)** `7`
+- **c)** `8`
+- **d)** `TypeError`
 
-**8.** ¿Qué imprime?
+**10.** ¿Qué imprime?
 
 ```python
-x = 5
-y = x
-x = 10
-print(x)
+entrada_1 = "15"
+entrada_2 = "2"
+
+media = int(entrada_1) / int(entrada_2)
+print(media)
 ```
 
-- **a)** `10`
-- **b)** `TypeError`
-- **c)** `15`
-- **d)** `5`
-
-**9.** ¿Qué error lanza este programa?
-
-```python
-edad = "20"
-print(edad + 1)
-```
-
-- **a)** `ValueError`
-- **b)** `TypeError`
-- **c)** `NameError`
-- **d)** `SyntaxError`
-
-**10.** ¿Qué error lanza?
-
-```python
-print(int("3.5"))
-```
-
-- **a)** `ValueError`
-- **b)** `SyntaxError`
-- **c)** `TypeError`
-- **d)** `ZeroDivisionError`
+- **a)** `7.5`
+- **b)** `8`
+- **c)** `7`
+- **d)** `'15' / '2'`
 
 **11.** ¿Qué imprime?
 
 ```python
-print(int(9.99))
+edad = "20"
+siguiente = edad + "5"
+print(siguiente)
 ```
 
-- **a)** `ValueError`
-- **b)** `9.99`
-- **c)** `9`
-- **d)** `10`
+- **a)** `TypeError`
+- **b)** `2005`
+- **c)** `205`
+- **d)** `25`
 
 **12.** ¿Qué imprime?
 
 ```python
-print(int(-2.7))
+a = "10"
+b = 10
+
+print(a == b, int(a) == b)
 ```
 
-- **a)** `-2.7`
-- **b)** `-3`
-- **c)** `2`
-- **d)** `-2`
+- **a)** `False False`
+- **b)** `True True`
+- **c)** `True False`
+- **d)** `False True`
 
 ---
 
@@ -200,7 +258,7 @@ Marca **una sola** opción por pregunta. Lo que quede en blanco no resta.
 | 1 | **a** |
 | 2 | **d** |
 | 3 | **a** |
-| 4 | **c** |
+| 4 | **a** |
 | 5 | **d** |
 | 6 | **c** |
 | 7 | **d** |

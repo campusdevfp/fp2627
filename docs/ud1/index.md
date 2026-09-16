@@ -1259,10 +1259,15 @@ Se te da un fragmento y tienes que decir qué hace. Hay cuatro formas:
 
 | Tipo | Qué te piden |
 |---|---|
-| **Qué imprime** | Leer el código y decir la salida exacta, carácter a carácter. |
-| **Qué error da** | Identificar la excepción: `TypeError`, `ValueError`, `NameError`… |
-| **Cuánto vale** | El valor de una expresión, con su tipo. |
-| **Cuál es correcta** | Cuatro versiones de una función; solo una cumple lo que se pide. |
+| **Qué imprime** | Seguir un programa de 5–12 líneas y dar la salida exacta, carácter a carácter. |
+| **Qué error da** | Identificar la excepción: `TypeError`, `ValueError`, `UnboundLocalError`… |
+| **Cuál es correcta** | Cuatro versiones de una función; solo una pasa todos los casos. |
+| **Cuál es falsa** | Una función y cuatro pares «llamada → resultado»; uno de ellos miente. |
+
+No son preguntas de una línea. Son fragmentos del mismo tipo que los ejercicios que haces:
+presupuestos con IVA y descuento, tickets con formato, conversión de lo que escribe el
+usuario, medias con la lista vacía. Y las cuatro opciones son **resultados reales de errores
+concretos**, así que por descarte no se acierta: hay que seguir el cálculo.
 
 Es exactamente lo que haces en clase cuando lees un error o predices un resultado antes de
 ejecutar. Temas del RA1: tipos y variables · conversión de tipos · operadores y precedencia · constantes y nombres · formato de salida.
