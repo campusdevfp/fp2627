@@ -38,14 +38,14 @@ Esta es la primera unidad del módulo. Aquí aprendes lo esencial: **qué es un 
 | **3** | Haces los **ejercicios de esa sección**, con la solución desplegable. | al final de cada sección |
 | **4** | En clase: dudas, actividades guiadas y los ejercicios largos. | sección 12 |
 | **5** | Trabajas el **proyecto de la unidad** y ejecutas sus tests hasta tenerlo todo en verde. | `proyectos/ud1/` |
-| **6** | Te mides con el **simulacro** y después vas al examen. | `simulacros/ra1/` |
+| **6** | Te mides con el **test de práctica** y después vas al examen. | `simulacros/ra1/` |
 
 > Los **«Reto rápido»** son mini-desafíos de 1–2 minutos para afianzar justo lo que acabas de leer. Hazlos en el momento, aunque parezcan sencillos.
 
 !!! tip "Los pasos 1–3 son tuyos"
     Este es el trato del **aula invertida**: la teoría y los ejercicios cortos los haces
     tú, y el tiempo de clase se dedica a lo que de verdad cuesta. Por eso cada sección
-    termina con dos o tres ejercicios: **hazlos antes de pasar a la siguiente**.
+    termina con tres o cuatro ejercicios: **hazlos antes de pasar a la siguiente**.
 
 !!! tip "La diferencia entre los pasos 3 y 5"
     En el **3** puedes mirar la solución: sirve para *ver el patrón*.
@@ -1190,19 +1190,20 @@ Detalles y comandos útiles en **[Proyectos](../proyectos/index.md)**.
 
 ---
 
-## 14. Simulacro de examen
+## 14. Test de práctica
 
-Cuando tengas el proyecto terminado, mídete: el **simulacro** es un examen de mentira con
-**el mismo formato, tamaño y rúbrica** que el de verdad — y con los tests publicados.
+El examen de este RA es un **test de 12 preguntas sobre código** (lo tienes explicado en la
+última sección). Aquí hay uno de práctica con el mismo formato y la misma dificultad, y con
+**las respuestas al final**.
 
-**[Simulacro RA1 · Cuenta de una cafetería →](../simulacros/ra1/README.md)** · 22 tests · 45–50 min
+**[Test de práctica RA1 · Elementos del lenguaje](../simulacros/ra1/README.md)** · 12 preguntas · 45 min
 
-Hazlo **contrarreloj y sin ayuda**, como si fuera el examen. Al terminar, aplica la rúbrica
-y tendrás una estimación bastante fiel de tu nota.
+Hazlo **contrarreloj, sin ordenador y sin apuntes**, como el de verdad. Y no ejecutes el
+código hasta haber contestado: la gracia está en leerlo.
 
-!!! warning "El examen de verdad va sin tests"
-    Allí solo tendrás los **docstrings** y unos ejemplos. Por eso, en el simulacro, intenta
-    resolver cada función leyendo solo su docstring y mira el test únicamente cuando falle.
+!!! tip "Después, compruébalo en Python"
+    Cuando tengas tus respuestas, pasa cada fragmento por el intérprete. Ahí es donde de
+    verdad se aprende: descubres no solo qué contestaste mal, sino por qué.
 
 ---
 
@@ -1249,75 +1250,71 @@ y tendrás una estimación bastante fiel de tu nota.
 
 ## 18. Cómo se evalúa esta unidad (RA1)
 
-El examen es **100 % práctico**: se entrega un proyecto con las funciones vacías y una
-especificación, y hay que escribir el código.
+El RA1 es del **primer trimestre**, y ahí el examen es un **test de 12 preguntas de
+opción múltiple**. Pero no de definiciones: **todas las preguntas son de código**.
 
-**La nota sale solo de los casos de prueba.** No hay puntos por presentación ni por
-esfuerzo: cada apartado del examen vale en proporción a los casos que tiene, de modo que
-**todos los casos valen lo mismo**.
+### Cómo son las preguntas
 
-`nota del apartado = (casos superados ÷ casos del apartado) × puntos del apartado`
+Se te da un fragmento y tienes que decir qué hace. Hay cuatro formas:
 
-`nota del examen = suma de los apartados`
+| Tipo | Qué te piden |
+|---|---|
+| **Qué imprime** | Leer el código y decir la salida exacta, carácter a carácter. |
+| **Qué error da** | Identificar la excepción: `TypeError`, `ValueError`, `NameError`… |
+| **Cuánto vale** | El valor de una expresión, con su tipo. |
+| **Cuál es correcta** | Cuatro versiones de una función; solo una cumple lo que se pide. |
 
-### Así es el examen
+Es exactamente lo que haces en clase cuando lees un error o predices un resultado antes de
+ejecutar. Temas del RA1: tipos y variables · conversión de tipos · operadores y precedencia · constantes y nombres · formato de salida.
 
-**Presupuesto de tienda** · entrega `src/presupuesto.py` · **45 min**
+### Cómo se puntúa
 
-| # | Apartado | Casos | Puntos |
-|:---:|---|:---:|:---:|
-| **A** | Constante del enunciado | 1 | **0,53** |
-| **B** | `a_entero()` | 4 | **2,11** |
-| **C** | `a_decimal()` | 3 | **1,58** |
-| **D** | `calcular_base()` | 4 | **2,11** |
-| **E** | `calcular_iva()` | 4 | **2,11** |
-| **F** | `formatear()` | 3 | **1,56** |
-| | **TOTAL** | **19** | **10,00** |
+| | |
+|---|---|
+| Acierto | **+0.83** puntos |
+| Error | **−0.28** puntos |
+| En blanco | 0 |
 
-Esta tabla viene en el enunciado, así que sabes desde el primer minuto **qué vale cada
-parte** y por dónde empezar si vas justo de tiempo.
+`nota = (aciertos − errores ÷ 3) × 0.83`, con un mínimo de 0.
 
-!!! warning "El examen se reparte sin tests"
-    La carpeta `tests/` viene vacía. La especificación son los **docstrings** de cada
-    función y los ejemplos del enunciado. Por eso conviene que en el simulacro te
-    acostumbres a resolver leyendo el docstring y no el test.
+Se resta un tercio por error porque hay cuatro opciones: así **contestar al azar no
+compensa**. La regla práctica es sencilla:
 
-### Así se corrige
+- Si lo sabes, marca.
+- Si dudas **entre dos**, marca: sigue saliéndote a cuenta.
+- Si no tienes ni idea, **déjalo en blanco**.
 
-Alguien que entrega el examen con **16 de los 19 casos** superados
-—se le ha escapado el apartado **F**, donde falla 3 de
-3 casos—:
+### Un ejemplo de corrección
 
-| # | Apartado | Casos superados | Puntos |
-|:---:|---|:---:|---|
-| A | Constante del enunciado | 1 / 1 | 0,53 / 0,53 |
-| B | `a_entero()` | 4 / 4 | 2,11 / 2,11 |
-| C | `a_decimal()` | 3 / 3 | 1,58 / 1,58 |
-| D | `calcular_base()` | 4 / 4 | 2,11 / 2,11 |
-| E | `calcular_iva()` | 4 / 4 | 2,11 / 2,11 |
-| F | `formatear()` | 0 / 3 | 0,00 / 1,56  ← |
-| | | | **NOTA: 8,44** |
+| Alumno | Aciertos | Errores | En blanco | Cuenta | Nota |
+|---|:---:|:---:|:---:|---|:---:|
+| Lo lleva bien | 10 | 2 | 0 | (10 − 0,67) × 0.83 | **7,78** |
+| Va justo | 8 | 4 | 0 | (8 − 1,33) × 0.83 | **5,56** |
+| Prudente | 6 | 0 | 6 | (6 − 0) × 0.83 | **5,00** |
+| A ciegas | 3 | 9 | 0 | (3 − 3) × 0.83 | **0,00** |
 
-La corrección es automática: se monta un proyecto con la batería completa más el fichero
-entregado, se ejecuta y se reparte la nota con esa cuenta. **Nadie interpreta nada.**
+Fíjate en las dos últimas filas: quien contesta solo lo que sabe aprueba, y quien marca a
+voleo se queda a cero. **No es lo mismo dudar que adivinar.**
 
-Además recibes un informe con los casos concretos que han fallado, con el valor que
-esperaba y el que devolvió tu función.
+### Cómo prepararte
 
-!!! note "Los tres requisitos de la entrega"
-    No puntúan por separado, pero forman parte de la especificación:
+1. Los **ejercicios de sección** y los **ejercicios largos**: el test pregunta justo eso.
+2. El **proyecto de la unidad**: escribir el código es lo que te enseña a leerlo.
+3. El **[test de práctica](../simulacros/ra1/README.md)**, con las mismas 12 preguntas
+   de formato y las respuestas al final.
 
-    1. Entregar **el fichero de `src/`**, con ese nombre.
-    2. `mypy src` sin errores.
-    3. Cada función con su **docstring**.
+!!! tip "Lee el código antes de ejecutarlo"
+   Durante el curso, cada vez que vayas a ejecutar algo, predice primero qué va a salir.
+   Ese hábito es literalmente el examen.
 
-    Un fichero que no compila o que no se puede importar da **0 casos superados**, así que
-    en la práctica valen mucho más que unos puntos.
+!!! note "En el segundo y tercer trimestre cambia"
+    A partir del RA3 los exámenes son **retos de programación**: se escribe código y se
+    corrige con una batería de casos de prueba. El test es solo para arrancar.
 
 ---
 
 ### Material de apoyo de la unidad
 
 - **[Proyecto de la unidad](../proyectos/ud1/README.md)** — `presupuesto`, 16 tests.
-- **[Simulacro de examen](../simulacros/ra1/README.md)** — `cafeteria`, 22 tests.
+- **[Test de práctica](../simulacros/ra1/README.md)** — 12 preguntas de código, con respuestas.
 - **[Entorno de trabajo](../recursos/entorno.md)** — chuleta de `venv`, `pip` y `mypy`.

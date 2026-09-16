@@ -39,21 +39,48 @@ ellos al empezar cada clase.
 Cada una de las seis unidades se corresponde con un **Resultado de Aprendizaje**, y **cada
 RA se califica por separado de 0 a 10**. Un RA está superado con **5**.
 
-| Trimestre | RA que se examinan | Peso de cada uno |
-|:---:|---|---|
-| **1.º** | RA1 y RA2 | 15 % + 15 % |
-| **2.º** | RA3 y RA4 | 25 % + 15 % |
-| **3.º** | RA5 y RA6 | 10 % + 10 % |
+| Trimestre | RA que se examinan | Peso de cada uno | Instrumento |
+|:---:|---|---|---|
+| **1.º** | RA1 y RA2 | 15 % + 15 % | test de código |
+| **2.º** | RA3 y RA4 | 25 % + 15 % | reto de programación |
+| **3.º** | RA5 y RA6 | 10 % + 10 % | reto de programación |
 | — | **FFE** (Fase de Formación en Empresa) | 10 % |
 
-**Cada trimestre hay un examen práctico de cada uno de sus dos RA.** No hay examen teórico
-ni preguntas de desarrollo: se te da una especificación y escribes el código que la cumple.
+**Cada trimestre hay un examen de cada uno de sus dos RA.** En ninguno hay teoría ni
+preguntas de desarrollo: o lees código y dices qué hace, o lo escribes.
 
 La nota que aparece en el boletín de cada trimestre es la media ponderada de sus dos RA.
 
 ---
 
-## 3. Cómo se califica un examen
+## 3. El examen no es igual en los tres trimestres
+
+| Trimestre | RA | Instrumento |
+|:---:|---|---|
+| **1.º** | RA1, RA2 | **Test de código**: 12 preguntas de opción múltiple sobre fragmentos de código |
+| **2.º** | RA3, RA4 | **Reto de programación**: escribir código, corregido con casos de prueba |
+| **3.º** | RA5, RA6 | **Reto de programación** |
+
+El primer trimestre es para **arrancar**: se evalúa que sepas **leer** código y predecir qué
+hace, que es el paso previo a escribirlo. A partir del segundo ya se trata de escribirlo.
+
+### Primer trimestre: test de código
+
+12 preguntas de opción múltiple, **todas sobre código**: qué imprime un fragmento, qué
+error da, cuánto vale una expresión o cuál de cuatro versiones de una función es la
+correcta. Ninguna de definiciones.
+
+| | |
+|---|---|
+| Acierto | **+0,83** |
+| Error | **−0,28** |
+| En blanco | 0 |
+
+`nota = (aciertos − errores ÷ 3) × 0,83`, con mínimo 0. Se resta porque hay cuatro
+opciones: **marcar al azar no compensa**. Si dudas entre dos, marca; si no tienes ni idea,
+déjalo en blanco.
+
+### Segundo y tercer trimestre: reto de programación
 
 Siempre con la misma rúbrica, la conoces desde el primer día:
 
@@ -159,8 +186,8 @@ llega ahí antes de darse cuenta.
 ## 7. Resumen en seis líneas
 
 1. Seis RA, uno por unidad, **cada uno se aprueba por separado con un 5**.
-2. Dos exámenes prácticos por trimestre, uno por RA. **Sin teoría.**
-3. La nota del examen sale **solo de los casos de prueba**, repartidos por apartados.
+2. Dos exámenes por trimestre, uno por RA. **Ninguno de teoría.**
+3. En el **1.er trimestre** son **tests de código**; en el 2.º y el 3.º, **retos de programación** corregidos con casos de prueba.
 4. Lo que suspendas queda **pendiente**: ordinaria y después extraordinaria, solo con eso.
 5. **Los seis RA ≥ 5** o el módulo no está superado (nota limitada a 4).
 6. Los ejercicios de clase **no puntúan**, pero son lo que hace que apruebes.

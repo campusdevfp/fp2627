@@ -85,7 +85,7 @@ Están ordenados de menos a más exigente, y cada uno tiene su función:
 | **Actividades y ejercicios largos** | Los de clase, más completos y graduados ○◐●. | **Sí**, con pista | No |
 | **Proyecto de la unidad** | Un proyecto Python de verdad, con `src/` y `tests/`. | **No**: los tests | No |
 | **Simulacro** | Un examen de mentira, con los tests publicados. | **No**: los tests | No |
-| **Examen** | Mismo formato que el simulacro, **sin tests**. | No | **Sí** |
+| **Examen** | Test de código (1.er trim.) o reto de programación sin tests (2.º y 3.º). | No | **Sí** |
 
 La progresión es deliberada: primero ves el patrón con la solución delante, luego te
 compruebas solo contra unos tests, y por último lo haces sin red. **Solo lo último puntúa**,
@@ -112,5 +112,14 @@ La chuleta de comandos está en **[Entorno de trabajo](recursos/entorno.md)**.
 
 ## Y la evaluación
 
-Un **examen práctico por RA**, dos por trimestre, sin teoría. Está explicado con detalle,
-incluidas las recuperaciones y la asistencia, en **[Evaluación](evaluacion.md)**.
+Un examen por RA, dos por trimestre, y **ninguno es de teoría**:
+
+| Trimestre | RA | Examen |
+|:---:|---|---|
+| **1.º** | RA1, RA2 | **Test de código**: 12 preguntas sobre fragmentos de código |
+| **2.º** | RA3, RA4 | **Reto de programación** |
+| **3.º** | RA5, RA6 | **Reto de programación** |
+
+El primero mide que sepas **leer** código; los otros dos, que sepas **escribirlo**. Está
+explicado con detalle, con las recuperaciones y la asistencia, en
+**[Evaluación](evaluacion.md)**.

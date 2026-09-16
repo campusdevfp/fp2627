@@ -33,7 +33,7 @@ Igual que la UD1, y en este orden:
 
 **lees la sección** → **reto rápido** → **ejercicios de esa sección** (con solución
 desplegable, al final de cada una) → en clase, dudas y **actividades guiadas** (sección 10)
-→ **proyecto** con sus tests → **simulacro** → examen.
+→ **proyecto** con sus tests → **test de práctica** → examen (que en este trimestre es un **test de código**).
 
 !!! tip "Los ejercicios de sección son la clave"
     Están justo después de cada explicación y solo usan lo que acabas de leer. Hazlos en
@@ -1074,19 +1074,20 @@ Detalles y comandos útiles en **[Proyectos](../proyectos/index.md)**.
 
 ---
 
-## 12. Simulacro de examen
+## 12. Test de práctica
 
-Cuando tengas el proyecto terminado, mídete: el **simulacro** es un examen de mentira con
-**el mismo formato, tamaño y rúbrica** que el de verdad — y con los tests publicados.
+El examen de este RA es un **test de 12 preguntas sobre código** (lo tienes explicado en la
+última sección). Aquí hay uno de práctica con el mismo formato y la misma dificultad, y con
+**las respuestas al final**.
 
-**[Simulacro RA2 · Cálculos de un viaje →](../simulacros/ra2/README.md)** · 18 tests · 45–50 min
+**[Test de práctica RA2 · Funciones y librerías](../simulacros/ra2/README.md)** · 12 preguntas · 45 min
 
-Hazlo **contrarreloj y sin ayuda**, como si fuera el examen. Al terminar, aplica la rúbrica
-y tendrás una estimación bastante fiel de tu nota.
+Hazlo **contrarreloj, sin ordenador y sin apuntes**, como el de verdad. Y no ejecutes el
+código hasta haber contestado: la gracia está en leerlo.
 
-!!! warning "El examen de verdad va sin tests"
-    Allí solo tendrás los **docstrings** y unos ejemplos. Por eso, en el simulacro, intenta
-    resolver cada función leyendo solo su docstring y mira el test únicamente cuando falle.
+!!! tip "Después, compruébalo en Python"
+    Cuando tengas tus respuestas, pasa cada fragmento por el intérprete. Ahí es donde de
+    verdad se aprende: descubres no solo qué contestaste mal, sino por qué.
 
 ---
 
@@ -1129,63 +1130,63 @@ y tendrás una estimación bastante fiel de tu nota.
 
 ## 16. Cómo se evalúa esta unidad (RA2)
 
-El examen es **100 % práctico**: se entrega un proyecto con las funciones vacías y una
-especificación, y hay que escribir el código.
+El RA2 es del **primer trimestre**, y ahí el examen es un **test de 12 preguntas de
+opción múltiple**. Pero no de definiciones: **todas las preguntas son de código**.
 
-**La nota sale solo de los casos de prueba.** No hay puntos por presentación ni por
-esfuerzo: cada apartado del examen vale en proporción a los casos que tiene, de modo que
-**todos los casos valen lo mismo**.
+### Cómo son las preguntas
 
-`nota del apartado = (casos superados ÷ casos del apartado) × puntos del apartado`
+Se te da un fragmento y tienes que decir qué hace. Hay cuatro formas:
 
-`nota del examen = suma de los apartados`
+| Tipo | Qué te piden |
+|---|---|
+| **Qué imprime** | Leer el código y decir la salida exacta, carácter a carácter. |
+| **Qué error da** | Identificar la excepción: `TypeError`, `ValueError`, `NameError`… |
+| **Cuánto vale** | El valor de una expresión, con su tipo. |
+| **Cuál es correcta** | Cuatro versiones de una función; solo una cumple lo que se pide. |
 
-### Así es el examen
+Es exactamente lo que haces en clase cuando lees un error o predices un resultado antes de
+ejecutar. Temas del RA2: `return` frente a `print` · parámetros y valores por defecto · ámbito · listas · librería estándar · módulos y `__main__`.
 
-**Módulo de conversiones** · entrega `src/conversiones.py` · **45 min**
+### Cómo se puntúa
 
-| # | Apartado | Casos | Puntos |
-|:---:|---|:---:|:---:|
-| **A** | `km_a_millas()` | 3 | **2,50** |
-| **B** | `area_circulo()` | 3 | **2,50** |
-| **C** | `hipotenusa()` | 3 | **2,50** |
-| **D** | `media()` | 3 | **2,50** |
-| | **TOTAL** | **12** | **10,00** |
+| | |
+|---|---|
+| Acierto | **+0.83** puntos |
+| Error | **−0.28** puntos |
+| En blanco | 0 |
 
-Esta tabla viene en el enunciado, así que sabes desde el primer minuto **qué vale cada
-parte** y por dónde empezar si vas justo de tiempo.
+`nota = (aciertos − errores ÷ 3) × 0.83`, con un mínimo de 0.
 
-!!! warning "El examen se reparte sin tests"
-    La carpeta `tests/` viene vacía. La especificación son los **docstrings** de cada
-    función y los ejemplos del enunciado. Por eso conviene que en el simulacro te
-    acostumbres a resolver leyendo el docstring y no el test.
+Se resta un tercio por error porque hay cuatro opciones: así **contestar al azar no
+compensa**. La regla práctica es sencilla:
 
-### Así se corrige
+- Si lo sabes, marca.
+- Si dudas **entre dos**, marca: sigue saliéndote a cuenta.
+- Si no tienes ni idea, **déjalo en blanco**.
 
-Alguien que entrega el examen con **10 de los 12 casos** superados
-—se le ha escapado el apartado **D**, donde falla 2 de
-3 casos—:
+### Un ejemplo de corrección
 
-| # | Apartado | Casos superados | Puntos |
-|:---:|---|:---:|---|
-| A | `km_a_millas()` | 3 / 3 | 2,50 / 2,50 |
-| B | `area_circulo()` | 3 / 3 | 2,50 / 2,50 |
-| C | `hipotenusa()` | 3 / 3 | 2,50 / 2,50 |
-| D | `media()` | 1 / 3 | 0,83 / 2,50  ← |
-| | | | **NOTA: 8,33** |
+| Alumno | Aciertos | Errores | En blanco | Cuenta | Nota |
+|---|:---:|:---:|:---:|---|:---:|
+| Lo lleva bien | 10 | 2 | 0 | (10 − 0,67) × 0.83 | **7,78** |
+| Va justo | 8 | 4 | 0 | (8 − 1,33) × 0.83 | **5,56** |
+| Prudente | 6 | 0 | 6 | (6 − 0) × 0.83 | **5,00** |
+| A ciegas | 3 | 9 | 0 | (3 − 3) × 0.83 | **0,00** |
 
-La corrección es automática: se monta un proyecto con la batería completa más el fichero
-entregado, se ejecuta y se reparte la nota con esa cuenta. **Nadie interpreta nada.**
+Fíjate en las dos últimas filas: quien contesta solo lo que sabe aprueba, y quien marca a
+voleo se queda a cero. **No es lo mismo dudar que adivinar.**
 
-Además recibes un informe con los casos concretos que han fallado, con el valor que
-esperaba y el que devolvió tu función.
+### Cómo prepararte
 
-!!! note "Los tres requisitos de la entrega"
-    No puntúan por separado, pero forman parte de la especificación:
+1. Los **ejercicios de sección** y los **ejercicios largos**: el test pregunta justo eso.
+2. El **proyecto de la unidad**: escribir el código es lo que te enseña a leerlo.
+3. El **[test de práctica](../simulacros/ra2/README.md)**, con las mismas 12 preguntas
+   de formato y las respuestas al final.
 
-    1. Entregar **el fichero de `src/`**, con ese nombre.
-    2. `mypy src` sin errores.
-    3. Cada función con su **docstring**.
+!!! tip "Lee el código antes de ejecutarlo"
+   Durante el curso, cada vez que vayas a ejecutar algo, predice primero qué va a salir.
+   Ese hábito es literalmente el examen.
 
-    Un fichero que no compila o que no se puede importar da **0 casos superados**, así que
-    en la práctica valen mucho más que unos puntos.
+!!! note "En el segundo y tercer trimestre cambia"
+    A partir del RA3 los exámenes son **retos de programación**: se escribe código y se
+    corrige con una batería de casos de prueba. El test es solo para arrancar.

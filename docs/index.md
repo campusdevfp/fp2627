@@ -45,7 +45,7 @@ Está explicado con detalle en **[El módulo](el-modulo.md)**.
 
 ## Cómo se evalúa
 
-Un **examen práctico por RA**, dos por trimestre, sin teoría: escribes código y se ejecuta contra una batería de tests. La nota sale **solo de los casos de prueba**, repartidos por apartados del examen; el reparto lo conoces desde el primer día.
+Un examen por RA, dos por trimestre, y ninguno de teoría. En el **primer trimestre** es un **test de código**: 12 preguntas sobre fragmentos, para comprobar que sabes leerlos. En el **segundo y el tercero** son **retos de programación**: escribes código y se ejecuta contra una batería de casos.
 
 **Los seis RA tienen que estar en 5 o más** para superar el módulo. Lo que suspendas queda pendiente para la ordinaria y, después, la extraordinaria.
 

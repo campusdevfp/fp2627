@@ -1,61 +1,216 @@
-# Simulacro RA1 — Cuenta de una cafetería
+# Test de práctica · RA1 — Elementos del lenguaje
 
-Calcula la cuenta de una cafetería con recargo de terraza. Practicas conversión de texto a número, operadores aritméticos, una constante y el formato de salida.
+El examen del **primer trimestre** es un test de 12 preguntas **sobre código**: se te da
+un fragmento y tienes que decir qué imprime, qué error da o cuál de cuatro versiones es la
+correcta. No hay preguntas de definiciones.
 
-**Duración orientativa:** 45 min · **Entrega:** nada, es un ensayo
+Este test de práctica tiene el mismo formato, la misma dificultad y la misma corrección que
+el de verdad. La diferencia es que aquí **tienes las respuestas al final**.
 
-!!! tip "Para qué sirve esto"
-    Es un **examen de mentira**: mismo formato, misma dificultad y misma rúbrica que el de
-    verdad, pero **con los tests publicados**. Hazlo la sesión anterior al examen y llegarás
-    con la mecánica rodada.
+## Cómo se puntúa
 
-    El día del examen el proyecto vendrá **sin tests**: solo los docstrings y unos ejemplos.
-    Por eso conviene que aquí te acostumbres a leer el docstring *antes* de mirar el test.
+| | |
+|---|---|
+| Acierto | **+0.83** puntos |
+| Error | **−0.28** puntos |
+| En blanco | 0 |
 
-## Cómo trabajar
+`nota = (aciertos − errores ÷ 3) × 0.83`, con un mínimo de 0.
 
-```bash
-pip install -r requirements.txt
-pytest
+Se resta para que contestar al azar no compense. **Si dudas entre dos opciones, marca; si
+no tienes ni idea, déjalo en blanco.**
+
+!!! tip "Hazlo como el de verdad"
+    45 minutos, sin ordenador y sin apuntes. Y **no ejecutes el código** hasta haber
+    contestado: la gracia está en leerlo. Después compruébalo en Python, que es donde de
+    verdad se aprende.
+
+---
+
+## Preguntas
+
+**1.** ¿Qué imprime este programa?
+
+```python
+print(7 / 2)
 ```
 
-1. Abre `src/cafeteria.py`. Cada función lleva un **docstring** que dice qué debe hacer: esa es
-   la especificación.
-2. Escríbela, borra el `raise NotImplementedError` y vuelve a lanzar `pytest`.
-3. Termina cuando esté **todo en verde** y `mypy src` diga *Success*.
+- **a)** `3.5`
+- **b)** `3`
+- **c)** `4`
+- **d)** `3.0`
 
-!!! warning "Entrénate para el examen"
-    Intenta resolver cada función **leyendo solo el docstring**. Mira el test únicamente
-    cuando falle. Si te acostumbras a programar contra el test, el día del examen te faltará
-    esa muleta.
+**2.** ¿Qué imprime?
 
-## Qué se valora
-
-Es la rúbrica real del examen, para que sepas dónde se van los puntos. **La nota sale
-solo de los casos de prueba**, repartidos por apartados:
-
-`nota del apartado = (casos superados ÷ casos del apartado) × puntos del apartado`
-
-| # | Apartado | Casos | Puntos |
-|:---:|---|:---:|:---:|
-| **A** | Constante del enunciado | 1 | **0,53** |
-| **B** | `a_entero()` | 4 | **2,11** |
-| **C** | `a_decimal()` | 3 | **1,58** |
-| **D** | `calcular_base()` | 4 | **2,11** |
-| **E** | `calcular_iva()` | 4 | **2,11** |
-| **F** | `formatear()` | 3 | **1,56** |
-| | **TOTAL** | **19** | **10,00** |
-
-El examen de verdad tiene esta misma estructura, con la constante del enunciado entre lo que se
-comprueba. Aquí tienes 22 casos publicados; en el examen no verás ninguno.
-
-Obligatorio en la entrega, aunque no puntúe por separado: `mypy src` sin errores y cada
-función con su docstring.
-
-## Comandos útiles
-
-```bash
-pytest -x
-pytest -k importe
-mypy src
+```python
+print(7 // 2)
 ```
+
+- **a)** `3.5`
+- **b)** `4`
+- **c)** `3.0`
+- **d)** `3`
+
+**3.** ¿Qué imprime?
+
+```python
+print(-7 // 2)
+```
+
+- **a)** `-4`
+- **b)** `-3`
+- **c)** `3`
+- **d)** `-3.5`
+
+**4.** ¿Qué imprime?
+
+```python
+print(-7 % 2 - 2)
+```
+
+- **a)** `1`
+- **b)** `ValueError`
+- **c)** `-1`
+- **d)** `0`
+
+**5.** ¿Qué tipo se muestra?
+
+```python
+print(type(6 / 3))
+```
+
+- **a)** `<class 'bool'>`
+- **b)** `<class 'str'>`
+- **c)** `<class 'int'>`
+- **d)** `<class 'float'>`
+
+**6.** ¿Qué imprime?
+
+```python
+print(6 / 3 == 2)
+```
+
+- **a)** `False`
+- **b)** `1`
+- **c)** `True`
+- **d)** `TypeError`
+
+**7.** ¿Qué imprime?
+
+```python
+a = 5
+b = 9
+a, b = b, a
+print(a, b)
+```
+
+- **a)** `9 9`
+- **b)** `5 5`
+- **c)** `5 9`
+- **d)** `9 5`
+
+**8.** ¿Qué imprime?
+
+```python
+x = 5
+y = x
+x = 10
+print(x)
+```
+
+- **a)** `10`
+- **b)** `TypeError`
+- **c)** `15`
+- **d)** `5`
+
+**9.** ¿Qué error lanza este programa?
+
+```python
+edad = "20"
+print(edad + 1)
+```
+
+- **a)** `ValueError`
+- **b)** `TypeError`
+- **c)** `NameError`
+- **d)** `SyntaxError`
+
+**10.** ¿Qué error lanza?
+
+```python
+print(int("3.5"))
+```
+
+- **a)** `ValueError`
+- **b)** `SyntaxError`
+- **c)** `TypeError`
+- **d)** `ZeroDivisionError`
+
+**11.** ¿Qué imprime?
+
+```python
+print(int(9.99))
+```
+
+- **a)** `ValueError`
+- **b)** `9.99`
+- **c)** `9`
+- **d)** `10`
+
+**12.** ¿Qué imprime?
+
+```python
+print(int(-2.7))
+```
+
+- **a)** `-2.7`
+- **b)** `-3`
+- **c)** `2`
+- **d)** `-2`
+
+---
+
+## Hoja de respuestas
+
+Marca **una sola** opción por pregunta. Lo que quede en blanco no resta.
+
+| # | a | b | c | d |
+|:---:|:---:|:---:|:---:|:---:|
+| **1** |  |  |  |  |
+| **2** |  |  |  |  |
+| **3** |  |  |  |  |
+| **4** |  |  |  |  |
+| **5** |  |  |  |  |
+| **6** |  |  |  |  |
+| **7** |  |  |  |  |
+| **8** |  |  |  |  |
+| **9** |  |  |  |  |
+| **10** |  |  |  |  |
+| **11** |  |  |  |  |
+| **12** |  |  |  |  |
+
+---
+
+## Respuestas
+
+<details><summary>Ver las respuestas</summary>
+
+| # | Correcta |
+|:---:|:---:|
+| 1 | **a** |
+| 2 | **d** |
+| 3 | **a** |
+| 4 | **c** |
+| 5 | **d** |
+| 6 | **c** |
+| 7 | **d** |
+| 8 | **a** |
+| 9 | **b** |
+| 10 | **a** |
+| 11 | **c** |
+| 12 | **d** |
+
+Si has fallado más de tres, vuelve a la unidad antes del examen: no es cuestión de suerte,
+es que hay algo del temario que no está asentado.
+
+</details>

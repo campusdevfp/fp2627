@@ -1,60 +1,91 @@
-# Simulacros de examen
+# Prepararse para el examen
 
-Un **examen de mentira** por cada RA: mismo formato, misma dificultad y misma rúbrica que el
-de verdad, pero **con los tests publicados**.
+Una prueba de práctica por cada RA, con el mismo formato y la misma dificultad que la de
+verdad. La diferencia es que aquí **tienes las soluciones**.
 
-Hazlo la sesión anterior al examen. Así llegas con la mecánica rodada y el día de la prueba
-no descubres nada nuevo: solo te falta la red de los tests.
+Ojo, porque el examen **no es igual en los tres trimestres**:
+
+| Trimestre | RA | Examen | Prueba de práctica |
+|:---:|---|---|---|
+| **1.º** | RA1, RA2 | **Test de código**: 12 preguntas de opción múltiple | test con las respuestas al final |
+| **2.º** | RA3, RA4 | **Reto de programación**: escribir código | proyecto con los tests publicados |
+| **3.º** | RA5, RA6 | **Reto de programación** | proyecto con los tests publicados |
+
+El primer trimestre es para arrancar: se trata de **leer código y entender qué hace**. A
+partir del segundo ya se trata de escribirlo.
+
+---
+
+## Primer trimestre: tests de código
+
+| RA | Test de práctica | Qué entra | Preguntas |
+|:---:|---|---|:---:|
+| **1** | [Elementos del lenguaje](ra1/README.md) | tipos, conversión, operadores, constantes, formato | 12 |
+| **2** | [Funciones y librerías](ra2/README.md) | `return` vs `print`, parámetros, ámbito, listas, `math` | 12 |
+
+**Todas las preguntas son sobre código.** No hay definiciones: se te da un fragmento y
+tienes que decir qué imprime, qué error da, cuánto vale una expresión o cuál de cuatro
+versiones es la correcta.
+
+### Cómo se puntúa
+
+| | |
+|---|---|
+| Acierto | **+0,83** puntos |
+| Error | **−0,28** puntos |
+| En blanco | 0 |
+
+`nota = (aciertos − errores ÷ 3) × 0,83`, con un mínimo de 0.
+
+Se resta porque hay cuatro opciones: así **marcar al azar no compensa**. Si dudas entre
+dos, marca; si no tienes ni idea, déjalo en blanco.
+
+!!! tip "Hazlo sin ejecutar nada"
+    45 minutos, sin ordenador y sin apuntes, como el de verdad. Contesta primero y
+    **después** pasa cada fragmento por Python. Ahí es donde se aprende de verdad: no solo
+    ves qué fallaste, sino por qué.
+
+---
+
+## Segundo y tercer trimestre: retos de programación
 
 | RA | Simulacro | Qué se evalúa | Tests | Descargar |
 |:---:|---|---|:---:|:---:|
-| **1** | [Cuenta de una cafetería](ra1/README.md) | constantes, conversión, operadores y formato | 22 | [descargar](simulacro-ra1.zip) |
-| **2** | [Cálculos de un viaje](ra2/README.md) | funciones, parámetros y el módulo `math` | 18 | [descargar](simulacro-ra2.zip) |
 | **3** | [Registro de pulsaciones](ra3/README.md) | condiciones, bucles y excepciones | 21 | [descargar](simulacro-ra3.zip) |
 | **4** | [Catálogo de dispositivos](ra4/README.md) | `property`, herencia y sobrescritura | 14 | [descargar](simulacro-ra4.zip) |
 | **5** | [Recetario en CSV y JSON](ra5/README.md) | ficheros, CSV, JSON y codificación | 13 | [descargar](simulacro-ra5.zip) |
 | **6** | [Museo en SQLite](ra6/README.md) | CRUD y consultas parametrizadas | 11 | [descargar](simulacro-ra6.zip) |
 
-## En qué se diferencian de los proyectos de unidad
+Aquí sí se escribe código. Son proyectos con el mismo formato, tamaño y rúbrica que el
+examen, pero **con los tests publicados**: los ejecutas y te dicen si vas bien.
 
-| | Proyecto de unidad | Simulacro | Examen |
-|---|---|---|---|
-| Cuándo | durante toda la unidad | la sesión previa al examen | el día del examen |
-| Duración | varias sesiones | 45–50 min | 45–50 min |
-| Tests | sí, publicados | sí, publicados | **no** |
-| Se califica | no | no | sí |
-
-El proyecto de unidad es para **aprender**: es largo y lo haces con calma. El simulacro es
-para **medirte**: mismo tamaño que el examen, contrarreloj, y al terminar sabes exactamente
-qué nota habrías sacado.
-
-## Cómo se trabaja
-
-Igual que un proyecto normal:
-
-```bash
-pip install -r requirements.txt
-pytest
-```
-
-!!! warning "Léelo antes de empezar"
-    Resuelve cada función **leyendo solo su docstring**, y mira el test únicamente cuando
-    falle. Si te acostumbras a programar mirando el test, el día del examen te faltará esa
-    muleta: allí solo tendrás el docstring y unos pocos ejemplos.
-
-## La rúbrica es la de verdad
+### Cómo se puntúa
 
 | Concepto | Cómo se calcula |
 |---|---|
 | Nota de un apartado | (casos superados ÷ casos del apartado) × puntos del apartado |
 | Nota del examen | suma de todos los apartados, sobre **10** |
 
-Los puntos de cada apartado son **proporcionales a sus casos**, así que todos los casos
-valen lo mismo. El reparto viene en el enunciado.
-
 Cada simulacro trae su tabla de apartados, idéntica en formato a la del examen. Cuando
 termines, aplícala y tendrás la nota que sacarías.
 
-!!! tip "Si te sobra tiempo"
-    Borra tu solución y vuelve a hacerla **sin mirar los tests**, solo con los docstrings.
-    Es el mejor ensayo posible de lo que te vas a encontrar.
+!!! warning "El examen de verdad va sin tests"
+    En el simulacro los tests te dicen si vas bien; en el examen no los hay. La
+    especificación son los **docstrings** de cada función y los ejemplos del enunciado. Por
+    eso conviene que aquí te acostumbres a resolver leyendo el docstring, y que mires el
+    test solo cuando algo falle.
+
+---
+
+## En qué se diferencian del proyecto de la unidad
+
+| | Proyecto de unidad | Prueba de práctica | Examen |
+|---|---|---|---|
+| Cuándo | durante toda la unidad | la sesión previa al examen | el día del examen |
+| Duración | varias sesiones | 45 min | 45–50 min |
+| Soluciones | no: los tests | **sí** | no |
+| Se califica | no | no | sí |
+
+El proyecto es para **aprender**: largo y con calma. La prueba de práctica es para
+**medirte**: mismo tamaño que el examen, contrarreloj, y al terminar sabes exactamente qué
+nota habrías sacado.
