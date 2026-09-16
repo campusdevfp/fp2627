@@ -1,7 +1,7 @@
 # Unidad 6 · Bases de datos relacionales
 
 > **Módulo:** CMO-313 · Fundamentos de programación
-> **Resultado de aprendizaje:** RA6 · **Duración:** 8 h · **Peso:** 20 %
+> **Resultado de aprendizaje:** RA6 · **Duración:** 8 h · **Peso:** 10 %
 > **Lenguaje:** Python 3 (tipado) + SQLite
 
 En la UD5 guardaste datos en ficheros. Funciona para poca información, pero cuando hay miles de registros y hace falta buscarlos, ordenarlos o modificarlos, el fichero se queda corto. La solución es una **base de datos**.
@@ -30,6 +30,20 @@ Es el segundo RA de más peso (20 %) y la puerta de entrada a los módulos de ba
 
 ---
 
+!!! tip "Cómo se trabaja esta unidad"
+    Cada sección de teoría termina con **Practica lo de esta sección**: tres o cuatro
+    ejercicios cortos con la solución desplegable, que solo usan lo que acabas de leer.
+
+    **Hazlos en el momento, antes de seguir.** Ese es el trato: la teoría la lees tú
+    —en casa o en clase— y el tiempo de aula se dedica a resolver dudas y a lo que de
+    verdad cuesta. Si llegas a la siguiente sección sin haber tocado el teclado, la
+    unidad se te va a hacer cuesta arriba.
+
+    Después vienen las **actividades guiadas**, el **proyecto** de la unidad y el
+    **simulacro** de examen. En ese orden.
+
+---
+
 ## 1. Por qué una base de datos
 
 Con un CSV de 50 000 productos, buscar uno obliga a leer el fichero entero; y si dos personas escriben a la vez, los datos se corrompen.
@@ -46,6 +60,61 @@ Un **SGBD** (Sistema Gestor de Bases de Datos) resuelve eso:
 En una base de datos **relacional**, los datos se organizan en **tablas**: cada fila es un registro y cada columna un campo.
 
 **Usaremos SQLite**: viene incluido en Python, guarda todo en un único fichero `.db` y no necesita instalar ningún servidor. Es el mismo motor que llevan dentro tu móvil y tu navegador.
+
+---
+
+> **Reto rápido 1.** Escribe en SQL, sin ejecutarlo, la consulta que devuelve el nombre de los productos que cuestan más de 20 €. *(Solución: `SELECT nombre FROM productos WHERE precio > 20;`)*
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**1.1.** Tienes las notas de 60 alumnos guardadas en un CSV. Da **tres razones** por las que una base de datos lo haría mejor.
+<details><summary>Solución</summary>
+
+```text
+1. BUSCAR. En el CSV hay que leerlo entero y recorrerlo a mano.
+   En SQL:  SELECT * FROM alumnos WHERE nota >= 5   -> y ya esta.
+
+2. INTEGRIDAD. El CSV admite cualquier cosa: una nota "hola", un campo vacio,
+   dos alumnos con el mismo id. La tabla define tipos y restricciones
+   (NOT NULL, PRIMARY KEY) y rechaza lo que no cuadra.
+
+3. VARIOS A LA VEZ. Si dos programas escriben el CSV a la vez, se pisan y se
+   pierden datos. La base de datos gestiona los accesos simultaneos.
+
+Extra: relacionar tablas (alumnos + matriculas + modulos) es trivial en SQL
+y un infierno a mano.
+```
+</details>
+
+**1.2.** ¿Qué es una **tabla**, una **fila** y una **columna**? Ponlo en paralelo con algo que ya conoces.
+<details><summary>Solución</summary>
+
+```text
+Tabla   -> el conjunto de datos del mismo tipo. Como un fichero CSV entero,
+           o como una lista de objetos de una misma clase.
+Fila     -> un registro concreto: UN alumno, UN libro. Como un objeto.
+Columna  -> un campo con su tipo: nombre TEXT, nota REAL. Como un atributo.
+
+Alumno(nombre, nota)  <->  tabla alumnos (nombre TEXT, nota REAL)
+ada = Alumno(...)     <->  una fila
+```
+</details>
+
+**1.3.** Traduce a SQL, sin ejecutar: «quiero el título y el año de los libros de Borges».
+<details><summary>Solución</summary>
+
+```text
+SELECT titulo, anio          <- que columnas quiero
+FROM   libros                <- de que tabla
+WHERE  autor = 'Borges';     <- que filas
+
+Las tres palabras clave, siempre en ese orden. Si te acostumbras a leerlas
+asi -"que columnas, de donde, con que condicion"- el SQL deja de dar miedo.
+```
+</details>
+
 
 ---
 
@@ -87,7 +156,64 @@ with sqlite3.connect("inventario.db") as conexion:
     # el commit lo hace with al salir sin errores
 ```
 
-> 🎯 **Reto rápido 1.** ¿Qué pasa si ejecutas un `INSERT` y cierras el programa sin `commit()`? *(No se guarda nada.)*
+> **Reto rápido 1.** ¿Qué pasa si ejecutas un `INSERT` y cierras el programa sin `commit()`? *(No se guarda nada.)*
+
+---
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**2.1.** Conéctate a una base de datos `prueba.db` y comprueba que el fichero se crea.
+<details><summary>Solución</summary>
+
+```python
+import os
+import sqlite3
+
+with sqlite3.connect("prueba.db") as con:
+    con.execute("CREATE TABLE IF NOT EXISTS t (id INTEGER)")
+
+print(os.path.exists("prueba.db"))   # -> True
+
+# SQLite no necesita servidor: la base de datos ES un fichero.
+```
+</details>
+
+**2.2.** ¿Qué hace `with sqlite3.connect(...)` que no hace `sqlite3.connect(...)` a secas?
+<details><summary>Solución</summary>
+
+```text
+El with hace COMMIT automatico al salir del bloque si todo ha ido bien
+(y ROLLBACK si salta una excepcion).
+
+Sin with, esto NO guarda nada:
+
+    con = sqlite3.connect("bd.db")
+    con.execute("INSERT INTO ...")
+    # falta con.commit()  ->  al cerrar el programa, los datos se pierden
+
+Es el error numero uno de la unidad: "el programa funciona pero la tabla
+esta vacia". Casi siempre es un commit() que falta.
+```
+</details>
+
+**2.3.** Crea una tabla, inserta una fila y comprueba con `fetchall()` que está.
+<details><summary>Solución</summary>
+
+```python
+import sqlite3
+
+with sqlite3.connect("demo.db") as con:
+    con.execute("CREATE TABLE IF NOT EXISTS alumnos (nombre TEXT, nota REAL)")
+    con.execute("INSERT INTO alumnos (nombre, nota) VALUES (?, ?)", ("Ada", 9.5))
+
+with sqlite3.connect("demo.db") as con:
+    print(con.execute("SELECT nombre, nota FROM alumnos").fetchall())
+    # -> [('Ada', 9.5)]
+```
+</details>
+
 
 ---
 
@@ -112,6 +238,69 @@ cursor.execute("""
 | `DEFAULT 0` | valor por defecto si no se indica |
 
 Tipos de SQLite: `INTEGER`, `REAL` (decimales), `TEXT` y `BLOB`.
+
+---
+
+> **Reto rápido 3.** Escribe el `CREATE TABLE` de una tabla `clientes` con id autonumérico, nombre obligatorio y email.
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**3.1.** Crea la tabla `productos` con `id` autonumérico, `nombre` obligatorio y `precio`.
+<details><summary>Solución</summary>
+
+```python
+import sqlite3
+
+with sqlite3.connect("tienda.db") as con:
+    con.execute("""
+        CREATE TABLE IF NOT EXISTS productos (
+            id     INTEGER PRIMARY KEY AUTOINCREMENT,
+            nombre TEXT NOT NULL,
+            precio REAL NOT NULL
+        )
+    """)
+
+print("tabla creada")   # -> tabla creada
+```
+</details>
+
+**3.2.** ¿Por qué `IF NOT EXISTS`? Ejecuta la creación dos veces y compruébalo.
+<details><summary>Solución</summary>
+
+```python
+import sqlite3
+
+
+def crear(bd: str) -> None:
+    """Crea la tabla si no está."""
+    with sqlite3.connect(bd) as con:
+        con.execute("CREATE TABLE IF NOT EXISTS t (id INTEGER)")
+
+
+crear("dos.db")
+crear("dos.db")   # sin IF NOT EXISTS, esta segunda llamada lanzaría
+                  # OperationalError: table t already exists
+
+print("dos veces sin error")   # -> dos veces sin error
+```
+</details>
+
+**3.3.** Elige el tipo adecuado para: nombre de un cliente, número de unidades, precio, si está activo.
+<details><summary>Solución</summary>
+
+```text
+nombre    -> TEXT
+unidades  -> INTEGER
+precio    -> REAL      (nunca TEXT: no se podria ordenar ni sumar)
+activo    -> INTEGER   (SQLite no tiene BOOLEAN: se usa 0 / 1)
+
+Y casi siempre:  id INTEGER PRIMARY KEY AUTOINCREMENT
+para tener una clave unica sin pensar en ella.
+```
+</details>
+
 
 ---
 
@@ -173,7 +362,73 @@ cursor.execute("DELETE FROM productos WHERE id = ?", (3,))
 conexion.commit()
 ```
 
-> ⚠️ Ojo a la coma en `(3,)`: sin ella no es una tupla, y `execute` la necesita.
+> Ojo a la coma en `(3,)`: sin ella no es una tupla, y `execute` la necesita.
+
+---
+
+> **Reto rápido 4.** ¿Qué pasa si ejecutas `DELETE FROM clientes` sin `WHERE`? *(Solución: borra **todas** las filas, y no hay deshacer.)*
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**4.1.** Inserta tres productos y recupéralos todos (Create + Read).
+<details><summary>Solución</summary>
+
+```python
+import sqlite3
+
+with sqlite3.connect("crud.db") as con:
+    con.execute("CREATE TABLE IF NOT EXISTS productos (nombre TEXT, precio REAL)")
+    for fila in [("Camisa", 19.9), ("Gorra", 7.25), ("Botas", 45.0)]:
+        con.execute("INSERT INTO productos (nombre, precio) VALUES (?, ?)", fila)
+
+with sqlite3.connect("crud.db") as con:
+    for nombre, precio in con.execute("SELECT nombre, precio FROM productos"):
+        print(f"{nombre:<10}{precio:>8.2f}")
+
+# -> Camisa       19.90
+# -> Gorra         7.25
+# -> Botas        45.00
+```
+</details>
+
+**4.2.** Sube un 10 % el precio de las gorras (Update) y comprueba el resultado.
+<details><summary>Solución</summary>
+
+```python
+import sqlite3
+
+with sqlite3.connect("upd.db") as con:
+    con.execute("CREATE TABLE IF NOT EXISTS productos (nombre TEXT, precio REAL)")
+    con.execute("INSERT INTO productos VALUES (?, ?)", ("Gorra", 10.0))
+    con.execute("UPDATE productos SET precio = precio * 1.10 WHERE nombre = ?", ("Gorra",))
+
+with sqlite3.connect("upd.db") as con:
+    print(con.execute("SELECT precio FROM productos").fetchone())   # -> (11.0,)
+```
+</details>
+
+**4.3.** Borra un producto por su nombre (Delete). ¿Qué pasa si te dejas el `WHERE`?
+<details><summary>Solución</summary>
+
+```python
+import sqlite3
+
+with sqlite3.connect("del.db") as con:
+    con.execute("CREATE TABLE IF NOT EXISTS productos (nombre TEXT)")
+    con.executemany("INSERT INTO productos VALUES (?)", [("Camisa",), ("Gorra",)])
+    con.execute("DELETE FROM productos WHERE nombre = ?", ("Gorra",))
+
+with sqlite3.connect("del.db") as con:
+    print(con.execute("SELECT COUNT(*) FROM productos").fetchone()[0])   # -> 1
+
+# Sin WHERE, "DELETE FROM productos" borra la tabla ENTERA y no hay deshacer.
+# Antes de lanzar un DELETE, escribe primero el SELECT con ese mismo WHERE
+# y mira qué filas salen.
+```
+</details>
+
 
 ---
 
@@ -184,10 +439,10 @@ Fíjate en que **nunca** hemos metido los valores dentro del texto SQL. Siempre 
 ```python
 nombre = input("Buscar: ")
 
-# ❌ MAL: concatenando
+# ✗ MAL: concatenando
 cursor.execute("SELECT * FROM productos WHERE nombre = '" + nombre + "'")
 
-# ✅ BIEN: parametrizada
+# ✓ BIEN: parametrizada
 cursor.execute("SELECT * FROM productos WHERE nombre = ?", (nombre,))
 ```
 
@@ -196,8 +451,89 @@ Con la primera forma, si el usuario escribe `'; DROP TABLE productos; --` la bas
 !!! success "La regla, sin excepciones"
     Los datos van **siempre** con `?` y una tupla. Nunca se concatenan ni se interpolan en la cadena SQL. En el examen esto se comprueba.
 
-> 🎯 **Reto rápido 2.** Reescribe de forma segura: `cursor.execute(f"SELECT * FROM productos WHERE precio > {p}")`.
+> **Reto rápido 2.** Reescribe de forma segura: `cursor.execute(f"SELECT * FROM productos WHERE precio > {p}")`.
 > *(Solución: `cursor.execute("SELECT * FROM productos WHERE precio > ?", (p,))`.)*
+
+---
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**5.1.** Busca un producto por nombre usando una consulta **parametrizada**.
+<details><summary>Solución</summary>
+
+```python
+import sqlite3
+
+with sqlite3.connect("param.db") as con:
+    con.execute("CREATE TABLE IF NOT EXISTS productos (nombre TEXT, precio REAL)")
+    con.execute("INSERT INTO productos VALUES (?, ?)", ("Camisa", 19.9))
+
+buscado: str = "Camisa"
+
+with sqlite3.connect("param.db") as con:
+    filas = con.execute(
+        "SELECT nombre, precio FROM productos WHERE nombre = ?", (buscado,)).fetchall()
+
+print(filas)   # -> [('Camisa', 19.9)]
+
+# La coma de (buscado,) NO es opcional: sin ella no es una tupla.
+```
+</details>
+
+**5.2.** Comprueba que un nombre con apóstrofo rompe la consulta si la construyes concatenando texto, y que con `?` no pasa nada.
+<details><summary>Solución</summary>
+
+```python
+import sqlite3
+
+buscado = "O" + chr(39) + "Keeffe"      # O'Keeffe
+
+with sqlite3.connect("comillas.db") as con:
+    con.execute("CREATE TABLE IF NOT EXISTS autores (nombre TEXT)")
+    con.execute("INSERT INTO autores VALUES (?)", (buscado,))
+
+# MAL: el apóstrofo cierra la cadena SQL antes de tiempo
+comilla = chr(39)
+sql_malo = "SELECT * FROM autores WHERE nombre = " + comilla + buscado + comilla
+with sqlite3.connect("comillas.db") as con:
+    try:
+        con.execute(sql_malo).fetchall()
+    except sqlite3.OperationalError:
+        print("la concatenada revienta")   # -> la concatenada revienta
+
+# BIEN: el ? se encarga de escapar lo que haga falta
+with sqlite3.connect("comillas.db") as con:
+    filas = con.execute(
+        "SELECT nombre FROM autores WHERE nombre = ?", (buscado,)).fetchall()
+
+print(len(filas))   # -> 1
+
+# Y esto no va de comillas raras: es la MISMA puerta por la que entra una
+# inyección SQL. El ? la cierra.
+```
+</details>
+
+**5.3.** Explica por qué esto es peligroso: `f"SELECT * FROM u WHERE nombre = '{nombre}'"`.
+<details><summary>Solución</summary>
+
+```text
+Porque lo que escriba el usuario se convierte en SQL. Es inyeccion SQL.
+
+Si nombre vale:    ' OR '1'='1
+la consulta queda: SELECT * FROM u WHERE nombre = '' OR '1'='1'
+y devuelve TODAS las filas de la tabla.
+
+Peor aun, con  '; DROP TABLE u; --  se puede destruir la tabla.
+
+Con parametros nunca pasa: el ? no mezcla datos con instrucciones. Lo que
+llega por ? se trata SIEMPRE como un valor, aunque parezca codigo SQL.
+Por eso el criterio de esta unidad es todo-o-nada: una sola consulta
+concatenada y el punto se pierde.
+```
+</details>
+
 
 ---
 
@@ -239,6 +575,76 @@ Funciones de agregado:
 cursor.execute("SELECT COUNT(*), AVG(precio), MAX(precio) FROM productos")
 total, media, maximo = cursor.fetchone()
 ```
+
+---
+
+> **Reto rápido 6.** Añade a un `SELECT` la cláusula que ordena de mayor a menor por precio. *(Solución: `ORDER BY precio DESC`.)*
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**6.1.** Muestra los productos de más de 10 € ordenados de más caro a más barato.
+<details><summary>Solución</summary>
+
+```python
+import sqlite3
+
+with sqlite3.connect("filtro.db") as con:
+    con.execute("CREATE TABLE IF NOT EXISTS productos (nombre TEXT, precio REAL)")
+    con.executemany("INSERT INTO productos VALUES (?, ?)",
+                    [("Camisa", 19.9), ("Gorra", 7.25), ("Botas", 45.0)])
+
+with sqlite3.connect("filtro.db") as con:
+    filas = con.execute(
+        "SELECT nombre, precio FROM productos WHERE precio > ? ORDER BY precio DESC",
+        (10,)).fetchall()
+
+print(filas)   # -> [('Botas', 45.0), ('Camisa', 19.9)]
+```
+</details>
+
+**6.2.** Cuenta cuántos productos hay y calcula el precio medio.
+<details><summary>Solución</summary>
+
+```python
+import sqlite3
+
+with sqlite3.connect("agr.db") as con:
+    con.execute("CREATE TABLE IF NOT EXISTS productos (precio REAL)")
+    con.executemany("INSERT INTO productos VALUES (?)", [(10.0,), (20.0,), (30.0,)])
+
+with sqlite3.connect("agr.db") as con:
+    cuantos = con.execute("SELECT COUNT(*) FROM productos").fetchone()[0]
+    media = con.execute("SELECT AVG(precio) FROM productos").fetchone()[0]
+
+print(cuantos, media)   # -> 3 20.0
+
+# fetchone() devuelve una TUPLA: por eso el [0] para sacar el valor.
+```
+</details>
+
+**6.3.** Busca los productos cuyo nombre empieza por «Ca», con `LIKE` y sin concatenar.
+<details><summary>Solución</summary>
+
+```python
+import sqlite3
+
+with sqlite3.connect("like.db") as con:
+    con.execute("CREATE TABLE IF NOT EXISTS productos (nombre TEXT)")
+    con.executemany("INSERT INTO productos VALUES (?)",
+                    [("Camisa",), ("Camiseta",), ("Gorra",)])
+
+with sqlite3.connect("like.db") as con:
+    filas = con.execute(
+        "SELECT nombre FROM productos WHERE nombre LIKE ?", ("Ca%",)).fetchall()
+
+print(filas)   # -> [('Camisa',), ('Camiseta',)]
+
+# El comodín % va DENTRO del parámetro, no pegado al SQL.
+```
+</details>
+
 
 ---
 
@@ -297,6 +703,103 @@ Cada función hace **una** operación y **devuelve** datos; solo `main` imprime.
 
 ---
 
+> **Reto rápido 7.** ¿Por qué `listar(bd)` devuelve las filas en vez de imprimirlas? *(Solución: para poder probarla con un test y reutilizarla.)*
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**7.1.** Separa en dos funciones el acceso a datos y la presentación: `listar(bd)` devuelve, `mostrar(filas)` imprime.
+<details><summary>Solución</summary>
+
+```python
+import sqlite3
+
+
+def listar(bd: str) -> list[tuple]:
+    """Solo consulta: devuelve las filas."""
+    with sqlite3.connect(bd) as con:
+        return con.execute("SELECT nombre, precio FROM productos").fetchall()
+
+
+def mostrar(filas: list[tuple]) -> None:
+    """Solo presenta: no sabe nada de la base de datos."""
+    for nombre, precio in filas:
+        print(f"{nombre:<10}{precio:>8.2f}")
+
+
+with sqlite3.connect("cap.db") as con:
+    con.execute("CREATE TABLE IF NOT EXISTS productos (nombre TEXT, precio REAL)")
+    con.execute("INSERT INTO productos VALUES (?, ?)", ("Camisa", 19.9))
+
+mostrar(listar("cap.db"))   # -> Camisa       19.90
+
+# listar() se puede probar con un test (devuelve datos comparables);
+# mostrar() se puede reutilizar aunque mañana los datos vengan de un CSV.
+```
+</details>
+
+**7.2.** ¿Por qué las funciones de acceso a datos reciben la ruta de la base de datos como parámetro en vez de tenerla escrita dentro?
+<details><summary>Solución</summary>
+
+```text
+Porque asi se pueden PROBAR. El test crea una base de datos temporal
+(tmp_path) y se la pasa a la funcion; al terminar, desaparece.
+
+Si la ruta esta escrita dentro de la funcion:
+  - los tests machacarian la base de datos de verdad
+  - no se podrian ejecutar dos a la vez
+  - no podrias tener una BD de pruebas y otra de produccion
+
+Es la misma idea de siempre: todo lo que la funcion necesita, entra por
+parametros.
+```
+</details>
+
+**7.3.** Monta el esqueleto completo de la aplicación: crear tabla, insertar, listar y un `main()` que lo use.
+<details><summary>Solución</summary>
+
+```python
+"""Mini aplicación con base de datos."""
+import sqlite3
+
+BD: str = "app.db"
+
+
+def crear_tabla(bd: str) -> None:
+    """Crea la tabla si no existe."""
+    with sqlite3.connect(bd) as con:
+        con.execute("CREATE TABLE IF NOT EXISTS notas (alumno TEXT, nota REAL)")
+
+
+def insertar(bd: str, alumno: str, nota: float) -> None:
+    """Añade una nota."""
+    with sqlite3.connect(bd) as con:
+        con.execute("INSERT INTO notas (alumno, nota) VALUES (?, ?)", (alumno, nota))
+
+
+def listar(bd: str) -> list[tuple]:
+    """Devuelve todas las notas."""
+    with sqlite3.connect(bd) as con:
+        return con.execute("SELECT alumno, nota FROM notas").fetchall()
+
+
+def main() -> None:
+    """Punto de entrada."""
+    crear_tabla(BD)
+    insertar(BD, "Ada", 9.5)
+    for alumno, nota in listar(BD):
+        print(f"{alumno}: {nota}")
+
+
+if __name__ == "__main__":
+    main()   # -> Ada: 9.5
+```
+</details>
+
+
+---
+
 ## 8. Errores frecuentes
 
 | Síntoma | Causa | Solución |
@@ -318,7 +821,7 @@ Cada función hace **una** operación y **devuelve** datos; solo `main` imprime.
 
 #### Actividad 1 — Crear la base de datos
 Crea `prueba.db` con una tabla `alumnos` (id, nombre, nota).
-<details><summary>💡 Solución</summary>
+<details><summary>Solución</summary>
 
 ```python
 import sqlite3
@@ -335,7 +838,7 @@ with sqlite3.connect("prueba.db") as con:
 </details>
 
 #### Actividad 2 — Insertar y listar
-<details><summary>💡 Solución</summary>
+<details><summary>Solución</summary>
 
 ```python
 with sqlite3.connect("prueba.db") as con:
@@ -348,7 +851,7 @@ with sqlite3.connect("prueba.db") as con:
 </details>
 
 #### Actividad 3 — Modificar y borrar
-<details><summary>💡 Solución</summary>
+<details><summary>Solución</summary>
 
 ```python
 with sqlite3.connect("prueba.db") as con:
@@ -359,7 +862,7 @@ with sqlite3.connect("prueba.db") as con:
 
 #### Actividad 4 — Buscar
 Muestra los alumnos aprobados ordenados por nota descendente.
-<details><summary>💡 Solución</summary>
+<details><summary>Solución</summary>
 
 ```python
 with sqlite3.connect("prueba.db") as con:
@@ -373,7 +876,7 @@ print(filas)
 
 ### 9.2 Ejercicios propuestos
 
-**E1 🟢 · Contar registros.** `cuantos(bd: str) -> int` con `COUNT(*)`.
+**E1 ○ · Contar registros.** `cuantos(bd: str) -> int` con `COUNT(*)`.
 <details><summary>Solución</summary>
 
 ```python
@@ -385,7 +888,7 @@ def cuantos(bd: str) -> int:
 ```
 </details>
 
-**E2 🟢 · Nota media.** `nota_media(bd: str) -> float` con `AVG`, devolviendo `0.0` si no hay filas.
+**E2 ○ · Nota media.** `nota_media(bd: str) -> float` con `AVG`, devolviendo `0.0` si no hay filas.
 <details><summary>Pista</summary><code>AVG</code> devuelve <code>None</code> con la tabla vacía.</details>
 <details><summary>Solución</summary>
 
@@ -397,7 +900,7 @@ def nota_media(bd: str) -> float:
 ```
 </details>
 
-**E3 🟡 · Buscar por nombre.** Búsqueda parcial parametrizada con `LIKE`.
+**E3 ◐ · Buscar por nombre.** Búsqueda parcial parametrizada con `LIKE`.
 <details><summary>Solución</summary>
 
 ```python
@@ -410,7 +913,7 @@ def buscar(bd: str, texto: str) -> list[tuple]:
 ```
 </details>
 
-**E4 🔴 · Menú CRUD.** Programa con menú (alta, listado, modificación, baja, salir) y entrada validada.
+**E4 ● · Menú CRUD.** Programa con menú (alta, listado, modificación, baja, salir) y entrada validada.
 <details><summary>Solución</summary>
 
 ```python
@@ -429,9 +932,79 @@ def menu() -> None:
 *(Añade `try/except` en las conversiones, como en la UD3.)*
 </details>
 
+**E5 ○ · Crear la tabla de clientes.** `crear_tabla(bd: str) -> None` crea la tabla `clientes` si no existe, con `id` autonumérico, `nombre` obligatorio y `email`.
+<details><summary>Pista</summary><code>CREATE TABLE IF NOT EXISTS</code>, y el id como <code>INTEGER PRIMARY KEY AUTOINCREMENT</code>.</details>
+<details><summary>Solución</summary>
+
+```python
+import sqlite3
+
+
+def crear_tabla(bd: str) -> None:
+    """Crea la tabla clientes si no existe."""
+    with sqlite3.connect(bd) as con:
+        con.execute("""
+            CREATE TABLE IF NOT EXISTS clientes (
+                id     INTEGER PRIMARY KEY AUTOINCREMENT,
+                nombre TEXT NOT NULL,
+                email  TEXT
+            )
+        """)
+```
+</details>
+
+**E6 ◐ · Insertar un cliente.** `insertar(bd: str, nombre: str, email: str) -> None` añade un cliente con una consulta **parametrizada**.
+<details><summary>Pista</summary>Los valores van como <code>?</code> y en una tupla aparte. Nunca concatenados.</details>
+<details><summary>Solución</summary>
+
+```python
+import sqlite3
+
+
+def insertar(bd: str, nombre: str, email: str) -> None:
+    """Añade un cliente."""
+    with sqlite3.connect(bd) as con:
+        con.execute("INSERT INTO clientes (nombre, email) VALUES (?, ?)",
+                    (nombre, email))
+```
+</details>
+
+**E7 ◐ · Buscar por email.** `buscar_por_email(bd: str, email: str) -> list[tuple]` devuelve `[(nombre, email), ...]` de los clientes con ese email exacto. Lista vacía si no hay ninguno.
+<details><summary>Pista</summary>Mismo patrón que el insertar, pero con <code>SELECT ... WHERE email = ?</code> y <code>.fetchall()</code>.</details>
+<details><summary>Solución</summary>
+
+```python
+import sqlite3
+
+
+def buscar_por_email(bd: str, email: str) -> list[tuple]:
+    """Clientes con ese email exacto."""
+    with sqlite3.connect(bd) as con:
+        return con.execute(
+            "SELECT nombre, email FROM clientes WHERE email = ?", (email,)).fetchall()
+```
+</details>
+
+**E8 ● · Actualizar y contar los cambios.** `actualizar_email(bd: str, nombre: str, email: str) -> int` cambia el email de ese cliente y devuelve **cuántas filas ha modificado**.
+<details><summary>Pista</summary>El cursor tiene un atributo <code>rowcount</code> con el número de filas afectadas por la última operación.</details>
+<details><summary>Solución</summary>
+
+```python
+import sqlite3
+
+
+def actualizar_email(bd: str, nombre: str, email: str) -> int:
+    """Cambia el email de un cliente; devuelve cuántas filas cambió."""
+    with sqlite3.connect(bd) as con:
+        cur = con.execute("UPDATE clientes SET email = ? WHERE nombre = ?",
+                          (email, nombre))
+        return cur.rowcount
+```
+</details>
+
 ---
 
-## Proyecto de la unidad ⭐
+## 10. Proyecto de la unidad
 
 Toda la práctica de esta unidad se hace sobre un **proyecto base**: un inventario sobre una base de datos SQLite. Está montado
 con la estructura real de un proyecto Python y trae una **batería de tests** que puedes
@@ -468,15 +1041,34 @@ Detalles y comandos útiles en **[Proyectos](../proyectos/index.md)**.
 
 ---
 
-## 11. Retos opcionales 🚀
+## 11. Simulacro de examen
+
+Cuando tengas el proyecto terminado, mídete: el **simulacro** es un examen de mentira con
+**el mismo formato, tamaño y rúbrica** que el de verdad — y con los tests publicados.
+
+**[Simulacro RA6 · Museo en SQLite →](../simulacros/ra6/README.md)** · 11 tests · 45–50 min
+
+Hazlo **contrarreloj y sin ayuda**, como si fuera el examen. Al terminar, aplica la rúbrica
+y tendrás una estimación bastante fiel de tu nota.
+
+!!! warning "El examen de verdad va sin tests"
+    Allí solo tendrás los **docstrings** y unos ejemplos. Por eso, en el simulacro, intenta
+    resolver cada función leyendo solo su docstring y mira el test únicamente cuando falle.
+
+---
+
+## 12. Retos opcionales
 
 - **R1.** Añade una segunda tabla `categorias` y relaciónala con `productos` mediante una clave ajena.
 - **R2.** Investiga `GROUP BY` y cuenta cuántos productos hay por categoría.
 - **R3.** Exporta el contenido de la tabla a un CSV, reutilizando lo de la UD5.
 
+- **R4.** Añade a tu aplicación un menú de consola con las cuatro operaciones del CRUD.
+- **R5.** Investiga `GROUP BY` y escribe una consulta que cuente cuántos productos hay de cada categoría.
+- **R6.** Haz que la aplicación funcione con una base de datos de prueba cuando se lanza con el argumento `--test`, para no tocar la de verdad.
 ---
 
-## 12. Autoevaluación rápida
+## 13. Autoevaluación rápida
 
 <details><summary>1. ¿Qué pasa si olvidas <code>commit()</code>?</summary>Los cambios no se guardan, aunque no dé ningún error.</details>
 <details><summary>2. ¿Por qué usar <code>?</code> en vez de concatenar?</summary>Para evitar la inyección SQL.</details>
@@ -487,7 +1079,7 @@ Detalles y comandos útiles en **[Proyectos](../proyectos/index.md)**.
 
 ---
 
-## 13. Glosario
+## 14. Glosario
 
 | Término | Definición |
 |---|---|
@@ -503,16 +1095,70 @@ Detalles y comandos útiles en **[Proyectos](../proyectos/index.md)**.
 
 ---
 
-## 14. Cómo se evalúa esta unidad (RA6)
+## 15. Cómo se evalúa esta unidad (RA6)
 
-Examen **100 % práctico**: una aplicación que gestione datos en SQLite.
+El examen es **100 % práctico**: se entrega un proyecto con las funciones vacías y una
+especificación, y hay que escribir el código.
 
-| # | Qué se valora | Cómo se mide | Puntos |
-|:---:|---|---|:---:|
-| 1 | **Que funcione el CRUD** | casos de prueba superados × 7 | **7,0** |
-| 2 | **Consultas parametrizadas** | usa `?`, nunca concatenación | **1,0** |
-| 3 | **Integridad** | `commit()` y conexiones cerradas | **1,0** |
-| 4 | **Tipado y documentación** | `mypy` limpio y docstrings | **1,0** |
-| | | **TOTAL** | **10** |
+**La nota sale solo de los casos de prueba.** No hay puntos por presentación ni por
+esfuerzo: cada apartado del examen vale en proporción a los casos que tiene, de modo que
+**todos los casos valen lo mismo**.
 
-**Se supera con 5.** Concatenar la entrada del usuario en una sentencia SQL cuesta el punto 2 completo, aunque el programa funcione.
+`nota del apartado = (casos superados ÷ casos del apartado) × puntos del apartado`
+
+`nota del examen = suma de los apartados`
+
+### Así es el examen
+
+**Biblioteca en SQLite** · entrega `src/biblioteca.py` · **50 min**
+
+| # | Apartado | Casos | Puntos |
+|:---:|---|:---:|:---:|
+| **A** | Crear la tabla e insertar | 3 | **3,00** |
+| **B** | Consultas | 5 | **5,00** |
+| **C** | Borrado | 2 | **2,00** |
+| | **TOTAL** | **10** | **10,00** |
+
+Esta tabla viene en el enunciado, así que sabes desde el primer minuto **qué vale cada
+parte** y por dónde empezar si vas justo de tiempo.
+
+!!! warning "El examen se reparte sin tests"
+    La carpeta `tests/` viene vacía. La especificación son los **docstrings** de cada
+    función y los ejemplos del enunciado. Por eso conviene que en el simulacro te
+    acostumbres a resolver leyendo el docstring y no el test.
+
+### Así se corrige
+
+Alguien que entrega el examen con **8 de los 10 casos** superados
+—se le ha escapado el apartado **C**, donde falla 2 de
+2 casos—:
+
+| # | Apartado | Casos superados | Puntos |
+|:---:|---|:---:|---|
+| A | Crear la tabla e insertar | 3 / 3 | 3,00 / 3,00 |
+| B | Consultas | 5 / 5 | 5,00 / 5,00 |
+| C | Borrado | 0 / 2 | 0,00 / 2,00  ← |
+| | | | **NOTA: 8,00** |
+
+La corrección es automática: se monta un proyecto con la batería completa más el fichero
+entregado, se ejecuta y se reparte la nota con esa cuenta. **Nadie interpreta nada.**
+
+Además recibes un informe con los casos concretos que han fallado, con el valor que
+esperaba y el que devolvió tu función.
+
+!!! note "Los tres requisitos de la entrega"
+    No puntúan por separado, pero forman parte de la especificación:
+
+    1. Entregar **el fichero de `src/`**, con ese nombre.
+    2. `mypy src` sin errores.
+    3. Cada función con su **docstring**.
+
+    Un fichero que no compila o que no se puede importar da **0 casos superados**, así que
+    en la práctica valen mucho más que unos puntos.
+
+---
+
+### Material de apoyo de la unidad
+
+- **[Proyecto de la unidad](../proyectos/ud6/README.md)** — `inventario`, 13 tests.
+- **[Simulacro de examen](../simulacros/ra6/README.md)** — `museo`, 11 tests.

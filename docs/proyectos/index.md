@@ -6,12 +6,12 @@ No es un ejercicio suelto: es la forma en que se trabaja de verdad — un reposi
 
 | UD | Proyecto | Qué practicas | Tests | Descargar |
 |:---:|---|---|:---:|:---:|
-| **1** | [Presupuesto de tienda](ud1/README.md) | variables, constantes, operadores, conversión y formato | 16 | [⇩ zip](proyecto-ud1.zip) |
-| **2** | [Biblioteca de utilidades](ud2/README.md) | funciones, parámetros, `math` y módulos | 31 | [⇩ zip](proyecto-ud2.zip) |
-| **3** | [Gestor de notas](ud3/README.md) | condiciones, bucles y excepciones | 31 | [⇩ zip](proyecto-ud3.zip) |
-| **4** | [Flota de vehículos](ud4/README.md) | clases, `property` y herencia | 13 | [⇩ zip](proyecto-ud4.zip) |
-| **5** | [Agenda de contactos](ud5/README.md) | ficheros de texto, CSV y JSON | 10 | [⇩ zip](proyecto-ud5.zip) |
-| **6** | [Inventario](ud6/README.md) | SQLite y el CRUD completo | 13 | [⇩ zip](proyecto-ud6.zip) |
+| **1** | [Presupuesto de tienda](ud1/README.md) | variables, constantes, operadores, conversión y formato | 16 | [descargar](proyecto-ud1.zip) |
+| **2** | [Biblioteca de utilidades](ud2/README.md) | funciones, parámetros, `math` y módulos | 31 | [descargar](proyecto-ud2.zip) |
+| **3** | [Gestor de notas](ud3/README.md) | condiciones, bucles y excepciones | 31 | [descargar](proyecto-ud3.zip) |
+| **4** | [Flota de vehículos](ud4/README.md) | clases, `property` y herencia | 13 | [descargar](proyecto-ud4.zip) |
+| **5** | [Agenda de contactos](ud5/README.md) | ficheros de texto, CSV y JSON | 10 | [descargar](proyecto-ud5.zip) |
+| **6** | [Inventario](ud6/README.md) | SQLite y el CRUD completo | 13 | [descargar](proyecto-ud6.zip) |
 
 Descarga el `.zip` de tu unidad, descomprímelo y ábrelo en VS Code.
 
@@ -80,3 +80,11 @@ devuelve 0.0 antes de calcular
 pytest        # todo en verde
 mypy src      # Success: no issues found
 ```
+
+## Cuando lo tengas terminado
+
+El proyecto es para **aprender**: largo y con calma. Para **medirte** está el
+**[simulacro de examen](../simulacros/index.md)** de tu RA: mismo formato, tamaño y rúbrica
+que la prueba real, con los tests publicados y contrarreloj.
+
+Al terminarlo aplicas la rúbrica y ya sabes qué nota sacarías.

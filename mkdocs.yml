@@ -1,8 +1,6 @@
 site_name: CMO-313 · Fundamentos de programación
-site_description: Materiales y ejercicios del alumnado. Curso 26/27
+site_description: Materiales y ejercicios del alumnado
 site_author: Departamento de Informática
-site_author: Iván Jiménez
-site_url: https://ivanjimenez.github.io/campusdevfp/fp2627
 docs_dir: docs
 
 theme:
@@ -41,6 +39,8 @@ hooks:
 
 nav:
   - Inicio: index.md
+  - El módulo: el-modulo.md
+  - Evaluación: evaluacion.md
   - Unidades:
       - 1 · Estructura del programa: ud1/index.md
       - 2 · Funciones y librerías: ud2/index.md
@@ -51,6 +51,7 @@ nav:
   - Recursos:
       - Entorno de trabajo: recursos/entorno.md
       - Proyectos: proyectos/index.md
+      - Simulacros de examen: simulacros/index.md
   - Todo el material (PDF): completo.md
 
 plugins:

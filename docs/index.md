@@ -15,29 +15,41 @@ Materiales del módulo: **6 unidades**, una por cada Resultado de Aprendizaje. P
 
 Las unidades van en orden: cada una se apoya en la anterior.
 
+## Empieza por aquí
+
+- **[El módulo](el-modulo.md)** — qué se aprende en cada unidad, los pesos y cómo se trabaja.
+- **[Evaluación](evaluacion.md)** — exámenes, recuperaciones, el candado de los seis RA y la asistencia.
+
 ## Recursos
 
 - **[Entorno de trabajo](recursos/entorno.md)** — chuleta de entornos virtuales, `pip` y `mypy`.
 - **[Proyectos](proyectos/index.md)** — los **6 proyectos base** con sus tests, uno por unidad.
+- **[Simulacros de examen](simulacros/index.md)** — un examen de mentira por RA, con los tests publicados, para medirte antes de la prueba real.
 - **[Todo el material en una página](completo.md)** — para leer del tirón o exportar a PDF.
 
 ## Cómo se trabaja cada unidad
 
-1. El profesor **explica** el concepto y ejecuta los ejemplos en clase.
-2. Tú **lees** el apartado y **ejecutas los ejemplos** en tu ordenador.
-3. Haces los **retos rápidos** que van apareciendo entre la teoría.
-4. Practicas con **ejercicios que tienen la solución desplegable** — para ver el patrón.
-5. Trabajas el **proyecto de la unidad**: escribes el código en `src/` y ejecutas `pytest` hasta tenerlo todo en verde.
-6. **Examen práctico**, con la misma mecánica del paso 5.
+El módulo va en **aula invertida**: la teoría la lees fuera de clase y **la clase se dedica a programar**.
+
+1. **Lees** la sección y **ejecutas los ejemplos** en tu ordenador.
+2. Haces el **reto rápido** que cierra la explicación.
+3. Haces los **ejercicios de esa sección**, con solución desplegable. **Antes de la clase.**
+4. **En clase**: dudas, actividades guiadas y ejercicios largos. Más de media clase tecleando tú.
+5. Trabajas el **proyecto de la unidad** hasta tener los tests en verde.
+6. Te mides con el **simulacro**, y después va el **examen**.
+
+Está explicado con detalle en **[El módulo](el-modulo.md)**.
 
 !!! warning "La solución no es el objetivo"
     Leer una solución da sensación de haber aprendido, pero no enseña. Si la abres sin haberlo intentado, el ejercicio no ha servido de nada. Atáscate primero: ahí está el aprendizaje.
 
 ## Cómo se evalúa
 
-Cada unidad corresponde a un **Resultado de Aprendizaje** y se evalúa con un **examen 100 % práctico**: escribes código y se ejecuta contra una batería de tests, igual que en los proyectos. La nota sale de los tests superados más unos criterios cerrados que conoces desde el primer día, así que es objetiva.
+Un **examen práctico por RA**, dos por trimestre, sin teoría: escribes código y se ejecuta contra una batería de tests. La nota sale **solo de los casos de prueba**, repartidos por apartados del examen; el reparto lo conoces desde el primer día.
 
-Cada unidad explica su rúbrica exacta en su última sección.
+**Los seis RA tienen que estar en 5 o más** para superar el módulo. Lo que suspendas queda pendiente para la ordinaria y, después, la extraordinaria.
+
+Todo el detalle —incluidas las recuperaciones, la FFE y el 15 % de faltas— en **[Evaluación](evaluacion.md)**. La rúbrica exacta de cada unidad está en su última sección.
 
 ## Uso offline
 

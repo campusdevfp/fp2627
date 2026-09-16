@@ -33,17 +33,22 @@ Esta es la primera unidad del módulo. Aquí aprendes lo esencial: **qué es un 
 
 | | Paso | Dónde |
 |:---:|---|---|
-| **1** | El profesor **explica** el concepto y ejecuta los ejemplos en clase. | secciones 1–11 |
-| **2** | Tú **lees** el apartado y **ejecutas los ejemplos** en tu ordenador. | `ejemplos_teoria.py` |
-| **3** | Haces los **retos rápidos** que van apareciendo entre la teoría. | 🎯 en el texto |
-| **4** | Practicas con **ejercicios que tienen la solución desplegable**. | sección 12 |
+| **1** | **Lees** la sección y **ejecutas los ejemplos** en tu ordenador. | secciones 1–11 |
+| **2** | Haces el **reto rápido** que cierra la explicación. | en el texto |
+| **3** | Haces los **ejercicios de esa sección**, con la solución desplegable. | al final de cada sección |
+| **4** | En clase: dudas, actividades guiadas y los ejercicios largos. | sección 12 |
 | **5** | Trabajas el **proyecto de la unidad** y ejecutas sus tests hasta tenerlo todo en verde. | `proyectos/ud1/` |
-| **6** | Examen práctico, con la misma mecánica del paso 5. | última sección |
+| **6** | Te mides con el **simulacro** y después vas al examen. | `simulacros/ra1/` |
 
-> 🎯 Los **«Reto rápido»** son mini-desafíos de 1–2 minutos para afianzar justo lo que acabas de leer. Hazlos en el momento, aunque parezcan sencillos.
+> Los **«Reto rápido»** son mini-desafíos de 1–2 minutos para afianzar justo lo que acabas de leer. Hazlos en el momento, aunque parezcan sencillos.
 
-!!! tip "La diferencia entre los pasos 4 y 5"
-    En el **4** puedes mirar la solución: sirve para *ver el patrón*.
+!!! tip "Los pasos 1–3 son tuyos"
+    Este es el trato del **aula invertida**: la teoría y los ejercicios cortos los haces
+    tú, y el tiempo de clase se dedica a lo que de verdad cuesta. Por eso cada sección
+    termina con dos o tres ejercicios: **hazlos antes de pasar a la siguiente**.
+
+!!! tip "La diferencia entre los pasos 3 y 5"
+    En el **3** puedes mirar la solución: sirve para *ver el patrón*.
     En el **5** no hay solución: escribes el código y son **los tests** los que te dicen si está bien. Los dos hacen falta, y en ese orden.
 
 ---
@@ -52,7 +57,7 @@ Esta es la primera unidad del módulo. Aquí aprendes lo esencial: **qué es un 
 
 Programar es **escribir instrucciones precisas para que un ordenador resuelva un problema**. El ordenador no "entiende" ni improvisa: hace exactamente lo que le dices, en el orden que se lo dices. Esa literalidad es la primera lección del curso: la mayoría de los errores no son del ordenador, son instrucciones nuestras que no decían lo que creíamos.
 
-> 🧠 **Analogía.** Un programa es como una **receta de cocina**. Los *datos* son los ingredientes, el *algoritmo* son los pasos ("bate dos huevos, añade harina…") y el *programa* es esa receta escrita en un idioma que la cocina (el ordenador) entiende.
+> **Analogía.** Un programa es como una **receta de cocina**. Los *datos* son los ingredientes, el *algoritmo* son los pasos ("bate dos huevos, añade harina…") y el *programa* es esa receta escrita en un idioma que la cocina (el ordenador) entiende.
 
 ### 1.1 Del problema al programa
 
@@ -78,7 +83,48 @@ Antes de escribir código conviene pensar el **algoritmo**: la solución paso a 
 
 Usamos **Python 3**: interpretado, de sintaxis limpia y enorme comunidad.
 
-> 🎯 **Reto rápido 1.** Escribe (en lenguaje natural, sin código) el algoritmo para calcular la **media de dos números**. Nombra sus bloques de entrada, proceso y salida.
+> **Reto rápido 1.** Escribe (en lenguaje natural, sin código) el algoritmo para calcular la **media de dos números**. Nombra sus bloques de entrada, proceso y salida.
+
+---
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**1.1.** Descompón en **entrada, proceso y salida** el cálculo del área de un rectángulo. No escribas código todavía: solo los tres bloques.
+<details><summary>Solución</summary>
+
+```text
+Entrada:  base y altura (los pide el usuario)
+Proceso:  area = base * altura
+Salida:   mostrar el area por pantalla
+```
+</details>
+
+**1.2.** Escribe en lenguaje natural el algoritmo para decidir si un número es **par**.
+<details><summary>Solución</summary>
+
+```text
+1. Pedir un numero
+2. Calcular el resto de dividirlo entre 2
+3. Si el resto es 0 -> es par
+4. Si no -> es impar
+5. Mostrar el resultado
+```
+</details>
+
+**1.3.** Ordena estos pasos del ciclo de desarrollo: *ejecutar*, *analizar el problema*, *escribir el código*, *corregir errores*, *diseñar el algoritmo*.
+<details><summary>Solución</summary>
+
+```text
+1. Analizar el problema  (que me piden exactamente)
+2. Disenar el algoritmo   (como lo resuelvo, en lenguaje natural)
+3. Escribir el codigo     (traducirlo a Python)
+4. Ejecutar               (probarlo de verdad)
+5. Corregir errores       (y volver a ejecutar)
+```
+</details>
+
 
 ---
 
@@ -98,7 +144,7 @@ python --version      # p. ej. Python 3.12.3
 
 Un **entorno virtual** es una **copia aislada de Python** para un proyecto concreto. Sirve para que los paquetes que instales en un proyecto **no se mezclen** con los de otros ni con el Python del sistema.
 
-> 🧠 **Analogía.** Cada proyecto tiene su propia **mochila** con sus herramientas. Sin entornos virtuales, todo va en una única mochila gigante y compartida: un día actualizas una herramienta para un proyecto y rompes otro sin querer.
+> **Analogía.** Cada proyecto tiene su propia **mochila** con sus herramientas. Sin entornos virtuales, todo va en una única mochila gigante y compartida: un día actualizas una herramienta para un proyecto y rompes otro sin querer.
 
 <figure markdown>
   ![Entornos virtuales](../assets/diagramas/ud1-entornos.svg#only-light)
@@ -124,7 +170,7 @@ source .venv/bin/activate
 deactivate
 ```
 
-> ✅ Añade la carpeta `.venv/` a tu `.gitignore`: el entorno **no se sube** al repositorio, se recrea con `requirements.txt`.
+> ✓ Añade la carpeta `.venv/` a tu `.gitignore`: el entorno **no se sube** al repositorio, se recrea con `requirements.txt`.
 
 ### 2.3 pip: instalar paquetes
 
@@ -171,9 +217,52 @@ python hola.py
 
 `print()` es una **función** que muestra información por pantalla: nuestra herramienta básica de **salida**.
 
-> ⚠️ **Errores típicos al empezar:** olvidar las comillas (`print(Hola)` → `NameError`), comillas sin cerrar (`SyntaxError`), o instalar paquetes **sin** el entorno activado (se instalan en el sistema).
+> **Errores típicos al empezar:** olvidar las comillas (`print(Hola)` → `NameError`), comillas sin cerrar (`SyntaxError`), o instalar paquetes **sin** el entorno activado (se instalan en el sistema).
 
-> 🎯 **Reto rápido 2.** Crea una carpeta `ud1`, dentro un entorno virtual `.venv`, actívalo, instala `pytest` y genera un `requirements.txt`. Comprueba con `pip list` que aparece pytest.
+> **Reto rápido 2.** Crea una carpeta `ud1`, dentro un entorno virtual `.venv`, actívalo, instala `pytest` y genera un `requirements.txt`. Comprueba con `pip list` que aparece pytest.
+
+---
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**2.1.** Crea una carpeta `practica1`, dentro un entorno virtual llamado `.venv` y actívalo.
+<details><summary>Solución</summary>
+
+```bash
+mkdir practica1
+cd practica1
+python -m venv .venv
+source .venv/bin/activate
+# En Windows PowerShell:
+# .venv\Scripts\Activate.ps1
+```
+</details>
+
+**2.2.** Con el entorno activado, instala `pytest`, comprueba que aparece en la lista de paquetes y guarda las dependencias en un fichero.
+<details><summary>Solución</summary>
+
+```bash
+pip install pytest
+pip list
+pip freeze > requirements.txt
+```
+</details>
+
+**2.3.** Desactiva el entorno y comprueba que `pytest` ya no está disponible fuera de él. ¿Por qué pasa eso?
+<details><summary>Solución</summary>
+
+```bash
+deactivate
+pip list
+
+# pytest no aparece: se instalo DENTRO del entorno virtual.
+# Esa es justo la idea: cada proyecto lleva sus propios paquetes
+# y no se mezclan con los de otros ni con los del sistema.
+```
+</details>
+
 
 ---
 
@@ -203,7 +292,66 @@ Ejecución:
 Hola, Ada
 ```
 
-> 🎯 **Reto rápido 3.** Copia el ejemplo y modifícalo para que salude así: `¡Bienvenida al curso, Ada!`.
+> **Reto rápido 3.** Copia el ejemplo y modifícalo para que salude así: `¡Bienvenida al curso, Ada!`.
+
+---
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**3.1.** Escribe un programa con la estructura **entrada → proceso → salida** que pida el nombre del usuario y lo salude.
+<details><summary>Solución</summary>
+
+```python
+# Entrada
+nombre: str = input("¿Cómo te llamas? ")
+
+# Proceso
+saludo: str = f"¡Hola, {nombre}!"
+
+# Salida
+print(saludo)   # -> ¡Hola, Ada!
+```
+</details>
+
+**3.2.** Pide dos números enteros y muestra su suma. Marca con comentarios dónde está cada bloque del ciclo.
+<details><summary>Solución</summary>
+
+```python
+# Entrada
+a: int = int(input("Primer número: "))
+b: int = int(input("Segundo número: "))
+
+# Proceso
+suma: int = a + b
+
+# Salida
+print(f"La suma es {suma}")   # -> La suma es 12
+```
+</details>
+
+**3.3.** Este programa está todo mezclado. Reescríbelo separando los tres bloques:
+
+```python
+print(f"Doble: {int(input('Número: ')) * 2}")
+```
+<details><summary>Solución</summary>
+
+```python
+# Entrada
+numero: int = int(input("Número: "))
+
+# Proceso
+doble: int = numero * 2
+
+# Salida
+print(f"Doble: {doble}")   # -> Doble: 42
+
+# Hace lo mismo, pero ahora se lee, se prueba y se corrige por partes.
+```
+</details>
+
 
 ---
 
@@ -217,7 +365,7 @@ Una **variable** es un **nombre que guarda un valor** en memoria y que puede cam
 edad = 25
 ```
 
-> 🧠 **Analogía.** Una variable es una **caja con etiqueta**: la etiqueta es el nombre (`edad`) y dentro está el valor (`25`).
+> **Analogía.** Una variable es una **caja con etiqueta**: la etiqueta es el nombre (`edad`) y dentro está el valor (`25`).
 
 <figure markdown>
   ![Variables en memoria](../assets/diagramas/ud1-memoria.svg#only-light)
@@ -252,9 +400,57 @@ x = "hola"
 print(type(x))     # <class 'str'>  ← la misma variable cambió de tipo
 ```
 
-> ⚠️ **Precisión de los decimales.** `0.1 + 0.2` da `0.30000000000000004`, no `0.3`. Es normal en cualquier ordenador; para *mostrar* dinero se redondea con formato (`:.2f`).
+> **Precisión de los decimales.** `0.1 + 0.2` da `0.30000000000000004`, no `0.3`. Es normal en cualquier ordenador; para *mostrar* dinero se redondea con formato (`:.2f`).
 
-> 🎯 **Reto rápido 4.** Crea tres variables con tu nombre, tu edad y tu altura, y muestra el **tipo** de cada una con `type()`.
+> **Reto rápido 4.** Crea tres variables con tu nombre, tu edad y tu altura, y muestra el **tipo** de cada una con `type()`.
+
+---
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**4.1.** Crea cuatro variables, una de cada tipo básico (`str`, `int`, `float`, `bool`), y muestra su valor y su tipo.
+<details><summary>Solución</summary>
+
+```python
+nombre = "Ada"
+edad = 36
+altura = 1.68
+matriculada = True
+
+print(nombre, type(nombre))         # -> <class 'str'>
+print(edad, type(edad))             # -> <class 'int'>
+print(altura, type(altura))         # -> <class 'float'>
+print(matriculada, type(matriculada))  # -> <class 'bool'>
+```
+</details>
+
+**4.2.** Tienes `a = 5` y `b = 9`. Intercambia sus valores y compruébalo.
+<details><summary>Solución</summary>
+
+```python
+a = 5
+b = 9
+
+a, b = b, a   # Python permite el intercambio directo
+
+print(a, b)   # -> 9 5
+```
+</details>
+
+**4.3.** ¿Qué **tipo** devuelven `7 / 2`, `7 // 2` y `7 % 2`? Predícelo antes de ejecutar.
+<details><summary>Solución</summary>
+
+```python
+print(7 / 2, type(7 / 2))     # -> 3.5 <class 'float'>
+print(7 // 2, type(7 // 2))   # -> 3 <class 'int'>
+print(7 % 2, type(7 % 2))     # -> 1 <class 'int'>
+
+# La division / SIEMPRE da float, aunque el resultado sea exacto: 6 / 2 -> 3.0
+```
+</details>
+
 
 ---
 
@@ -306,11 +502,62 @@ Si te equivocas de tipo, mypy lo detecta sin necesidad de ejecutar:
 edad: int = "veinte"   # mypy avisa: Incompatible types (str no es int)
 ```
 
-> 🧠 **Para quien venga de Java (DAM):** las anotaciones se parecen a declarar `int edad`, pero en Python son *opcionales* y no se comprueban en tiempo de ejecución, solo con herramientas como mypy.
+> **Para quien venga de Java (DAM):** las anotaciones se parecen a declarar `int edad`, pero en Python son *opcionales* y no se comprueban en tiempo de ejecución, solo con herramientas como mypy.
 
-> ✅ **Norma del curso:** anota **todas** las variables y funciones. Es uno de los hábitos que evaluaremos como *buenas prácticas*.
+> ✓ **Norma del curso:** anota **todas** las variables y funciones. Es uno de los hábitos que evaluaremos como *buenas prácticas*.
 
-> 🎯 **Reto rápido 5.** Escribe una función tipada `doble(n: int) -> int` que devuelva el doble de un número, y llámala con `doble(21)`. Ejecuta `mypy` sobre el fichero.
+> **Reto rápido 5.** Escribe una función tipada `doble(n: int) -> int` que devuelva el doble de un número, y llámala con `doble(21)`. Ejecuta `mypy` sobre el fichero.
+
+---
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**5.1.** Escribe una función **tipada** `area_rectangulo(base, altura)` que devuelva el área.
+<details><summary>Solución</summary>
+
+```python
+def area_rectangulo(base: float, altura: float) -> float:
+    """Área de un rectángulo."""
+    return base * altura
+
+print(area_rectangulo(3, 4.5))   # -> 13.5
+```
+</details>
+
+**5.2.** Anota los tipos de estas variables y ejecuta `mypy` sobre el fichero:
+
+```python
+nombre = "Ada"
+edad = 36
+notas = [7.5, 8.0]
+```
+<details><summary>Solución</summary>
+
+```python
+nombre: str = "Ada"
+edad: int = 36
+notas: list[float] = [7.5, 8.0]
+
+print(nombre, edad, notas)   # -> Ada 36 [7.5, 8.0]
+
+# En la terminal:  mypy fichero.py   ->  Success: no issues found
+```
+</details>
+
+**5.3.** Escribe `iniciales(nombre, apellido)` que devuelva las iniciales en mayúsculas, con sus anotaciones de tipo.
+<details><summary>Solución</summary>
+
+```python
+def iniciales(nombre: str, apellido: str) -> str:
+    """Devuelve las iniciales, en mayúsculas y separadas por punto."""
+    return f"{nombre[0].upper()}.{apellido[0].upper()}."
+
+print(iniciales("ada", "lovelace"))   # -> A.L.
+```
+</details>
+
 
 ---
 
@@ -324,11 +571,11 @@ IVA: int = 21          # constante (convención en mayúsculas)
 PI: float = 3.14159
 ```
 
-> ✅ **Por qué usar constantes.** Si el IVA aparece en diez sitios y cambia, con una constante lo modificas **en un único lugar**.
+> ✓ **Por qué usar constantes.** Si el IVA aparece en diez sitios y cambia, con una constante lo modificas **en un único lugar**.
 
 **Identificador** = nombre de una variable/constante/función. Reglas: empieza por letra o `_`; solo letras, números y `_`; distingue mayúsculas; no puede ser palabra reservada. Estilo **PEP 8**: `snake_case` para variables y funciones, `MAYUSCULAS` para constantes.
 
-| ✅ Correcto | ❌ Evita | Motivo |
+| ✓ Correcto | ✗ Evita | Motivo |
 |---|---|---|
 | `precio_unitario` | `PrecioUnitario` | usa `snake_case` |
 | `numero_alumnos` | `número` | sin acentos |
@@ -343,7 +590,53 @@ elif else except finally for from global if import in is lambda nonlocal
 not or pass raise return try while with yield
 ```
 
-> 🎯 **Reto rápido 6.** De estos nombres, ¿cuáles son válidos como variable? `edad`, `2dias`, `precio_final`, `class`, `_temp`. *(Solución: válidos `edad`, `precio_final`, `_temp`.)*
+> **Reto rápido 6.** De estos nombres, ¿cuáles son válidos como variable? `edad`, `2dias`, `precio_final`, `class`, `_temp`. *(Solución: válidos `edad`, `precio_final`, `_temp`.)*
+
+---
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**6.1.** Define el IVA como **constante** y calcula el precio final de un artículo de 80 €.
+<details><summary>Solución</summary>
+
+```python
+IVA: int = 21          # constante: en MAYÚSCULAS porque no cambia
+
+precio: float = 80.0
+final: float = precio * (1 + IVA / 100)
+
+print(f"{final:.2f}")   # -> 96.80
+```
+</details>
+
+**6.2.** ¿Cuáles de estos nombres son válidos como variable? `total`, `2pagos`, `precio-final`, `_temp`, `for`, `añoNacimiento`.
+<details><summary>Solución</summary>
+
+```text
+Validos:    total, _temp, anoNacimiento
+No validos: 2pagos        -> no puede empezar por numero
+            precio-final  -> el guion es el operador resta; usa precio_final
+            for           -> es una palabra reservada del lenguaje
+```
+</details>
+
+**6.3.** Este código no funciona porque usa una palabra reservada. Arréglalo:
+
+```python
+class = "1DAW"
+print(class)
+```
+<details><summary>Solución</summary>
+
+```python
+# 'class' esta reservada para declarar clases: hay que renombrar la variable
+grupo: str = "1DAW"
+print(grupo)   # -> 1DAW
+```
+</details>
+
 
 ---
 
@@ -361,12 +654,72 @@ para documentar un fichero o una función.
 """
 ```
 
-> ✅ **Comenta el *por qué*, no el *qué*:**
+> ✓ **Comenta el *por qué*, no el *qué*:**
 > ```python
-> precio = precio * 0.9   # ✅ aplicar 10 % de descuento de rebajas
+> precio = precio * 0.9   # ✓ aplicar 10 % de descuento de rebajas
 > ```
 
-> 🎯 **Reto rápido 7.** Añade a la función `doble` del reto 5 un docstring de una línea que explique qué hace.
+> **Reto rápido 7.** Añade a la función `doble` del reto 5 un docstring de una línea que explique qué hace.
+
+---
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**7.1.** Añade un **docstring** de una línea a esta función:
+
+```python
+def doble(n: int) -> int:
+    return n * 2
+```
+<details><summary>Solución</summary>
+
+```python
+def doble(n: int) -> int:
+    """Devuelve el doble del número recibido."""
+    return n * 2
+
+print(doble.__doc__)   # -> Devuelve el doble del número recibido.
+```
+</details>
+
+**7.2.** Estos comentarios sobran porque repiten lo que ya dice el código. Sustitúyelos por uno que explique **el porqué**:
+
+```python
+# suma 1 a i
+i = i + 1
+# multiplica por 1.21
+precio = precio * 1.21
+```
+<details><summary>Solución</summary>
+
+```python
+i = 0
+precio = 100.0
+
+i = i + 1                 # (sin comentario: el codigo ya se lee solo)
+precio = precio * 1.21    # IVA general del 21 % vigente en 2026
+
+print(i, round(precio, 2))   # -> 1 121.0
+```
+</details>
+
+**7.3.** Documenta un módulo `conversiones.py` con su docstring de módulo y una función documentada.
+<details><summary>Solución</summary>
+
+```python
+"""Conversiones entre unidades de longitud."""
+
+
+def metros_a_km(metros: float) -> float:
+    """Convierte metros a kilómetros."""
+    return metros / 1000
+
+print(metros_a_km(2500))   # -> 2.5
+```
+</details>
+
 
 ---
 
@@ -384,7 +737,7 @@ para documentar un fichero o una función.
 | `%` | **Módulo** (resto) | `7 % 2` | `1` |
 | `**` | Potencia | `7 ** 2` | `49` |
 
-> 🧩 `numero % 2 == 0` comprueba si un número es **par**; `segundos % 60` da los segundos sueltos al pasar a minutos.
+> `numero % 2 == 0` comprueba si un número es **par**; `segundos % 60` da los segundos sueltos al pasar a minutos.
 
 ### 8.2 Relacionales y lógicos
 
@@ -396,7 +749,7 @@ print(5 > 3 or 2 > 4)    # True
 print(not 5 > 3)         # False
 ```
 
-> ⚠️ **`=` no es `==`.** `=` **asigna**; `==` **compara**. Confundirlos es el error nº 1 de quien empieza.
+> **`=` no es `==`.** `=` **asigna**; `==` **compara**. Confundirlos es el error nº 1 de quien empieza.
 
 ### 8.3 Precedencia
 
@@ -412,7 +765,52 @@ print(2 + 3 * 4)      # 14  (primero 3*4)
 print((2 + 3) * 4)    # 20  (los paréntesis mandan)
 ```
 
-> 🎯 **Reto rápido 8.** Sin ejecutar, ¿cuánto vale `10 - 2 ** 3`? Compruébalo luego en Python. *(Solución: `2`.)*
+> **Reto rápido 8.** Sin ejecutar, ¿cuánto vale `10 - 2 ** 3`? Compruébalo luego en Python. *(Solución: `2`.)*
+
+---
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**8.1.** Sin ejecutar, ¿cuánto valen `10 - 2 ** 3`, `(10 - 2) ** 3` y `10 % 4 * 2`? Compruébalo después.
+<details><summary>Solución</summary>
+
+```python
+print(10 - 2 ** 3)      # -> 2      la potencia va primero
+print((10 - 2) ** 3)    # -> 512    los parentesis mandan
+print(10 % 4 * 2)       # -> 4      % y * tienen la misma prioridad: de izquierda a derecha
+```
+</details>
+
+**8.2.** Comprueba si una persona de 20 años con carnet puede alquilar un coche (mínimo 21 años **y** carnet).
+<details><summary>Solución</summary>
+
+```python
+edad: int = 20
+tiene_carnet: bool = True
+
+puede: bool = edad >= 21 and tiene_carnet
+
+print(puede)   # -> False
+```
+</details>
+
+**8.3.** Convierte 3725 segundos a horas, minutos y segundos usando `//` y `%`.
+<details><summary>Solución</summary>
+
+```python
+total: int = 3725
+
+horas: int = total // 3600
+resto: int = total % 3600
+minutos: int = resto // 60
+segundos: int = resto % 60
+
+print(f"{horas}h {minutos}m {segundos}s")   # -> 1h 2m 5s
+```
+</details>
+
 
 ---
 
@@ -440,16 +838,61 @@ print(numero + 8)             # 50
 </figure>
 
 
-> ⚠️ **El error clásico con `input()`:**
+> **El error clásico con `input()`:**
 > ```python
 > edad = input("Edad: ")   # "20" (texto)
-> print(edad + 1)          # 💥 TypeError
+> print(edad + 1)          # TypeError
 > ```
 > Solución: `edad: int = int(input("Edad: "))`.
 
-> ⚠️ `int("hola")` lanza `ValueError`. En la UD3 aprenderás a controlarlo con `try/except`.
+> `int("hola")` lanza `ValueError`. En la UD3 aprenderás a controlarlo con `try/except`.
 
-> 🎯 **Reto rápido 9.** Pide un número por teclado, conviértelo a `int` y muestra su cuadrado usando `**`.
+> **Reto rápido 9.** Pide un número por teclado, conviértelo a `int` y muestra su cuadrado usando `**`.
+
+---
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**9.1.** Este programa falla. ¿Por qué? Arréglalo:
+
+```python
+edad = input("Edad: ")
+print(edad + 1)
+```
+<details><summary>Solución</summary>
+
+```python
+# input() SIEMPRE devuelve texto: "20" + 1 mezcla str con int y lanza TypeError
+edad: int = int(input("Edad: "))
+print(edad + 1)   # -> 21
+```
+</details>
+
+**9.2.** ¿Qué hace `int(9.99)`? ¿Y `round(9.99)`? Comprueba la diferencia.
+<details><summary>Solución</summary>
+
+```python
+print(int(9.99))     # -> 9    int() TRUNCA: se queda con la parte entera
+print(round(9.99))   # -> 10   round() REDONDEA al mas cercano
+print(int(-2.7))     # -> -2   ojo: trunca hacia cero, no hacia abajo
+```
+</details>
+
+**9.3.** El usuario escribe los decimales con coma (`3,5`). Conviértelo a `float` sin que reviente.
+<details><summary>Solución</summary>
+
+```python
+texto: str = "3,5"
+
+# float("3,5") lanza ValueError: en Python el separador decimal es el punto
+numero: float = float(texto.replace(",", "."))
+
+print(numero)   # -> 3.5
+```
+</details>
+
 
 ---
 
@@ -480,7 +923,50 @@ print(f"{cantidad} uds a {precio:.2f} € = {total:.2f} €")
 | `:>8` | derecha en 8 | `f"{'ok':>8}"` | `      ok` |
 | `:,` | miles | `f"{1000000:,}"` | `1,000,000` |
 
-> 🎯 **Reto rápido 10.** Muestra el número `1234.5` con dos decimales y separador de miles a la vez. *(Pista: `:,.2f`.)*
+> **Reto rápido 10.** Muestra el número `1234.5` con dos decimales y separador de miles a la vez. *(Pista: `:,.2f`.)*
+
+---
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**10.1.** Muestra el número `3.14159` con **dos decimales** y el precio `1234.5` con dos decimales y separador de miles.
+<details><summary>Solución</summary>
+
+```python
+pi: float = 3.14159
+precio: float = 1234.5
+
+print(f"{pi:.2f}")        # -> 3.14
+print(f"{precio:,.2f}")   # -> 1,234.50
+```
+</details>
+
+**10.2.** Muestra estos tres productos en columnas: el nombre alineado a la izquierda en 12 huecos y el precio a la derecha en 8, con dos decimales.
+<details><summary>Solución</summary>
+
+```python
+productos = [("Camisa", 19.9), ("Pantalón", 34.5), ("Gorra", 7.25)]
+
+for nombre, precio in productos:
+    print(f"{nombre:<12}{precio:>8.2f}")
+
+# Camisa         19.90
+# Pantalón       34.50
+# Gorra           7.25
+```
+</details>
+
+**10.3.** Pide un importe por teclado y muéstralo formateado como `Total:    45.00 €`.
+<details><summary>Solución</summary>
+
+```python
+importe: float = float(input("Importe: "))
+print(f"Total: {importe:>8.2f} €")   # -> Total:    45.00 €
+```
+</details>
+
 
 ---
 
@@ -508,7 +994,7 @@ Las hacemos en clase, pero tienes la solución para repasarlas después.
 
 #### Actividad 1 — Ficha de una persona
 Crea variables **tipadas** `nombre`, `edad`, `altura` y muéstralas con su tipo.
-<details><summary>💡 Solución</summary>
+<details><summary>Solución</summary>
 
 ```python
 nombre: str = "Ada"
@@ -522,7 +1008,7 @@ print(altura, type(altura))
 
 #### Actividad 2 — Área del círculo (constantes y operadores)
 Define `PI` como constante y calcula el área de un círculo de radio 5.
-<details><summary>💡 Solución</summary>
+<details><summary>Solución</summary>
 
 ```python
 PI: float = 3.14159
@@ -534,7 +1020,7 @@ print(f"Área: {area:.2f}")   # Área: 78.54
 
 #### Actividad 3 — Función tipada de operaciones
 Escribe `operaciones(a: int, b: int) -> None` que muestre suma, división entera, resto y potencia.
-<details><summary>💡 Solución</summary>
+<details><summary>Solución</summary>
 
 ```python
 def operaciones(a: int, b: int) -> None:
@@ -549,7 +1035,7 @@ operaciones(17, 5)   # 22 / 3 / 2 / 1419857
 
 #### Actividad 4 — Conversión y entrada
 Pide dos enteros por teclado y muestra su suma (recuerda convertir).
-<details><summary>💡 Solución</summary>
+<details><summary>Solución</summary>
 
 ```python
 n1: int = int(input("Primer número: "))
@@ -562,12 +1048,12 @@ print(f"Suma: {n1 + n2}")
 
 ### 12.2 Ejercicios propuestos
 
-Trabajo autónomo. 🟢 básico · 🟡 medio · 🔴 avanzado. **Anota los tipos** en todas tus soluciones y pásales `mypy`.
+Trabajo autónomo. ○ básico · ◐ medio · ● avanzado. **Anota los tipos** en todas tus soluciones y pásales `mypy`.
 
 !!! warning "Intenta antes de desplegar"
     Leer la solución sin haberlo intentado da sensación de aprender, pero no enseña. Usa primero la pista.
 
-**E1 🟢 · Celsius a Fahrenheit.** `F = C · 9/5 + 32`.
+**E1 ○ · Celsius a Fahrenheit.** `F = C · 9/5 + 32`.
 <details><summary>Pista</summary>Convierte la entrada con <code>float()</code>.</details>
 <details><summary>Solución</summary>
 
@@ -578,7 +1064,7 @@ print(f"{c} °C = {f:.1f} °F")
 ```
 </details>
 
-**E2 🟢 · Rectángulo.** Pide base y altura y muestra área y perímetro.
+**E2 ○ · Rectángulo.** Pide base y altura y muestra área y perímetro.
 <details><summary>Solución</summary>
 
 ```python
@@ -589,7 +1075,7 @@ print(f"Perímetro: {2 * (base + altura):.2f}")
 ```
 </details>
 
-**E3 🟡 · Segundos a h:m:s.**
+**E3 ◐ · Segundos a h:m:s.**
 <details><summary>Pista</summary>Usa <code>//</code> y <code>%</code> con 3600 y 60.</details>
 <details><summary>Solución</summary>
 
@@ -602,7 +1088,7 @@ print(f"{horas}h {minutos}m {seg}s")   # 3661 -> 1h 1m 1s
 ```
 </details>
 
-**E4 🟡 · Descuento.** `DESCUENTO = 15` (constante).
+**E4 ◐ · Descuento.** `DESCUENTO = 15` (constante).
 <details><summary>Solución</summary>
 
 ```python
@@ -613,7 +1099,7 @@ print(f"Precio final: {final:.2f} €")
 ```
 </details>
 
-**E5 🟡 · Media de tres notas** con función tipada.
+**E5 ◐ · Media de tres notas** con función tipada.
 <details><summary>Solución</summary>
 
 ```python
@@ -624,7 +1110,7 @@ print(f"Media: {media(5, 7, 9):.2f}")   # 7.00
 ```
 </details>
 
-**E6 🔴 · Cambio de monedas.** Importe en céntimos → monedas de 50, 20, 10, 5, 2, 1.
+**E6 ● · Cambio de monedas.** Importe en céntimos → monedas de 50, 20, 10, 5, 2, 1.
 <details><summary>Pista</summary>Divide con <code>//</code> y guarda el resto con <code>%</code> para la siguiente moneda.</details>
 <details><summary>Solución</summary>
 
@@ -637,9 +1123,37 @@ for valor in (50, 20, 10, 5, 2, 1):
 *(Usa un `for`, que verás en la UD3; también vale repetir seis bloques.)*
 </details>
 
+**E7 ◐ · Línea de ticket.** `linea_ticket(producto: str, unidades: int, precio: float) -> str` devuelve una línea como `Camisa        2 x  19.90 =    39.80 €`: el producto a la izquierda en 12 huecos, las unidades a la derecha en 3, el precio en 6 con 2 decimales y el importe en 8.
+<details><summary>Pista</summary>Una sola f-string con cuatro campos: <code>:&lt;12</code>, <code>:&gt;3</code>, <code>:&gt;6.2f</code> y <code>:&gt;8.2f</code>.</details>
+<details><summary>Solución</summary>
+
+```python
+def linea_ticket(producto: str, unidades: int, precio: float) -> str:
+    """Línea de ticket alineada en columnas."""
+    importe: float = unidades * precio
+    return f"{producto:<12}{unidades:>3} x {precio:>6.2f} = {importe:>8.2f} €"
+```
+</details>
+
+**E8 ● · Desglose de una compra.** `desglose(unidades: int, precio: float) -> tuple[float, float, float]` devuelve la base, el IVA y el total, **redondeados a 2 decimales**. El IVA es una constante del 21 %.
+<details><summary>Pista</summary><code>round(valor, 2)</code> en cada uno, y devuelve los tres separados por comas: eso ya es una tupla.</details>
+<details><summary>Solución</summary>
+
+```python
+IVA: int = 21
+
+
+def desglose(unidades: int, precio: float) -> tuple[float, float, float]:
+    """Base, IVA y total de una compra, redondeados a 2 decimales."""
+    base: float = unidades * precio
+    iva: float = base * IVA / 100
+    return round(base, 2), round(iva, 2), round(base + iva, 2)
+```
+</details>
+
 ---
 
-## Proyecto de la unidad ⭐
+## 13. Proyecto de la unidad
 
 Toda la práctica de esta unidad se hace sobre un **proyecto base**: una calculadora de presupuestos con IVA. Está montado
 con la estructura real de un proyecto Python y trae una **batería de tests** que puedes
@@ -676,16 +1190,34 @@ Detalles y comandos útiles en **[Proyectos](../proyectos/index.md)**.
 
 ---
 
-## 14. Retos opcionales 🚀
+## 14. Simulacro de examen
+
+Cuando tengas el proyecto terminado, mídete: el **simulacro** es un examen de mentira con
+**el mismo formato, tamaño y rúbrica** que el de verdad — y con los tests publicados.
+
+**[Simulacro RA1 · Cuenta de una cafetería →](../simulacros/ra1/README.md)** · 22 tests · 45–50 min
+
+Hazlo **contrarreloj y sin ayuda**, como si fuera el examen. Al terminar, aplica la rúbrica
+y tendrás una estimación bastante fiel de tu nota.
+
+!!! warning "El examen de verdad va sin tests"
+    Allí solo tendrás los **docstrings** y unos ejemplos. Por eso, en el simulacro, intenta
+    resolver cada función leyendo solo su docstring y mira el test únicamente cuando falle.
+
+---
+
+## 15. Retos opcionales
 
 - **R1.** Amplía E5 para que, además de la media, diga `Aprobado`/`Suspenso` comparándola con 5.
 - **R2.** Investiga `divmod(a, b)` (devuelve cociente y resto a la vez) y reescribe E3 con él.
 - **R3.** Formatea un pequeño ticket con los precios alineados a la derecha (`:>8`), en columnas.
 - **R4.** Añade anotaciones de tipo a **todos** tus ejercicios y consigue que `mypy` diga *Success* en cada uno.
 
+- **R5.** Convierte una cantidad de segundos introducida por teclado a días, horas, minutos y segundos, y muéstralo como `2d 3h 04m 05s`.
+- **R6.** Formatea un ticket de tres productos con los importes alineados a la derecha y una línea de total separada por guiones del mismo ancho.
 ---
 
-## 15. Autoevaluación rápida
+## 16. Autoevaluación rápida
 
 <details><summary>1. ¿Qué muestra <code>print(7 // 2)</code>?</summary><code>3</code> (división entera).</details>
 <details><summary>2. ¿Qué tipo devuelve siempre <code>input()</code>?</summary><code>str</code>.</details>
@@ -697,7 +1229,7 @@ Detalles y comandos útiles en **[Proyectos](../proyectos/index.md)**.
 
 ---
 
-## 16. Glosario
+## 17. Glosario
 
 | Término | Definición |
 |---|---|
@@ -715,37 +1247,77 @@ Detalles y comandos útiles en **[Proyectos](../proyectos/index.md)**.
 
 ---
 
-## 17. Cómo se evalúa esta unidad (RA1)
+## 18. Cómo se evalúa esta unidad (RA1)
 
-Esta unidad corresponde al **Resultado de Aprendizaje 1** y se evalúa con un **examen 100 % práctico**: escribir un programa que cumpla una especificación dada.
+El examen es **100 % práctico**: se entrega un proyecto con las funciones vacías y una
+especificación, y hay que escribir el código.
 
-### Rúbrica (la conoces desde el primer día)
+**La nota sale solo de los casos de prueba.** No hay puntos por presentación ni por
+esfuerzo: cada apartado del examen vale en proporción a los casos que tiene, de modo que
+**todos los casos valen lo mismo**.
 
-Esta es la rúbrica **exacta** con la que se corregirá tu examen. No hay sorpresas ni criterios ocultos:
+`nota del apartado = (casos superados ÷ casos del apartado) × puntos del apartado`
 
-| # | Qué se valora | Cómo se mide | Puntos |
-|:---:|---|---|:---:|
-| 1 | **Que el programa funcione** | Casos de prueba superados: `(superados ÷ total) × 7` | **7,0** |
-| 2 | **Constante** | Defines y usas la constante que pide el enunciado (MAYÚSCULAS) | **1,0** |
-| 3 | **Tipado** | Anotaciones de tipo y `mypy` sin errores | **1,0** |
-| 4 | **Comentarios** | El código explica qué hace en sus puntos clave | **1,0** |
-| | | **TOTAL** | **10** |
+`nota del examen = suma de los apartados`
 
-**Se supera con 5.** Los puntos 2, 3 y 4 son **todo o nada** (se cumple o no), así que no dependen de la impresión de nadie: o está la constante o no está.
+### Así es el examen
 
-!!! warning "El 70 % de la nota es que funcione"
-    El grueso de los puntos sale de los casos de prueba. La batería incluye **casos límite** (valor cero, decimales que no cuadran, valores grandes): un programa que solo funciona con el ejemplo del enunciado no aprueba.
+**Presupuesto de tienda** · entrega `src/presupuesto.py` · **45 min**
 
-### Cómo prepararte
+| # | Apartado | Casos | Puntos |
+|:---:|---|:---:|:---:|
+| **A** | Constante del enunciado | 1 | **0,53** |
+| **B** | `a_entero()` | 4 | **2,11** |
+| **C** | `a_decimal()` | 3 | **1,58** |
+| **D** | `calcular_base()` | 4 | **2,11** |
+| **E** | `calcular_iva()` | 4 | **2,11** |
+| **F** | `formatear()` | 3 | **1,56** |
+| | **TOTAL** | **19** | **10,00** |
 
-1. Haz los **ejercicios** de la sección 13 y comprueba con las soluciones desplegables.
-2. Haz las **[prácticas estilo examen](#13-bis-practicas-estilo-examen-con-autoevaluacion)** (P1–P4): son iguales que el examen y se autocorrigen explicándote los fallos.
-3. **Ejecuta siempre tu código**: un programa que no has ejecutado no está terminado.
-4. Pasa **`mypy`** antes de dar nada por bueno.
+Esta tabla viene en el enunciado, así que sabes desde el primer minuto **qué vale cada
+parte** y por dónde empezar si vas justo de tiempo.
 
-Si no superas el RA, hay **convocatoria ordinaria** y, después, **extraordinaria**, en las que solo recuperas los RAs que tengas pendientes.
+!!! warning "El examen se reparte sin tests"
+    La carpeta `tests/` viene vacía. La especificación son los **docstrings** de cada
+    función y los ejemplos del enunciado. Por eso conviene que en el simulacro te
+    acostumbres a resolver leyendo el docstring y no el test.
+
+### Así se corrige
+
+Alguien que entrega el examen con **16 de los 19 casos** superados
+—se le ha escapado el apartado **F**, donde falla 3 de
+3 casos—:
+
+| # | Apartado | Casos superados | Puntos |
+|:---:|---|:---:|---|
+| A | Constante del enunciado | 1 / 1 | 0,53 / 0,53 |
+| B | `a_entero()` | 4 / 4 | 2,11 / 2,11 |
+| C | `a_decimal()` | 3 / 3 | 1,58 / 1,58 |
+| D | `calcular_base()` | 4 / 4 | 2,11 / 2,11 |
+| E | `calcular_iva()` | 4 / 4 | 2,11 / 2,11 |
+| F | `formatear()` | 0 / 3 | 0,00 / 1,56  ← |
+| | | | **NOTA: 8,44** |
+
+La corrección es automática: se monta un proyecto con la batería completa más el fichero
+entregado, se ejecuta y se reparte la nota con esa cuenta. **Nadie interpreta nada.**
+
+Además recibes un informe con los casos concretos que han fallado, con el valor que
+esperaba y el que devolvió tu función.
+
+!!! note "Los tres requisitos de la entrega"
+    No puntúan por separado, pero forman parte de la especificación:
+
+    1. Entregar **el fichero de `src/`**, con ese nombre.
+    2. `mypy src` sin errores.
+    3. Cada función con su **docstring**.
+
+    Un fichero que no compila o que no se puede importar da **0 casos superados**, así que
+    en la práctica valen mucho más que unos puntos.
 
 ---
 
 ### Material de apoyo de la unidad
-`ejemplos_teoria.py` · `requirements-python.txt` — en la sección **[Proyectos](../proyectos/index.md)**.
+
+- **[Proyecto de la unidad](../proyectos/ud1/README.md)** — `presupuesto`, 16 tests.
+- **[Simulacro de examen](../simulacros/ra1/README.md)** — `cafeteria`, 22 tests.
+- **[Entorno de trabajo](../recursos/entorno.md)** — chuleta de `venv`, `pip` y `mypy`.

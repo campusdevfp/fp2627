@@ -30,6 +30,20 @@ Es la unidad de **mayor peso** del módulo (25 %), y con razón: todo lo que ven
 
 ---
 
+!!! tip "Cómo se trabaja esta unidad"
+    Cada sección de teoría termina con **Practica lo de esta sección**: tres o cuatro
+    ejercicios cortos con la solución desplegable, que solo usan lo que acabas de leer.
+
+    **Hazlos en el momento, antes de seguir.** Ese es el trato: la teoría la lees tú
+    —en casa o en clase— y el tiempo de aula se dedica a resolver dudas y a lo que de
+    verdad cuesta. Si llegas a la siguiente sección sin haber tocado el teclado, la
+    unidad se te va a hacer cuesta arriba.
+
+    Después vienen las **actividades guiadas**, el **proyecto** de la unidad y el
+    **simulacro** de examen. En ese orden.
+
+---
+
 ## 1. Decidir: `if`, `elif`, `else`
 
 ### 1.1 La forma básica
@@ -89,9 +103,77 @@ if not tiene_carnet or edad < 18:
     print("No puede conducir")
 ```
 
-> ⚠️ **Error clásico:** `if edad >= 18 and <= 65` no es válido. Hay que repetir la variable: `if edad >= 18 and edad <= 65`. *(En Python también vale `if 18 <= edad <= 65`.)*
+> **Error clásico:** `if edad >= 18 and <= 65` no es válido. Hay que repetir la variable: `if edad >= 18 and edad <= 65`. *(En Python también vale `if 18 <= edad <= 65`.)*
 
-> 🎯 **Reto rápido 1.** Escribe un `if` que muestre `"Par"` o `"Impar"` según un número.
+> **Reto rápido 1.** Escribe un `if` que muestre `"Par"` o `"Impar"` según un número.
+
+---
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**1.1.** Escribe `clasificar_nota(nota)` que devuelva `"Suspenso"`, `"Aprobado"`, `"Notable"` o `"Sobresaliente"`.
+<details><summary>Solución</summary>
+
+```python
+def clasificar_nota(nota: float) -> str:
+    """Clasifica una nota de 0 a 10."""
+    if nota < 5:
+        return "Suspenso"
+    if nota < 7:
+        return "Aprobado"
+    if nota < 9:
+        return "Notable"
+    return "Sobresaliente"
+
+print(clasificar_nota(4.9))   # -> Suspenso
+print(clasificar_nota(5))     # -> Aprobado
+print(clasificar_nota(9))     # -> Sobresaliente
+```
+</details>
+
+**1.2.** Este código siempre dice «Menor». ¿Por qué? Arréglalo.
+
+```python
+edad = 20
+if edad > 18:
+    print("Mayor")
+if edad < 18:
+    print("Menor")
+else:
+    print("Menor")
+```
+<details><summary>Solución</summary>
+
+```python
+edad: int = 20
+
+# El fallo: el else colgaba del SEGUNDO if, no del primero.
+if edad >= 18:
+    print("Mayor")   # -> Mayor
+else:
+    print("Menor")
+
+# Una sola decision = un solo if/else. Encadenar ifs sueltos multiplica los casos
+# y hace que se solapen sin darte cuenta.
+```
+</details>
+
+**1.3.** Escribe `puede_votar(edad, nacionalidad)`: hace falta tener 18 o más **y** ser `"ES"`.
+<details><summary>Solución</summary>
+
+```python
+def puede_votar(edad: int, nacionalidad: str) -> bool:
+    """Indica si la persona puede votar."""
+    return edad >= 18 and nacionalidad == "ES"
+
+print(puede_votar(20, "ES"))   # -> True
+print(puede_votar(17, "ES"))   # -> False
+print(puede_votar(30, "FR"))   # -> False
+```
+</details>
+
 
 ---
 
@@ -113,7 +195,7 @@ Salida: `1`, `2`, `3`.
     ```python
     contador = 1
     while contador <= 3:
-        print(contador)       # ❌ contador nunca cambia
+        print(contador)       # ✗ contador nunca cambia
     ```
     Se corta con `Ctrl+C`. Siempre que escribas un `while`, pregúntate: *¿qué hace que esta condición acabe siendo falsa?*
 
@@ -132,7 +214,65 @@ while opcion != "0":
 print("Adiós")
 ```
 
-> 🎯 **Reto rápido 2.** Escribe un `while` que muestre los números del 10 al 1 (cuenta atrás).
+> **Reto rápido 2.** Escribe un `while` que muestre los números del 10 al 1 (cuenta atrás).
+
+---
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**2.1.** Muestra los números del 1 al 5 con un `while`.
+<details><summary>Solución</summary>
+
+```python
+i: int = 1
+while i <= 5:
+    print(i, end=" ")
+    i = i + 1     # SIN esta linea el bucle no termina nunca
+print()   # -> 1 2 3 4 5
+```
+</details>
+
+**2.2.** Escribe un `while` que sume números hasta que el usuario escriba `0`.
+<details><summary>Solución</summary>
+
+```python
+total: int = 0
+numero: int = int(input("Número (0 para acabar): "))
+
+while numero != 0:
+    total = total + numero
+    numero = int(input("Número (0 para acabar): "))
+
+print(f"Total: {total}")   # -> Total: 12
+```
+</details>
+
+**2.3.** Este bucle es infinito. Encuentra el fallo:
+
+```python
+i = 0
+while i < 3:
+    print(i)
+```
+<details><summary>Solución</summary>
+
+```python
+i: int = 0
+while i < 3:
+    print(i)
+    i = i + 1   # <- lo que faltaba: sin avanzar, la condicion nunca deja de cumplirse
+
+# -> 0
+# -> 1
+# -> 2
+
+# Regla: en todo while, pregúntate "¿qué línea hace que la condición acabe
+# siendo falsa?". Si no la encuentras, es infinito.
+```
+</details>
+
 
 ---
 
@@ -195,7 +335,56 @@ print(aprobados)      # 3
 | `for` | recorres una lista o repites un nº **conocido** de veces |
 | `while` | repites **hasta que pase algo** (menús, validaciones) |
 
-> 🎯 **Reto rápido 3.** Con un `for` y `range`, suma los números del 1 al 100. *(Resultado: 5050.)*
+> **Reto rápido 3.** Con un `for` y `range`, suma los números del 1 al 100. *(Resultado: 5050.)*
+
+---
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**3.1.** Recorre la lista `["Ada", "Alan", "Grace"]` y muestra cada nombre con su posición empezando en 1.
+<details><summary>Solución</summary>
+
+```python
+nombres = ["Ada", "Alan", "Grace"]
+
+for posicion, nombre in enumerate(nombres, start=1):
+    print(f"{posicion}. {nombre}")
+
+# -> 1. Ada
+# -> 2. Alan
+# -> 3. Grace
+```
+</details>
+
+**3.2.** Suma los números del 1 al 100 con un `for` y `range()`.
+<details><summary>Solución</summary>
+
+```python
+total: int = 0
+for n in range(1, 101):   # 101 NO entra: range llega hasta el anterior
+    total = total + n
+
+print(total)   # -> 5050
+```
+</details>
+
+**3.3.** Cuenta cuántas notas de la lista `[3.0, 6.5, 9.0, 4.0]` están aprobadas.
+<details><summary>Solución</summary>
+
+```python
+notas = [3.0, 6.5, 9.0, 4.0]
+
+aprobadas: int = 0
+for nota in notas:
+    if nota >= 5:
+        aprobadas = aprobadas + 1
+
+print(aprobadas)   # -> 2
+```
+</details>
+
 
 ---
 
@@ -220,7 +409,57 @@ for clave, valor in alumno.items():
     print(f"{clave}: {valor}")
 ```
 
-> ⚠️ Acceder a una clave que no existe da `KeyError`. Para evitarlo: `alumno.get("edad", "desconocida")`.
+> Acceder a una clave que no existe da `KeyError`. Para evitarlo: `alumno.get("edad", "desconocida")`.
+
+---
+
+> **Reto rápido 4.** Crea un diccionario con tres provincias y su prefijo telefónico, y muestra el de una de ellas.
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**4.1.** Crea un diccionario con el stock de tres productos y muestra el stock de uno de ellos.
+<details><summary>Solución</summary>
+
+```python
+stock: dict[str, int] = {"camisa": 10, "gorra": 4, "pantalón": 7}
+
+print(stock["gorra"])   # -> 4
+print(len(stock))       # -> 3
+```
+</details>
+
+**4.2.** Recorre el diccionario mostrando `producto: unidades`, y añade un producto nuevo.
+<details><summary>Solución</summary>
+
+```python
+stock: dict[str, int] = {"camisa": 10, "gorra": 4}
+
+stock["botas"] = 2   # añadir es asignar una clave que no existía
+
+for producto, unidades in stock.items():
+    print(f"{producto}: {unidades}")
+
+# -> camisa: 10
+# -> gorra: 4
+# -> botas: 2
+```
+</details>
+
+**4.3.** Consulta un producto que puede no existir sin que el programa reviente.
+<details><summary>Solución</summary>
+
+```python
+stock: dict[str, int] = {"camisa": 10}
+
+print(stock.get("gorra"))      # -> None
+print(stock.get("gorra", 0))   # -> 0     valor por defecto: mucho más cómodo
+
+# stock["gorra"] lanzaría KeyError. Con .get() decides tú qué pasa si no está.
+```
+</details>
+
 
 ---
 
@@ -244,7 +483,56 @@ for n in [1, 2, 3, 4, 5]:
 !!! warning "Úsalos con moderación"
     Un `break` bien puesto aclara el código; cinco `break` repartidos lo vuelven imposible de seguir. Si puedes expresarlo en la condición del bucle, mejor.
 
-> 🎯 **Reto rápido 4.** Recorre `[3, 8, 2, 9, 4]` y para en cuanto encuentres un número mayor que 5, mostrándolo.
+> **Reto rápido 4.** Recorre `[3, 8, 2, 9, 4]` y para en cuanto encuentres un número mayor que 5, mostrándolo.
+
+---
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**5.1.** Busca el primer número negativo de una lista y sal del bucle en cuanto lo encuentres.
+<details><summary>Solución</summary>
+
+```python
+numeros = [4, 7, -2, 9, -5]
+
+for n in numeros:
+    if n < 0:
+        print(f"Primer negativo: {n}")   # -> Primer negativo: -2
+        break
+```
+</details>
+
+**5.2.** Suma solo los números positivos de una lista, saltándote el resto con `continue`.
+<details><summary>Solución</summary>
+
+```python
+numeros = [4, -7, 2, -9, 5]
+
+total: int = 0
+for n in numeros:
+    if n < 0:
+        continue      # este no me interesa: al siguiente
+    total = total + n
+
+print(total)   # -> 11
+```
+</details>
+
+**5.3.** ¿Cuál es la diferencia entre `break` y `continue`? Explícalo con una frase cada uno.
+<details><summary>Solución</summary>
+
+```text
+break     -> ABANDONA el bucle entero. No se mira ni un elemento mas.
+continue  -> se salta SOLO esta vuelta y sigue con la siguiente.
+
+Truco para acordarse:
+    break    = "he terminado, me voy"
+    continue = "este no, el siguiente"
+```
+</details>
+
 
 ---
 
@@ -284,8 +572,8 @@ except ZeroDivisionError:
     ```python
     try:
         ...
-    except:            # ❌ atrapa TODO, incluso errores tuyos de programación
-        pass           # ❌ y encima los oculta
+    except:            # ✗ atrapa TODO, incluso errores tuyos de programación
+        pass           # ✗ y encima los oculta
     ```
     Así, un fallo real (una variable mal escrita) se traga en silencio y no te enteras. **Captura la excepción concreta que esperas.**
 
@@ -316,7 +604,68 @@ def pedir_entero(mensaje: str) -> int:
             print("Entrada no válida, inténtalo otra vez")
 ```
 
-> 🎯 **Reto rápido 5.** ¿Qué excepción lanza `int("3.5")`? *(Respuesta: `ValueError`; `int()` no acepta decimales en texto.)*
+> **Reto rápido 5.** ¿Qué excepción lanza `int("3.5")`? *(Respuesta: `ValueError`; `int()` no acepta decimales en texto.)*
+
+---
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**6.1.** Pide un número por teclado y no dejes que el programa se caiga si escriben letras.
+<details><summary>Solución</summary>
+
+```python
+texto: str = input("Número: ")
+
+try:
+    numero: int = int(texto)
+    print(f"El doble es {numero * 2}")
+except ValueError:
+    print("Eso no es un número")   # -> Eso no es un número
+```
+</details>
+
+**6.2.** Divide dos números controlando la división entre cero.
+<details><summary>Solución</summary>
+
+```python
+def dividir(a: float, b: float) -> float:
+    """División protegida; 0.0 si el divisor es cero."""
+    try:
+        return a / b
+    except ZeroDivisionError:
+        return 0.0
+
+print(dividir(10, 2))   # -> 5.0
+print(dividir(10, 0))   # -> 0.0
+```
+</details>
+
+**6.3.** Este `except` es peligroso. ¿Por qué? Arréglalo:
+
+```python
+try:
+    n = int(input())
+except:
+    pass
+```
+<details><summary>Solución</summary>
+
+```python
+try:
+    n: int = int(input("Número: "))
+    print(n)
+except ValueError:
+    print("Entrada no válida")   # -> Entrada no válida
+
+# El except pelado se traga TODO: errores de tipado, de nombre, hasta el
+# Ctrl+C. Y con 'pass' ademas no deja rastro: el programa falla en silencio
+# y te vuelves loco buscando por que.
+# Captura el error concreto que esperas y di algo cuando ocurra.
+```
+</details>
+
 
 ---
 
@@ -362,6 +711,78 @@ Eso dice: línea 7, división entre cero → `len(notas)` vale 0 → la lista es
 
 ---
 
+> **Reto rápido 7.** Provoca un `IndexError` a propósito (pide la posición 5 de una lista de 2), lee el *traceback* y di en qué línea está el fallo.
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**7.1.** Este código da un resultado raro. Añade `print()` para ver qué pasa en cada vuelta.
+
+```python
+total = 0
+for n in [1, 2, 3]:
+    total = n
+print(total)
+```
+<details><summary>Solución</summary>
+
+```python
+total: int = 0
+for n in [1, 2, 3]:
+    total = n
+    print(f"vuelta n={n} -> total={total}")   # el print que lo desvela
+
+print("final:", total)   # -> final: 3
+
+# -> vuelta n=1 -> total=1
+# -> vuelta n=2 -> total=2
+# -> vuelta n=3 -> total=3
+# El fallo: total = n  machaca; lo correcto era  total = total + n
+```
+</details>
+
+**7.2.** Localiza el fallo leyendo el traceback:
+
+```
+Traceback (most recent call last):
+  File "a.py", line 3, in <module>
+    print(notas[3])
+IndexError: list index out of range
+```
+<details><summary>Solución</summary>
+
+```text
+El traceback se lee de ABAJO ARRIBA:
+
+1. Ultima linea: el tipo de error -> IndexError: list index out of range
+   Es decir: he pedido una posicion que no existe en la lista.
+2. Justo encima: la linea culpable -> print(notas[3]) en a.py, linea 3.
+
+Si la lista tiene 3 elementos, sus posiciones son 0, 1 y 2. La 3 no existe.
+Solucion: usar notas[-1] para el ultimo, o comprobar len(notas) antes.
+```
+</details>
+
+**7.3.** Escribe `elemento(lista, i)` que devuelva `None` en vez de reventar si la posición no existe.
+<details><summary>Solución</summary>
+
+```python
+def elemento(lista: list[int], i: int) -> int | None:
+    """Devuelve el elemento en la posición i, o None si no existe."""
+    try:
+        return lista[i]
+    except IndexError:
+        return None
+
+print(elemento([1, 2, 3], 1))    # -> 2
+print(elemento([1, 2, 3], 9))    # -> None
+```
+</details>
+
+
+---
+
 ## 8. Errores frecuentes
 
 | Síntoma | Causa | Solución |
@@ -383,7 +804,7 @@ Eso dice: línea 7, división entre cero → `len(notas)` vale 0 → la lista es
 
 #### Actividad 1 — Clasificar una nota
 Pide una nota y muestra su calificación (Insuficiente / Suficiente / Bien / Notable / Sobresaliente).
-<details><summary>💡 Solución</summary>
+<details><summary>Solución</summary>
 
 ```python
 nota: float = float(input("Nota: "))
@@ -402,7 +823,7 @@ else:
 
 #### Actividad 2 — Tabla de multiplicar
 Pide un número y muestra su tabla del 1 al 10.
-<details><summary>💡 Solución</summary>
+<details><summary>Solución</summary>
 
 ```python
 n: int = int(input("Número: "))
@@ -413,7 +834,7 @@ for i in range(1, 11):
 
 #### Actividad 3 — Media de una lista con control
 Calcula la media de una lista, pero devuelve `0.0` si está vacía.
-<details><summary>💡 Solución</summary>
+<details><summary>Solución</summary>
 
 ```python
 def media(numeros: list[float]) -> float:
@@ -425,7 +846,7 @@ def media(numeros: list[float]) -> float:
 
 #### Actividad 4 — Entrada validada
 Pide un número entero y no continúes hasta que sea válido.
-<details><summary>💡 Solución</summary>
+<details><summary>Solución</summary>
 
 ```python
 while True:
@@ -440,7 +861,7 @@ print(f"Has escrito {numero}")
 
 ### 9.2 Ejercicios propuestos
 
-**E1 🟢 · Mayor de dos.** `mayor(a: int, b: int) -> int`.
+**E1 ○ · Mayor de dos.** `mayor(a: int, b: int) -> int`.
 <details><summary>Solución</summary>
 
 ```python
@@ -451,7 +872,7 @@ def mayor(a: int, b: int) -> int:
 ```
 </details>
 
-**E2 🟢 · Contar hasta N.** Muestra los números del 1 a N, uno por línea.
+**E2 ○ · Contar hasta N.** Muestra los números del 1 a N, uno por línea.
 <details><summary>Solución</summary>
 
 ```python
@@ -461,7 +882,7 @@ for i in range(1, n + 1):
 ```
 </details>
 
-**E3 🟡 · Suma de pares.** `suma_pares(numeros: list[int]) -> int`.
+**E3 ◐ · Suma de pares.** `suma_pares(numeros: list[int]) -> int`.
 <details><summary>Solución</summary>
 
 ```python
@@ -474,7 +895,7 @@ def suma_pares(numeros: list[int]) -> int:
 ```
 </details>
 
-**E4 🟡 · Buscar.** `posicion(numeros: list[int], buscado: int) -> int`: devuelve la posición o `-1`.
+**E4 ◐ · Buscar.** `posicion(numeros: list[int], buscado: int) -> int`: devuelve la posición o `-1`.
 <details><summary>Pista</summary>Usa <code>enumerate</code> o <code>range(len(numeros))</code> y <code>return</code> en cuanto lo encuentres.</details>
 <details><summary>Solución</summary>
 
@@ -487,7 +908,7 @@ def posicion(numeros: list[int], buscado: int) -> int:
 ```
 </details>
 
-**E5 🟡 · División segura.** `dividir(a: float, b: float) -> float`: devuelve `0.0` si `b` es cero, usando `try/except`.
+**E5 ◐ · División segura.** `dividir(a: float, b: float) -> float`: devuelve `0.0` si `b` es cero, usando `try/except`.
 <details><summary>Solución</summary>
 
 ```python
@@ -499,7 +920,7 @@ def dividir(a: float, b: float) -> float:
 ```
 </details>
 
-**E6 🔴 · FizzBuzz.** Del 1 al N: múltiplos de 3 → `Fizz`, de 5 → `Buzz`, de ambos → `FizzBuzz`, resto → el número.
+**E6 ● · FizzBuzz.** Del 1 al N: múltiplos de 3 → `Fizz`, de 5 → `Buzz`, de ambos → `FizzBuzz`, resto → el número.
 <details><summary>Pista</summary>Comprueba primero el caso de los dos a la vez.</details>
 <details><summary>Solución</summary>
 
@@ -517,9 +938,42 @@ for i in range(1, n + 1):
 ```
 </details>
 
+**E7 ◐ · Recuento de palabras.** `recuento(palabras: list[str]) -> dict[str, int]` devuelve cuántas veces aparece cada palabra.
+<details><summary>Pista</summary>Recorre la lista y usa <code>.get(palabra, 0)</code> para partir de cero la primera vez que aparece cada una.</details>
+<details><summary>Solución</summary>
+
+```python
+def recuento(palabras: list[str]) -> dict[str, int]:
+    """Cuántas veces aparece cada palabra."""
+    conteo: dict[str, int] = {}
+    for palabra in palabras:
+        conteo[palabra] = conteo.get(palabra, 0) + 1
+    return conteo
+```
+</details>
+
+**E8 ● · Validar una lista de notas.** `validar_notas(textos: list[str]) -> list[float]` convierte cada texto a número y **se queda solo** con los que son números válidos entre 0 y 10. Los demás se descartan sin que el programa se rompa.
+<details><summary>Pista</summary>Un <code>try</code>/<code>except ValueError</code> dentro del bucle: si la conversión falla, <code>continue</code> y a por el siguiente.</details>
+<details><summary>Solución</summary>
+
+```python
+def validar_notas(textos: list[str]) -> list[float]:
+    """Notas válidas (0-10) de una lista de textos; descarta el resto."""
+    validas: list[float] = []
+    for texto in textos:
+        try:
+            nota = float(texto)
+        except ValueError:
+            continue
+        if 0 <= nota <= 10:
+            validas.append(nota)
+    return validas
+```
+</details>
+
 ---
 
-## Proyecto de la unidad ⭐
+## 10. Proyecto de la unidad
 
 Toda la práctica de esta unidad se hace sobre un **proyecto base**: un analizador de notas que no se rompe con datos raros. Está montado
 con la estructura real de un proyecto Python y trae una **batería de tests** que puedes
@@ -556,15 +1010,34 @@ Detalles y comandos útiles en **[Proyectos](../proyectos/index.md)**.
 
 ---
 
-## 11. Retos opcionales 🚀
+## 11. Simulacro de examen
+
+Cuando tengas el proyecto terminado, mídete: el **simulacro** es un examen de mentira con
+**el mismo formato, tamaño y rúbrica** que el de verdad — y con los tests publicados.
+
+**[Simulacro RA3 · Registro de pulsaciones →](../simulacros/ra3/README.md)** · 21 tests · 45–50 min
+
+Hazlo **contrarreloj y sin ayuda**, como si fuera el examen. Al terminar, aplica la rúbrica
+y tendrás una estimación bastante fiel de tu nota.
+
+!!! warning "El examen de verdad va sin tests"
+    Allí solo tendrás los **docstrings** y unos ejemplos. Por eso, en el simulacro, intenta
+    resolver cada función leyendo solo su docstring y mira el test únicamente cuando falle.
+
+---
+
+## 12. Retos opcionales
 
 - **R1.** Menú completo: añadir notas, ver media, listar y salir, con toda la entrada validada.
 - **R2.** Adivina el número: el programa piensa uno con `random.randint(1, 100)` y te dice «mayor» o «menor» hasta acertar.
 - **R3.** Cuenta cuántas veces aparece cada palabra en una frase, usando un diccionario.
 
+- **R4.** Menú de consola con cuatro opciones que se repita hasta que el usuario elija salir, sin que ninguna entrada rara lo rompa.
+- **R5.** Adivina el número: el programa piensa uno del 1 al 100 y va diciendo «mayor» o «menor» hasta acertar. Cuenta los intentos.
+- **R6.** Cuenta las vocales de una frase usando un diccionario, y muestra el recuento ordenado de mayor a menor.
 ---
 
-## 12. Autoevaluación rápida
+## 13. Autoevaluación rápida
 
 <details><summary>1. ¿Qué imprime <code>for i in range(3)</code>?</summary><code>0</code>, <code>1</code>, <code>2</code>.</details>
 <details><summary>2. ¿Cuándo usar <code>while</code> en vez de <code>for</code>?</summary>Cuando no sabes cuántas vueltas hará: repites hasta que ocurra algo.</details>
@@ -575,7 +1048,7 @@ Detalles y comandos útiles en **[Proyectos](../proyectos/index.md)**.
 
 ---
 
-## 13. Glosario
+## 14. Glosario
 
 | Término | Definición |
 |---|---|
@@ -590,16 +1063,67 @@ Detalles y comandos útiles en **[Proyectos](../proyectos/index.md)**.
 
 ---
 
-## 14. Cómo se evalúa esta unidad (RA3)
+## 15. Cómo se evalúa esta unidad (RA3)
 
-Examen **100 % práctico**. Es el RA de mayor peso del módulo (25 %).
+El examen es **100 % práctico**: se entrega un proyecto con las funciones vacías y una
+especificación, y hay que escribir el código.
 
-| # | Qué se valora | Cómo se mide | Puntos |
-|:---:|---|---|:---:|
-| 1 | **Que funcione** | casos de prueba superados × 7 | **7,0** |
-| 2 | **Control de excepciones** | las entradas inválidas no rompen el programa | **1,0** |
-| 3 | **Tipado** | `mypy` sin errores | **1,0** |
-| 4 | **Documentación** | comentarios o docstring que expliquen la lógica | **1,0** |
-| | | **TOTAL** | **10** |
+**La nota sale solo de los casos de prueba.** No hay puntos por presentación ni por
+esfuerzo: cada apartado del examen vale en proporción a los casos que tiene, de modo que
+**todos los casos valen lo mismo**.
 
-**Se supera con 5.** La batería incluye entradas inválidas: si tu programa se cae con ellas, pierdes esos casos.
+`nota del apartado = (casos superados ÷ casos del apartado) × puntos del apartado`
+
+`nota del examen = suma de los apartados`
+
+### Así es el examen
+
+**Análisis de temperaturas** · entrega `src/temperaturas.py` · **50 min**
+
+| # | Apartado | Casos | Puntos |
+|:---:|---|:---:|:---:|
+| **A** | `media()` | 3 | **1,58** |
+| **B** | `maxima()` | 3 | **1,58** |
+| **C** | `dias_calurosos()` | 3 | **1,58** |
+| **D** | `clasificar()` | 6 | **3,16** |
+| **E** | `a_numero()` | 4 | **2,10** |
+| | **TOTAL** | **19** | **10,00** |
+
+Esta tabla viene en el enunciado, así que sabes desde el primer minuto **qué vale cada
+parte** y por dónde empezar si vas justo de tiempo.
+
+!!! warning "El examen se reparte sin tests"
+    La carpeta `tests/` viene vacía. La especificación son los **docstrings** de cada
+    función y los ejemplos del enunciado. Por eso conviene que en el simulacro te
+    acostumbres a resolver leyendo el docstring y no el test.
+
+### Así se corrige
+
+Alguien que entrega el examen con **17 de los 19 casos** superados
+—se le ha escapado el apartado **C**, donde falla 2 de
+3 casos—:
+
+| # | Apartado | Casos superados | Puntos |
+|:---:|---|:---:|---|
+| A | `media()` | 3 / 3 | 1,58 / 1,58 |
+| B | `maxima()` | 3 / 3 | 1,58 / 1,58 |
+| C | `dias_calurosos()` | 1 / 3 | 0,53 / 1,58  ← |
+| D | `clasificar()` | 6 / 6 | 3,16 / 3,16 |
+| E | `a_numero()` | 4 / 4 | 2,10 / 2,10 |
+| | | | **NOTA: 8,95** |
+
+La corrección es automática: se monta un proyecto con la batería completa más el fichero
+entregado, se ejecuta y se reparte la nota con esa cuenta. **Nadie interpreta nada.**
+
+Además recibes un informe con los casos concretos que han fallado, con el valor que
+esperaba y el que devolvió tu función.
+
+!!! note "Los tres requisitos de la entrega"
+    No puntúan por separado, pero forman parte de la especificación:
+
+    1. Entregar **el fichero de `src/`**, con ese nombre.
+    2. `mypy src` sin errores.
+    3. Cada función con su **docstring**.
+
+    Un fichero que no compila o que no se puede importar da **0 casos superados**, así que
+    en la práctica valen mucho más que unos puntos.

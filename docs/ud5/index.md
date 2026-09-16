@@ -27,6 +27,20 @@ Todos tus programas hasta ahora tenían un problema: **al cerrarlos, los datos d
 
 ---
 
+!!! tip "Cómo se trabaja esta unidad"
+    Cada sección de teoría termina con **Practica lo de esta sección**: tres o cuatro
+    ejercicios cortos con la solución desplegable, que solo usan lo que acabas de leer.
+
+    **Hazlos en el momento, antes de seguir.** Ese es el trato: la teoría la lees tú
+    —en casa o en clase— y el tiempo de aula se dedica a resolver dudas y a lo que de
+    verdad cuesta. Si llegas a la siguiente sección sin haber tocado el teclado, la
+    unidad se te va a hacer cuesta arriba.
+
+    Después vienen las **actividades guiadas**, el **proyecto** de la unidad y el
+    **simulacro** de examen. En ese orden.
+
+---
+
 ## 1. Salida por consola con formato
 
 Ya conoces las f-strings. Aquí las llevamos al punto en que la salida parece profesional.
@@ -61,7 +75,77 @@ Gorra             8.00
 !!! tip "Los números, siempre a la derecha"
     Alineados a la derecha, las unidades quedan una debajo de otra y la tabla se lee de un vistazo.
 
-> 🎯 **Reto rápido 1.** Muestra tres nombres a la izquierda en 15 caracteres y sus edades a la derecha en 5.
+> **Reto rápido 1.** Muestra tres nombres a la izquierda en 15 caracteres y sus edades a la derecha en 5.
+
+---
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**1.1.** Muestra una tabla de tres productos con el nombre a la izquierda (14 huecos) y el precio a la derecha con dos decimales (8 huecos).
+<details><summary>Solución</summary>
+
+```python
+productos = [("Camisa", 19.9), ("Pantalón", 34.5), ("Gorra", 7.25)]
+
+for nombre, precio in productos:
+    print(f"{nombre:<14}{precio:>8.2f}")
+
+# -> Camisa           19.90
+# -> Pantalón         34.50
+# -> Gorra             7.25
+```
+</details>
+
+**1.2.** Añade a esa tabla una **cabecera** y una línea separadora del mismo ancho.
+<details><summary>Solución</summary>
+
+```python
+ANCHO: int = 22
+
+print(f"{'Producto':<14}{'Precio':>8}")
+print("-" * ANCHO)
+print(f"{'Camisa':<14}{19.9:>8.2f}")
+
+# -> Producto        Precio
+# -> ----------------------
+# -> Camisa           19.90
+```
+</details>
+
+**1.3.** Muestra `1234567.891` con separador de miles y dos decimales, y un porcentaje del `0.1567` con un decimal.
+<details><summary>Solución</summary>
+
+```python
+print(f"{1234567.891:,.2f}")   # -> 1,234,567.89
+print(f"{0.1567:.1%}")        # -> 15.7%
+```
+</details>
+
+
+**1.4.** Muestra un recibo de tres líneas con el concepto a la izquierda en 16 huecos y el importe a la derecha en 9 con dos decimales, y una línea de total separada por guiones.
+<details><summary>Solución</summary>
+
+```python
+ANCHO: int = 25
+
+conceptos = [("Cuota mensual", 39.9), ("Material", 12.0), ("Descuento", -5.5)]
+
+for concepto, importe in conceptos:
+    print(f"{concepto:<16}{importe:>9.2f}")
+
+total = sum(i for _, i in conceptos)
+print("-" * ANCHO)
+print(f"{'TOTAL':<16}{total:>9.2f}")
+
+# -> Cuota mensual       39.90
+# -> Material            12.00
+# -> Descuento           -5.50
+# -> -------------------------
+# -> TOTAL               46.40
+```
+</details>
 
 ---
 
@@ -96,14 +180,90 @@ Tres cosas, y las tres importan:
 | Modo | Qué hace | Cuidado |
 |:---:|---|---|
 | `"r"` | **leer** (por defecto) | error si no existe |
-| `"w"` | **escribir** | ⚠️ **borra** el contenido anterior |
+| `"w"` | **escribir** | **borra** el contenido anterior |
 | `"a"` | **añadir** al final | no borra |
 | `"x"` | crear nuevo | error si ya existe |
 
 !!! warning "`w` borra sin avisar"
     Abrir con `"w"` un fichero que ya tiene datos lo deja **vacío** al instante. Si quieres conservar lo anterior, usa `"a"`.
 
-> 🎯 **Reto rápido 2.** ¿Qué modo usarías para un fichero de registro (log) al que se van añadiendo líneas? *(Respuesta: `"a"`.)*
+> **Reto rápido 2.** ¿Qué modo usarías para un fichero de registro (log) al que se van añadiendo líneas? *(Respuesta: `"a"`.)*
+
+---
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**2.1.** Escribe un texto en un fichero y vuelve a leerlo, usando `with`.
+<details><summary>Solución</summary>
+
+```python
+with open("nota.txt", "w", encoding="utf-8") as f:
+    f.write("Hola desde Python\n")
+
+with open("nota.txt", encoding="utf-8") as f:
+    print(f.read().strip())   # -> Hola desde Python
+```
+</details>
+
+**2.2.** ¿Qué diferencia hay entre los modos `"w"` y `"a"`? Compruébalo.
+<details><summary>Solución</summary>
+
+```python
+with open("log.txt", "w", encoding="utf-8") as f:
+    f.write("primera\n")
+
+with open("log.txt", "w", encoding="utf-8") as f:
+    f.write("segunda\n")     # "w" MACHACA: la primera línea ya no está
+
+with open("log.txt", "a", encoding="utf-8") as f:
+    f.write("tercera\n")     # "a" AÑADE al final
+
+with open("log.txt", encoding="utf-8") as f:
+    print(f.read().strip())
+
+# -> segunda
+# -> tercera
+```
+</details>
+
+**2.3.** ¿Por qué se usa `with` en vez de `open()` y `close()`? Explícalo y escribe el equivalente sin `with`.
+<details><summary>Solución</summary>
+
+```python
+# Sin with, hay que acordarse de cerrar... y si salta un error por el medio,
+# el close() no se ejecuta y el fichero se queda abierto (o a medio escribir).
+f = open("datos.txt", "w", encoding="utf-8")
+try:
+    f.write("contenido")
+finally:
+    f.close()
+
+# Con with, Python cierra SIEMPRE al salir del bloque, haya error o no:
+with open("datos.txt", encoding="utf-8") as g:
+    print(g.read())   # -> contenido
+```
+</details>
+
+
+**2.4.** Escribe en un fichero, léelo y **añade** una línea más, comprobando después que están las dos.
+<details><summary>Solución</summary>
+
+```python
+with open("notas.txt", "w", encoding="utf-8") as f:
+    f.write("primera\n")
+
+with open("notas.txt", "a", encoding="utf-8") as f:
+    f.write("segunda\n")
+
+with open("notas.txt", encoding="utf-8") as f:
+    print(f.read().strip())
+
+# -> primera
+# -> segunda
+```
+</details>
 
 ---
 
@@ -154,6 +314,88 @@ except FileNotFoundError:
     print("El fichero no existe todavía")
     contenido = ""
 ```
+
+---
+
+> **Reto rápido 3.** Escribe tu nombre en `yo.txt`, ciérralo y vuelve a leerlo mostrando el contenido **sin** el salto de línea final. *(Pista: `.strip()`.)*
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**3.1.** Escribe tres líneas en un fichero y luego cuéntalas al leerlo.
+<details><summary>Solución</summary>
+
+```python
+with open("nombres.txt", "w", encoding="utf-8") as f:
+    for nombre in ["Ada", "Alan", "Grace"]:
+        f.write(nombre + "\n")
+
+with open("nombres.txt", encoding="utf-8") as f:
+    lineas = f.readlines()
+
+print(len(lineas))   # -> 3
+```
+</details>
+
+**3.2.** Lee un fichero línea a línea quitando el salto de línea final.
+<details><summary>Solución</summary>
+
+```python
+with open("nombres.txt", "w", encoding="utf-8") as f:
+    f.write("Ada\nAlan\n")
+
+with open("nombres.txt", encoding="utf-8") as f:
+    for linea in f:
+        print(f"[{linea.strip()}]")   # sin strip() saldría el \n dentro del corchete
+
+# -> [Ada]
+# -> [Alan]
+```
+</details>
+
+**3.3.** Lee un fichero que puede no existir sin que el programa se caiga.
+<details><summary>Solución</summary>
+
+```python
+def leer(ruta: str) -> str:
+    """Contenido del fichero; cadena vacía si no existe."""
+    try:
+        with open(ruta, encoding="utf-8") as f:
+            return f.read()
+    except FileNotFoundError:
+        return ""
+
+print(repr(leer("no_existe.txt")))   # -> ''
+
+# El fichero que no está es EL caso límite de esta unidad: sale en todos los tests.
+```
+</details>
+
+
+**3.4.** Lee un fichero y devuelve la **última** línea, sin el salto final. Cadena vacía si el fichero está vacío o no existe.
+<details><summary>Solución</summary>
+
+```python
+def ultima_linea(ruta: str) -> str:
+    """Última línea del fichero; cadena vacía si no hay o no existe."""
+    try:
+        with open(ruta, encoding="utf-8") as f:
+            lineas = f.read().splitlines()
+    except FileNotFoundError:
+        return ""
+    if not lineas:
+        return ""
+    return lineas[-1]
+
+
+with open("d.txt", "w", encoding="utf-8") as f:
+    f.write("uno\ndos\ntres\n")
+
+print(ultima_linea("d.txt"))          # -> tres
+print(repr(ultima_linea("nada.txt")))  # -> ''
+```
+</details>
 
 ---
 
@@ -213,9 +455,101 @@ with open("contactos.csv", encoding="utf-8") as f:
         print(fila["nombre"], fila["email"])
 ```
 
-> ⚠️ Todo lo que se lee de un CSV es **texto**. Si una columna es numérica, hay que convertirla: `int(fila["edad"])`.
+> Todo lo que se lee de un CSV es **texto**. Si una columna es numérica, hay que convertirla: `int(fila["edad"])`.
 
-> 🎯 **Reto rápido 3.** ¿Por qué `csv.reader` es mejor que hacer `linea.split(",")`? *(Porque gestiona las comas que van dentro de un campo entrecomillado.)*
+> **Reto rápido 3.** ¿Por qué `csv.reader` es mejor que hacer `linea.split(",")`? *(Porque gestiona las comas que van dentro de un campo entrecomillado.)*
+
+---
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**4.1.** Guarda dos filas en un CSV con cabecera y vuelve a leerlas.
+<details><summary>Solución</summary>
+
+```python
+import csv
+
+filas = [("Camisa", 10), ("Gorra", 25)]
+
+with open("stock.csv", "w", newline="", encoding="utf-8") as f:
+    escritor = csv.writer(f)
+    escritor.writerow(["nombre", "cantidad"])
+    for nombre, cantidad in filas:
+        escritor.writerow([nombre, cantidad])
+
+with open("stock.csv", newline="", encoding="utf-8") as f:
+    lector = csv.reader(f)
+    next(lector)                       # saltar la cabecera
+    print([fila for fila in lector])   # -> [['Camisa', '10'], ['Gorra', '25']]
+```
+</details>
+
+**4.2.** En el ejercicio anterior la cantidad se lee como texto. Conviértela a `int` al cargar.
+<details><summary>Solución</summary>
+
+```python
+import csv
+
+with open("stock.csv", "w", newline="", encoding="utf-8") as f:
+    escritor = csv.writer(f)
+    escritor.writerow(["nombre", "cantidad"])
+    escritor.writerow(["Camisa", 10])
+
+with open("stock.csv", newline="", encoding="utf-8") as f:
+    lector = csv.reader(f)
+    next(lector, None)
+    filas = [(fila[0], int(fila[1])) for fila in lector if fila]
+
+print(filas)   # -> [('Camisa', 10)]
+
+# Todo lo que sale de un CSV es TEXTO. Si no conviertes, "10" + 5 revienta.
+```
+</details>
+
+**4.3.** Tu CSV sale con una línea en blanco entre cada fila. ¿Qué falta?
+<details><summary>Solución</summary>
+
+```python
+import csv
+
+# El culpable: abrir sin newline="". En Windows se escribe \r\n dos veces.
+with open("bien.csv", "w", newline="", encoding="utf-8") as f:
+    csv.writer(f).writerow(["a", "b"])
+
+with open("bien.csv", encoding="utf-8") as f:
+    contenido = f.read()
+
+print("\n\n" in contenido)   # -> False   sin líneas en blanco
+```
+</details>
+
+
+**4.4.** Lee un CSV y devuelve solo las filas cuya segunda columna supere un valor dado.
+<details><summary>Solución</summary>
+
+```python
+import csv
+
+
+def filtrar(ruta: str, minimo: int) -> list[tuple[str, int]]:
+    """Filas cuya segunda columna supera el mínimo."""
+    with open(ruta, newline="", encoding="utf-8") as f:
+        lector = csv.reader(f)
+        next(lector, None)
+        return [(fila[0], int(fila[1])) for fila in lector
+                if fila and int(fila[1]) > minimo]
+
+
+with open("s.csv", "w", newline="", encoding="utf-8") as f:
+    e = csv.writer(f)
+    e.writerow(["nombre", "cantidad"])
+    e.writerows([["Camisa", 10], ["Gorra", 3], ["Botas", 25]])
+
+print(filtrar("s.csv", 5))   # -> [('Camisa', 10), ('Botas', 25)]
+```
+</details>
 
 ---
 
@@ -259,6 +593,86 @@ print(recuperado["lenguajes"][0])    # Python
 
 ---
 
+> **Reto rápido 5.** Guarda `{"modulo": "CMO-313", "horas": 50}` en un JSON legible y comprueba abriendo el fichero que se entiende a simple vista.
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**5.1.** Guarda un diccionario en JSON legible y con tildes, y vuelve a cargarlo.
+<details><summary>Solución</summary>
+
+```python
+import json
+
+datos = {"nombre": "Ada Lovelace", "ciudad": "Londres", "años": 36}
+
+with open("persona.json", "w", encoding="utf-8") as f:
+    json.dump(datos, f, indent=2, ensure_ascii=False)
+
+with open("persona.json", encoding="utf-8") as f:
+    print(json.load(f))   # -> {'nombre': 'Ada Lovelace', 'ciudad': 'Londres', 'años': 36}
+```
+</details>
+
+**5.2.** Comprueba qué pasa **sin** `ensure_ascii=False` y qué pasa **sin** `indent=2`.
+<details><summary>Solución</summary>
+
+```python
+import json
+
+print(json.dumps({"año": 2026}))                     # -> {"a\u00f1o": 2026}
+print(json.dumps({"año": 2026}, ensure_ascii=False))  # -> {"año": 2026}
+
+print(json.dumps({"a": 1, "b": 2}))                  # -> {"a": 1, "b": 2}
+print(json.dumps({"a": 1, "b": 2}, indent=2))        # en varias líneas, legible
+
+# Los dos ficheros son JSON válido: la diferencia es que uno lo puede leer
+# una persona y el otro no.
+```
+</details>
+
+**5.3.** ¿Cuándo usarías CSV y cuándo JSON? Da un ejemplo de cada uno.
+<details><summary>Solución</summary>
+
+```text
+CSV  -> datos TABULARES: muchas filas, siempre las mismas columnas.
+        Ejemplo: el listado de ventas del mes, las notas de un grupo.
+        Se abre en Excel y lo entiende cualquiera.
+
+JSON -> datos con ESTRUCTURA: cosas dentro de cosas, campos opcionales.
+        Ejemplo: la configuracion de una aplicacion, la respuesta de una API,
+        una ficha con listas dentro.
+
+Regla practica: si lo puedes dibujar como una tabla, CSV.
+Si tiene forma de arbol, JSON.
+```
+</details>
+
+
+**5.4.** Guarda una **lista de diccionarios** en JSON y vuelve a cargarla, comprobando que es exactamente la misma.
+<details><summary>Solución</summary>
+
+```python
+import json
+
+alumnos = [{"nombre": "Ada", "nota": 9.5}, {"nombre": "Alan", "nota": 8.0}]
+
+with open("alumnos.json", "w", encoding="utf-8") as f:
+    json.dump(alumnos, f, indent=2, ensure_ascii=False)
+
+with open("alumnos.json", encoding="utf-8") as f:
+    leidos = json.load(f)
+
+print(leidos == alumnos)   # -> True
+print(leidos[0]["nombre"])  # -> Ada
+
+# JSON no solo guarda diccionarios: también listas, y listas de diccionarios.
+```
+</details>
+
+---
+
 ## 6. Errores frecuentes
 
 | Síntoma | Causa | Solución |
@@ -280,7 +694,7 @@ print(recuperado["lenguajes"][0])    # Python
 
 #### Actividad 1 — Escribir un fichero
 Guarda tres nombres, uno por línea, en `nombres.txt`.
-<details><summary>💡 Solución</summary>
+<details><summary>Solución</summary>
 
 ```python
 nombres: list[str] = ["Ada", "Linus", "Grace"]
@@ -292,7 +706,7 @@ with open("nombres.txt", "w", encoding="utf-8") as f:
 
 #### Actividad 2 — Leerlo y contarlo
 Lee `nombres.txt` y muestra cuántas líneas tiene.
-<details><summary>💡 Solución</summary>
+<details><summary>Solución</summary>
 
 ```python
 with open("nombres.txt", encoding="utf-8") as f:
@@ -303,7 +717,7 @@ print(f"{len(lineas)} nombres")
 
 #### Actividad 3 — Tabla con formato
 Muestra una lista de productos en columnas alineadas.
-<details><summary>💡 Solución</summary>
+<details><summary>Solución</summary>
 
 ```python
 productos = [("Camisa", 19.99), ("Gorra", 8.0)]
@@ -315,7 +729,7 @@ for nombre, precio in productos:
 
 #### Actividad 4 — CSV de ida y vuelta
 Guarda dos contactos en CSV y vuelve a leerlos.
-<details><summary>💡 Solución</summary>
+<details><summary>Solución</summary>
 
 ```python
 import csv
@@ -334,7 +748,7 @@ with open("contactos.csv", encoding="utf-8") as f:
 
 ### 7.2 Ejercicios propuestos
 
-**E1 🟢 · Guardar una lista.** `guardar(ruta: str, lineas: list[str]) -> None`.
+**E1 ○ · Guardar una lista.** `guardar(ruta: str, lineas: list[str]) -> None`.
 <details><summary>Solución</summary>
 
 ```python
@@ -345,7 +759,7 @@ def guardar(ruta: str, lineas: list[str]) -> None:
 ```
 </details>
 
-**E2 🟢 · Leer una lista.** `leer(ruta: str) -> list[str]`, devolviendo `[]` si no existe.
+**E2 ○ · Leer una lista.** `leer(ruta: str) -> list[str]`, devolviendo `[]` si no existe.
 <details><summary>Solución</summary>
 
 ```python
@@ -358,7 +772,7 @@ def leer(ruta: str) -> list[str]:
 ```
 </details>
 
-**E3 🟡 · Añadir al final.** `anadir(ruta: str, linea: str) -> None` sin borrar lo anterior.
+**E3 ◐ · Añadir al final.** `anadir(ruta: str, linea: str) -> None` sin borrar lo anterior.
 <details><summary>Solución</summary>
 
 ```python
@@ -368,7 +782,7 @@ def anadir(ruta: str, linea: str) -> None:
 ```
 </details>
 
-**E4 🟡 · Contar líneas.** `contar_lineas(ruta: str) -> int` (0 si no existe).
+**E4 ◐ · Contar líneas.** `contar_lineas(ruta: str) -> int` (0 si no existe).
 <details><summary>Solución</summary>
 
 ```python
@@ -381,7 +795,7 @@ def contar_lineas(ruta: str) -> int:
 ```
 </details>
 
-**E5 🔴 · Media desde CSV.** Lee un CSV con columna `nota` y devuelve la media.
+**E5 ● · Media desde CSV.** Lee un CSV con columna `nota` y devuelve la media.
 <details><summary>Pista</summary>Recuerda que <code>fila["nota"]</code> es texto: conviértelo con <code>float()</code>.</details>
 <details><summary>Solución</summary>
 
@@ -399,9 +813,64 @@ def media_csv(ruta: str) -> float:
 ```
 </details>
 
+**E6 ○ · Guardar una lista de líneas.** `guardar_lineas(ruta: str, lineas: list[str]) -> None` escribe cada texto en una línea del fichero.
+<details><summary>Pista</summary>Un <code>for</code> dentro del <code>with</code>, y acuérdate del <code>\n</code> al final de cada línea.</details>
+<details><summary>Solución</summary>
+
+```python
+def guardar_lineas(ruta: str, lineas: list[str]) -> None:
+    """Escribe cada texto en una línea del fichero."""
+    with open(ruta, "w", encoding="utf-8") as f:
+        for linea in lineas:
+            f.write(linea + "\n")
+```
+</details>
+
+**E7 ◐ · Configuración con valores por defecto.** `cargar_config(ruta: str) -> dict` lee un JSON de configuración. Si el fichero **no existe**, devuelve `{"idioma": "es", "tema": "claro"}`.
+<details><summary>Pista</summary>Captura <code>FileNotFoundError</code> y devuelve ahí el diccionario por defecto.</details>
+<details><summary>Solución</summary>
+
+```python
+import json
+
+POR_DEFECTO: dict = {"idioma": "es", "tema": "claro"}
+
+
+def cargar_config(ruta: str) -> dict:
+    """Configuración del fichero; los valores por defecto si no existe."""
+    try:
+        with open(ruta, encoding="utf-8") as f:
+            return dict(json.load(f))
+    except FileNotFoundError:
+        return dict(POR_DEFECTO)
+```
+</details>
+
+**E8 ● · Añadir una fila a un CSV.** `anadir_fila(ruta: str, fila: list) -> None` añade una fila al CSV. Si el fichero **no existe todavía**, lo crea escribiendo antes la cabecera `nombre,nota`.
+<details><summary>Pista</summary><code>os.path.exists(ruta)</code> te dice si hay que escribir la cabecera. Abre en modo <code>"a"</code> y no olvides <code>newline=""</code>.</details>
+<details><summary>Solución</summary>
+
+```python
+import csv
+import os
+
+CABECERA: list[str] = ["nombre", "nota"]
+
+
+def anadir_fila(ruta: str, fila: list) -> None:
+    """Añade una fila al CSV, creándolo con cabecera si no existía."""
+    nuevo: bool = not os.path.exists(ruta)
+    with open(ruta, "a", newline="", encoding="utf-8") as f:
+        escritor = csv.writer(f)
+        if nuevo:
+            escritor.writerow(CABECERA)
+        escritor.writerow(fila)
+```
+</details>
+
 ---
 
-## Proyecto de la unidad ⭐
+## 8. Proyecto de la unidad
 
 Toda la práctica de esta unidad se hace sobre un **proyecto base**: una agenda que guarda y recupera datos en CSV y JSON. Está montado
 con la estructura real de un proyecto Python y trae una **batería de tests** que puedes
@@ -438,15 +907,34 @@ Detalles y comandos útiles en **[Proyectos](../proyectos/index.md)**.
 
 ---
 
-## 9. Retos opcionales 🚀
+## 9. Simulacro de examen
+
+Cuando tengas el proyecto terminado, mídete: el **simulacro** es un examen de mentira con
+**el mismo formato, tamaño y rúbrica** que el de verdad — y con los tests publicados.
+
+**[Simulacro RA5 · Recetario en CSV y JSON →](../simulacros/ra5/README.md)** · 13 tests · 45–50 min
+
+Hazlo **contrarreloj y sin ayuda**, como si fuera el examen. Al terminar, aplica la rúbrica
+y tendrás una estimación bastante fiel de tu nota.
+
+!!! warning "El examen de verdad va sin tests"
+    Allí solo tendrás los **docstrings** y unos ejemplos. Por eso, en el simulacro, intenta
+    resolver cada función leyendo solo su docstring y mira el test únicamente cuando falle.
+
+---
+
+## 10. Retos opcionales
 
 - **R1.** Programa que lea un CSV de notas y escriba otro CSV añadiendo la columna `apto`.
 - **R2.** Registro (log): función que añada una línea con fecha y hora usando `datetime`.
 - **R3.** Convierte un CSV a JSON y comprueba que al volver atrás obtienes lo mismo.
 
+- **R4.** Programa que lea un fichero de texto y escriba otro con las líneas numeradas.
+- **R5.** Diario: función que añada una entrada al final de un fichero con la fecha y la hora delante, usando `datetime`.
+- **R6.** Lee un CSV de productos y escribe un JSON con el mismo contenido; comprueba que al volver del JSON al CSV obtienes exactamente el fichero de partida.
 ---
 
-## 10. Autoevaluación rápida
+## 11. Autoevaluación rápida
 
 <details><summary>1. ¿Por qué usar <code>with open(...)</code>?</summary>Cierra el fichero automáticamente, incluso si hay un error.</details>
 <details><summary>2. Diferencia entre los modos <code>"w"</code> y <code>"a"</code>.</summary><code>"w"</code> borra el contenido; <code>"a"</code> añade al final.</details>
@@ -457,7 +945,7 @@ Detalles y comandos útiles en **[Proyectos](../proyectos/index.md)**.
 
 ---
 
-## 11. Glosario
+## 12. Glosario
 
 | Término | Definición |
 |---|---|
@@ -471,16 +959,63 @@ Detalles y comandos útiles en **[Proyectos](../proyectos/index.md)**.
 
 ---
 
-## 12. Cómo se evalúa esta unidad (RA5)
+## 13. Cómo se evalúa esta unidad (RA5)
 
-Examen **100 % práctico**: un programa que guarde y recupere información.
+El examen es **100 % práctico**: se entrega un proyecto con las funciones vacías y una
+especificación, y hay que escribir el código.
 
-| # | Qué se valora | Cómo se mide | Puntos |
-|:---:|---|---|:---:|
-| 1 | **Que funcione** | casos de prueba superados × 7 | **7,0** |
-| 2 | **Dos formatos** | usa fichero de texto **y** CSV (o JSON) | **1,0** |
-| 3 | **Control de errores** | fichero inexistente gestionado | **1,0** |
-| 4 | **Formato de salida** | tabla alineada con f-strings | **1,0** |
-| | | **TOTAL** | **10** |
+**La nota sale solo de los casos de prueba.** No hay puntos por presentación ni por
+esfuerzo: cada apartado del examen vale en proporción a los casos que tiene, de modo que
+**todos los casos valen lo mismo**.
 
-**Se supera con 5.** Los tests leen los ficheros que genera tu programa: respeta los nombres, la cabecera y el orden de las columnas del enunciado.
+`nota del apartado = (casos superados ÷ casos del apartado) × puntos del apartado`
+
+`nota del examen = suma de los apartados`
+
+### Así es el examen
+
+**Inventario en CSV y JSON** · entrega `src/inventario.py` · **50 min**
+
+| # | Apartado | Casos | Puntos |
+|:---:|---|:---:|:---:|
+| **A** | Formato de salida | 1 | **0,83** |
+| **B** | Ficheros CSV | 7 | **5,83** |
+| **C** | Ficheros JSON | 4 | **3,34** |
+| | **TOTAL** | **12** | **10,00** |
+
+Esta tabla viene en el enunciado, así que sabes desde el primer minuto **qué vale cada
+parte** y por dónde empezar si vas justo de tiempo.
+
+!!! warning "El examen se reparte sin tests"
+    La carpeta `tests/` viene vacía. La especificación son los **docstrings** de cada
+    función y los ejemplos del enunciado. Por eso conviene que en el simulacro te
+    acostumbres a resolver leyendo el docstring y no el test.
+
+### Así se corrige
+
+Alguien que entrega el examen con **9 de los 12 casos** superados
+—se le ha escapado el apartado **B**, donde falla 3 de
+7 casos—:
+
+| # | Apartado | Casos superados | Puntos |
+|:---:|---|:---:|---|
+| A | Formato de salida | 1 / 1 | 0,83 / 0,83 |
+| B | Ficheros CSV | 4 / 7 | 3,33 / 5,83  ← |
+| C | Ficheros JSON | 4 / 4 | 3,34 / 3,34 |
+| | | | **NOTA: 7,50** |
+
+La corrección es automática: se monta un proyecto con la batería completa más el fichero
+entregado, se ejecuta y se reparte la nota con esa cuenta. **Nadie interpreta nada.**
+
+Además recibes un informe con los casos concretos que han fallado, con el valor que
+esperaba y el que devolvió tu función.
+
+!!! note "Los tres requisitos de la entrega"
+    No puntúan por separado, pero forman parte de la especificación:
+
+    1. Entregar **el fichero de `src/`**, con ese nombre.
+    2. `mypy src` sin errores.
+    3. Cada función con su **docstring**.
+
+    Un fichero que no compila o que no se puede importar da **0 casos superados**, así que
+    en la práctica valen mucho más que unos puntos.

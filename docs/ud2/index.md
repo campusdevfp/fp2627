@@ -29,7 +29,15 @@ En la UD1 escribías programas «de un tirón»: leer, calcular, mostrar. Eso fu
 
 ### Cómo se trabaja esta unidad
 
-Igual que la UD1: explicación → lectura y ejemplos → **ejercicios con solución** (sección 10) → **ejercicios autocorregidos** (sección 11) → examen.
+Igual que la UD1, y en este orden:
+
+**lees la sección** → **reto rápido** → **ejercicios de esa sección** (con solución
+desplegable, al final de cada una) → en clase, dudas y **actividades guiadas** (sección 10)
+→ **proyecto** con sus tests → **simulacro** → examen.
+
+!!! tip "Los ejercicios de sección son la clave"
+    Están justo después de cada explicación y solo usan lo que acabas de leer. Hazlos en
+    el momento: es lo que hace que el tiempo de clase se pueda dedicar a lo que cuesta.
 
 ---
 
@@ -39,7 +47,7 @@ Imagina que necesitas calcular la media de notas en cinco sitios distintos de un
 
 Una **función** es un trozo de código con nombre que hace **una cosa concreta** y puede reutilizarse cuantas veces quieras.
 
-> 🧠 **Analogía.** Una función es como una **receta con nombre**: «hacer masa». La escribes una vez y luego dices «hago masa» sin repetir los pasos. Le pasas ingredientes (parámetros) y te devuelve un resultado (return).
+> **Analogía.** Una función es como una **receta con nombre**: «hacer masa». La escribes una vez y luego dices «hago masa» sin repetir los pasos. Le pasas ingredientes (parámetros) y te devuelve un resultado (return).
 
 Las tres razones para usarlas:
 
@@ -49,7 +57,67 @@ Las tres razones para usarlas:
 | **Dividir el problema** | Un problema grande se convierte en varios pequeños que sí sabes resolver. |
 | **Poder probarlo** | Una función se puede comprobar por separado (es lo que hacen tus tests). |
 
-> 🎯 **Reto rápido 1.** Piensa en el programa de la UD1 (presupuesto). ¿Qué parte convertirías en función y cómo la llamarías?
+> **Reto rápido 1.** Piensa en el programa de la UD1 (presupuesto). ¿Qué parte convertirías en función y cómo la llamarías?
+
+---
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**1.1.** Este código repite lo mismo tres veces. Reescríbelo con **una sola función**:
+
+```python
+print(f"Hola, Ada")
+print(f"Hola, Alan")
+print(f"Hola, Grace")
+```
+<details><summary>Solución</summary>
+
+```python
+def saludar(nombre: str) -> None:
+    """Saluda a la persona indicada."""
+    print(f"Hola, {nombre}")
+
+saludar("Ada")     # -> Hola, Ada
+saludar("Alan")    # -> Hola, Alan
+saludar("Grace")   # -> Hola, Grace
+
+# Si mañana cambia el saludo, se toca en UN sitio, no en tres.
+```
+</details>
+
+**1.2.** Nombra bien estas funciones. ¿Qué problema tiene cada nombre? `f1`, `hacer_cosas`, `calcular`.
+<details><summary>Solución</summary>
+
+```text
+f1           -> no dice nada; en dos semanas no recordaras que hacia
+hacer_cosas  -> demasiado vago: si hace 'cosas' en plural, probablemente
+                deberian ser varias funciones
+calcular     -> calcular, si, pero ¿que? Falta el complemento
+
+Buenos nombres: verbo + complemento, en minusculas y con guion bajo:
+    calcular_iva, media_notas, es_par, formatear_precio
+```
+</details>
+
+**1.3.** Escribe la función más pequeña posible que evite repetir el cálculo del IVA en un programa que factura tres artículos.
+<details><summary>Solución</summary>
+
+```python
+IVA: int = 21
+
+
+def con_iva(precio: float) -> float:
+    """Devuelve el precio con el IVA aplicado."""
+    return precio * (1 + IVA / 100)
+
+print(f"{con_iva(10):.2f}")   # -> 12.10
+print(f"{con_iva(25):.2f}")   # -> 30.25
+print(f"{con_iva(99):.2f}")   # -> 119.79
+```
+</details>
+
 
 ---
 
@@ -84,10 +152,10 @@ print(resultado)        # 12.0
 !!! warning "El error nº 1 de esta unidad: `return` no es `print`"
     ```python
     def suma_mal(a: int, b: int) -> None:
-        print(a + b)          # ❌ muestra, pero no devuelve
+        print(a + b)          # ✗ muestra, pero no devuelve
 
     def suma_bien(a: int, b: int) -> int:
-        return a + b          # ✅ devuelve: puedes usar el resultado
+        return a + b          # ✓ devuelve: puedes usar el resultado
     ```
     Con `suma_mal` no puedes hacer `total = suma_mal(2, 3) * 10`, porque `total` valdría `None`. **La función calcula y devuelve; quien la llama decide si lo muestra.**
 
@@ -113,7 +181,70 @@ def area_y_perimetro(base: float, altura: float) -> tuple[float, float]:
 area, perimetro = area_y_perimetro(4, 3)    # 12.0  y  14.0
 ```
 
-> 🎯 **Reto rápido 2.** Escribe `cuadrado(n: int) -> int` que devuelva el cuadrado de un número. Llámala con 7 y muestra el resultado.
+> **Reto rápido 2.** Escribe `cuadrado(n: int) -> int` que devuelva el cuadrado de un número. Llámala con 7 y muestra el resultado.
+
+---
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**2.1.** Escribe `es_par(n)` que devuelva `True` o `False`, con sus tipos y su docstring.
+<details><summary>Solución</summary>
+
+```python
+def es_par(n: int) -> bool:
+    """Indica si un número es par."""
+    return n % 2 == 0
+
+print(es_par(4))   # -> True
+print(es_par(7))   # -> False
+```
+</details>
+
+**2.2.** ¿Qué diferencia hay entre estas dos funciones? Ejecútalas y mira lo que devuelven.
+
+```python
+def a(x): print(x * 2)
+def b(x): return x * 2
+```
+<details><summary>Solución</summary>
+
+```python
+def a(x: int) -> None:
+    """Muestra el doble por pantalla."""
+    print(x * 2)
+
+
+def b(x: int) -> int:
+    """Devuelve el doble."""
+    return x * 2
+
+resultado_a = a(5)   # -> 10   (lo imprime la propia funcion)
+resultado_b = b(5)
+
+print(resultado_a)   # -> None   a() no devuelve nada
+print(resultado_b)   # -> 10     b() SI devuelve, y por eso se puede reutilizar
+print(b(5) + b(3))   # -> 16     esto con a() seria imposible
+```
+</details>
+
+**2.3.** Escribe `mayor(a, b)` que devuelva el mayor de dos números, sin usar `max()`.
+<details><summary>Solución</summary>
+
+```python
+def mayor(a: float, b: float) -> float:
+    """Devuelve el mayor de los dos números."""
+    if a > b:
+        return a
+    return b
+
+print(mayor(3, 9))     # -> 9
+print(mayor(-2, -7))   # -> -2
+print(mayor(4, 4))     # -> 4
+```
+</details>
+
 
 ---
 
@@ -144,7 +275,58 @@ print(precio_con_iva(100, 10))    # 110.0  (usa 10)
 !!! tip "Los parámetros con valor por defecto van al final"
     `def f(a, b=2, c)` es un error de sintaxis. Primero los obligatorios, después los opcionales.
 
-> 🎯 **Reto rápido 3.** Añade a `presentar` un parámetro `saludo: str = "Hola"` y haz que el texto empiece por él.
+> **Reto rápido 3.** Añade a `presentar` un parámetro `saludo: str = "Hola"` y haz que el texto empiece por él.
+
+---
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**3.1.** Escribe `presentar(nombre, ciudad)` y llámala **por posición** y **por nombre**.
+<details><summary>Solución</summary>
+
+```python
+def presentar(nombre: str, ciudad: str) -> str:
+    """Frase de presentación."""
+    return f"{nombre} vive en {ciudad}"
+
+print(presentar("Ada", "Londres"))                     # -> Ada vive en Londres
+print(presentar(ciudad="Madrid", nombre="Alan"))       # -> Alan vive en Madrid
+
+# Por nombre el orden da igual, y se lee mucho mejor cuando hay varios parametros.
+```
+</details>
+
+**3.2.** Añade a `saludar(nombre, saludo)` un **valor por defecto** para que `saludo` sea `"Hola"` si no se indica.
+<details><summary>Solución</summary>
+
+```python
+def saludar(nombre: str, saludo: str = "Hola") -> str:
+    """Saluda con el saludo indicado (Hola por defecto)."""
+    return f"{saludo}, {nombre}"
+
+print(saludar("Ada"))                 # -> Hola, Ada
+print(saludar("Ada", "Buenas"))       # -> Buenas, Ada
+```
+</details>
+
+**3.3.** Escribe `potencia(base, exponente)` con `exponente` a 2 por defecto, y comprueba que los parámetros con valor por defecto van **al final**.
+<details><summary>Solución</summary>
+
+```python
+def potencia(base: float, exponente: int = 2) -> float:
+    """Eleva la base al exponente indicado (al cuadrado por defecto)."""
+    return base ** exponente
+
+print(potencia(5))      # -> 25
+print(potencia(2, 10))  # -> 1024
+
+# def potencia(exponente=2, base): ...  -> SyntaxError
+# Los parametros con valor por defecto tienen que ir SIEMPRE al final.
+```
+</details>
+
 
 ---
 
@@ -158,7 +340,7 @@ def calcular() -> int:
     return total
 
 calcular()
-print(total)          # ❌ NameError: 'total' no existe fuera
+print(total)          # ✗ NameError: 'total' no existe fuera
 ```
 
 Las variables de fuera son **globales** y sí se pueden *leer* desde dentro:
@@ -173,7 +355,7 @@ def con_iva(precio: float) -> float:
 !!! warning "No modifiques variables globales desde una función"
     Existe la palabra `global`, pero usarla convierte el programa en algo imposible de seguir. **Lo correcto es pasar los datos por parámetro y devolver el resultado.** Una función que solo depende de sus parámetros se llama *función pura* y es la más fácil de probar.
 
-> 🎯 **Reto rápido 4.** ¿Qué imprime este código? *(Piensa antes de ejecutarlo.)*
+> **Reto rápido 4.** ¿Qué imprime este código? *(Piensa antes de ejecutarlo.)*
 > ```python
 > x = 5
 > def cambiar() -> None:
@@ -182,6 +364,75 @@ def con_iva(precio: float) -> float:
 > print(x)
 > ```
 > *(Respuesta: `5`. La `x` de dentro es otra variable distinta.)*
+
+---
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**4.1.** ¿Qué imprime este programa? Piénsalo antes de ejecutarlo.
+
+```python
+x = 10
+def f():
+    x = 99
+f()
+print(x)
+```
+<details><summary>Solución</summary>
+
+```python
+x = 10
+
+
+def f() -> None:
+    x = 99          # esta x es NUEVA y solo vive dentro de f()
+    print("dentro:", x)   # -> dentro: 99
+
+f()
+print("fuera:", x)   # -> fuera: 10
+
+# Asignar dentro de una funcion crea una variable local: la de fuera no se toca.
+```
+</details>
+
+**4.2.** Esta función no funciona porque usa una variable que no existe fuera. Arréglala pasándola como parámetro:
+
+```python
+def mostrar_total():
+    print(total)
+```
+<details><summary>Solución</summary>
+
+```python
+def mostrar_total(total: float) -> None:
+    """Muestra el total recibido."""
+    print(f"Total: {total:.2f}")
+
+mostrar_total(42.5)   # -> Total: 42.50
+
+# Todo lo que la funcion necesita entra por parametros: asi es independiente
+# y se puede probar sola.
+```
+</details>
+
+**4.3.** Escribe `acumular(lista, valor)` que devuelva una **lista nueva** con el valor añadido, sin modificar la original.
+<details><summary>Solución</summary>
+
+```python
+def acumular(lista: list[int], valor: int) -> list[int]:
+    """Devuelve una lista nueva con el valor añadido al final."""
+    return lista + [valor]
+
+original = [1, 2]
+nueva = acumular(original, 3)
+
+print(original)   # -> [1, 2]
+print(nueva)      # -> [1, 2, 3]
+```
+</details>
+
 
 ---
 
@@ -218,7 +469,60 @@ print(media([5.0, 7.5, 9.0]))      # 7.166666666666667
 !!! warning "Cuidado con la lista vacía"
     `media([])` provoca `ZeroDivisionError`, porque `len([])` es 0. En la UD3 aprenderás a controlarlo; de momento, tenlo presente.
 
-> 🎯 **Reto rápido 5.** Escribe `cuantos(numeros: list[int]) -> int` que devuelva cuántos elementos tiene la lista.
+> **Reto rápido 5.** Escribe `cuantos(numeros: list[int]) -> int` que devuelva cuántos elementos tiene la lista.
+
+---
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**5.1.** Crea una lista con cinco notas, muestra la primera, la última y cuántas hay.
+<details><summary>Solución</summary>
+
+```python
+notas: list[float] = [5.0, 7.5, 9.0, 4.25, 6.0]
+
+print(notas[0])     # -> 5.0
+print(notas[-1])    # -> 6.0     el -1 es el ultimo, sin contar
+print(len(notas))   # -> 5
+```
+</details>
+
+**5.2.** Escribe `suma_lista(numeros)` que sume una lista **sin usar `sum()`**.
+<details><summary>Solución</summary>
+
+```python
+def suma_lista(numeros: list[float]) -> float:
+    """Suma todos los elementos de la lista."""
+    total: float = 0.0
+    for n in numeros:
+        total = total + n
+    return total
+
+print(suma_lista([1, 2, 3, 4]))   # -> 10.0
+print(suma_lista([]))             # -> 0.0
+```
+</details>
+
+**5.3.** Escribe `media(numeros)` que devuelva `0.0` si la lista está vacía.
+<details><summary>Solución</summary>
+
+```python
+def media(numeros: list[float]) -> float:
+    """Media aritmética; 0.0 si la lista está vacía."""
+    if len(numeros) == 0:
+        return 0.0
+    return sum(numeros) / len(numeros)
+
+print(media([5.0, 7.0, 9.0]))   # -> 7.0
+print(media([]))                # -> 0.0
+
+# Sin el if, la lista vacia provoca ZeroDivisionError. Es el caso limite
+# que mas se olvida y el que casi siempre esta en los tests.
+```
+</details>
+
 
 ---
 
@@ -289,7 +593,57 @@ from utilidades import doble, triple
 print(doble(5), triple(5))     # 10 15
 ```
 
-> 🎯 **Reto rápido 6.** Crea `mis_utiles.py` con una función `mitad(n: float) -> float` e impórtala desde otro fichero.
+> **Reto rápido 6.** Crea `mis_utiles.py` con una función `mitad(n: float) -> float` e impórtala desde otro fichero.
+
+---
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**6.1.** Calcula la raíz cuadrada de 144 y el área de un círculo de radio 3 usando `math`.
+<details><summary>Solución</summary>
+
+```python
+import math
+
+print(math.sqrt(144))            # -> 12.0
+print(f"{math.pi * 3 ** 2:.2f}")  # -> 28.27
+```
+</details>
+
+**6.2.** Necesitas redondear **siempre hacia arriba** el número de cajas para 47 unidades que van de 10 en 10. Búscalo en `math`.
+<details><summary>Solución</summary>
+
+```python
+import math
+
+unidades: int = 47
+por_caja: int = 10
+
+cajas: int = math.ceil(unidades / por_caja)
+
+print(cajas)   # -> 5
+
+# 47 / 10 = 4.7  ->  con round() saldrian 5, pero con 44 unidades round() daria 4
+# y se quedarian 4 unidades fuera. ceil() nunca deja a nadie fuera.
+```
+</details>
+
+**6.3.** Muestra la fecha de hoy en formato `dd/mm/aaaa` con el módulo `datetime`.
+<details><summary>Solución</summary>
+
+```python
+from datetime import date
+
+hoy = date.today()
+print(hoy.strftime("%d/%m/%Y"))
+
+# Antes de escribir tu propia funcion, mira si ya existe en la libreria estandar:
+# viene instalada, esta probada por medio mundo y no hay que mantenerla.
+```
+</details>
+
 
 ---
 
@@ -313,6 +667,61 @@ if __name__ == "__main__":
 
 !!! tip "Regla práctica de esta unidad"
     En un módulo de funciones, **todo el código suelto va dentro de ese `if`**. Tus tests importan el fichero, así que si dejas un `input()` fuera, se quedarán colgados.
+
+---
+
+> **Reto rápido 7.** Coge un fichero con una función `saluda()` y añádele `if __name__ == "__main__":` con una llamada de prueba. Impórtalo desde otro fichero y comprueba que no se ejecuta nada.
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**7.1.** Añade a un módulo con la función `doble()` el bloque `if __name__ == "__main__":` para poder probarlo directamente.
+<details><summary>Solución</summary>
+
+```python
+"""Módulo de ejemplo."""
+
+
+def doble(n: int) -> int:
+    """Devuelve el doble."""
+    return n * 2
+
+
+if __name__ == "__main__":
+    # Esto solo se ejecuta si lanzas ESTE fichero, no al importarlo
+    print(doble(21))   # -> 42
+```
+</details>
+
+**7.2.** ¿Qué pasa si otro fichero hace `import mimodulo` y el módulo tiene un `print()` suelto al final?
+<details><summary>Solución</summary>
+
+```text
+Que ese print() se ejecuta al importar, aunque el otro fichero solo queria
+usar una funcion. Efectos raros al importar = programa dificil de reutilizar.
+
+Por eso las pruebas y los ejemplos van dentro de:
+
+    if __name__ == "__main__":
+        ...
+
+Al importar, __name__ vale "mimodulo" y el bloque no se ejecuta.
+Al lanzarlo directamente, __name__ vale "__main__" y si se ejecuta.
+```
+</details>
+
+**7.3.** Comprueba qué vale `__name__` cuando ejecutas el fichero directamente.
+<details><summary>Solución</summary>
+
+```python
+print(__name__)   # -> __main__
+
+if __name__ == "__main__":
+    print("Me han lanzado directamente")   # -> Me han lanzado directamente
+```
+</details>
+
 
 ---
 
@@ -354,6 +763,94 @@ Fíjate: `media` y `aprueba` **no muestran nada**; devuelven datos. Solo `main` 
 
 ---
 
+> **Reto rápido 8.** Enumera (sin código) las funciones en que partirías «calcular la factura de la luz» a partir de la lectura anterior, la actual y el precio del kWh. *(Solución: una para el consumo, otra para el importe y otra para mostrarlo.)*
+
+### Practica lo de esta sección
+
+> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+
+**8.1.** Descompón en funciones el problema «calcular la nota final de un alumno a partir de sus notas y decir si aprueba». No escribas el cuerpo todavía: solo las firmas.
+<details><summary>Solución</summary>
+
+```python
+def media(notas: list[float]) -> float:
+    """Media de las notas."""
+    ...
+
+
+def redondear_nota(nota: float) -> float:
+    """Nota redondeada a dos decimales."""
+    ...
+
+
+def aprueba(nota: float) -> bool:
+    """Indica si la nota llega a 5."""
+    ...
+
+# Tres funciones pequenas, cada una con UNA responsabilidad y cada una probable
+# por separado. Eso es descomponer.
+```
+</details>
+
+**8.2.** Ahora escribe el cuerpo de esas tres funciones y encadénalas.
+<details><summary>Solución</summary>
+
+```python
+def media(notas: list[float]) -> float:
+    """Media de las notas; 0.0 si no hay."""
+    if len(notas) == 0:
+        return 0.0
+    return sum(notas) / len(notas)
+
+
+def redondear_nota(nota: float) -> float:
+    """Nota redondeada a dos decimales."""
+    return round(nota, 2)
+
+
+def aprueba(nota: float) -> bool:
+    """Indica si la nota llega a 5."""
+    return nota >= 5
+
+notas = [7.0, 4.5, 6.25]
+final = redondear_nota(media(notas))
+
+print(final)           # -> 5.92
+print(aprueba(final))  # -> True
+```
+</details>
+
+**8.3.** Esta función hace demasiadas cosas. Pártela en dos:
+
+```python
+def procesar(notas):
+    m = sum(notas) / len(notas)
+    print(f"Media: {m:.2f}")
+```
+<details><summary>Solución</summary>
+
+```python
+def media(notas: list[float]) -> float:
+    """Solo calcula."""
+    if len(notas) == 0:
+        return 0.0
+    return sum(notas) / len(notas)
+
+
+def mostrar_media(notas: list[float]) -> None:
+    """Solo muestra."""
+    print(f"Media: {media(notas):.2f}")
+
+mostrar_media([5.0, 8.0])   # -> Media: 6.50
+
+# Calcular y mostrar son dos responsabilidades. Separadas, media() se puede
+# probar con un test y reutilizar en cualquier otro sitio.
+```
+</details>
+
+
+---
+
 ## 9. Errores frecuentes
 
 | Síntoma | Causa | Solución |
@@ -375,7 +872,7 @@ Fíjate: `media` y `aprueba` **no muestran nada**; devuelven datos. Solo `main` 
 
 #### Actividad 1 — Tu primera función
 Escribe `saludo(nombre: str) -> str` que **devuelva** (no imprima) `"Hola, Ada"`.
-<details><summary>💡 Solución</summary>
+<details><summary>Solución</summary>
 
 ```python
 def saludo(nombre: str) -> str:
@@ -387,7 +884,7 @@ print(saludo("Ada"))     # Hola, Ada
 
 #### Actividad 2 — Varias operaciones
 Escribe `operaciones(a: int, b: int) -> tuple[int, int, int]` que devuelva suma, resta y producto.
-<details><summary>💡 Solución</summary>
+<details><summary>Solución</summary>
 
 ```python
 def operaciones(a: int, b: int) -> tuple[int, int, int]:
@@ -400,7 +897,7 @@ print(s, r, p)      # 10 4 21
 
 #### Actividad 3 — Usar una librería
 Con `math`, escribe `hipotenusa(a: float, b: float) -> float`.
-<details><summary>💡 Solución</summary>
+<details><summary>Solución</summary>
 
 ```python
 import math
@@ -414,7 +911,7 @@ print(hipotenusa(3, 4))     # 5.0
 
 #### Actividad 4 — Trabajar con listas
 Escribe `resumen(numeros: list[float]) -> tuple[float, float, float]` que devuelva media, mínimo y máximo.
-<details><summary>💡 Solución</summary>
+<details><summary>Solución</summary>
 
 ```python
 def resumen(numeros: list[float]) -> tuple[float, float, float]:
@@ -426,7 +923,7 @@ print(resumen([4.0, 8.0, 6.0]))     # (6.0, 4.0, 8.0)
 
 ### 10.2 Ejercicios propuestos
 
-**E1 🟢 · Área del círculo.** `area_circulo(radio: float) -> float` usando `math.pi`.
+**E1 ○ · Área del círculo.** `area_circulo(radio: float) -> float` usando `math.pi`.
 <details><summary>Solución</summary>
 
 ```python
@@ -437,7 +934,7 @@ def area_circulo(radio: float) -> float:
 ```
 </details>
 
-**E2 🟢 · Conversión.** `a_fahrenheit(celsius: float) -> float`.
+**E2 ○ · Conversión.** `a_fahrenheit(celsius: float) -> float`.
 <details><summary>Solución</summary>
 
 ```python
@@ -446,7 +943,7 @@ def a_fahrenheit(celsius: float) -> float:
 ```
 </details>
 
-**E3 🟡 · Precio final.** `precio_final(precio: float, iva: int = 21, descuento: int = 0) -> float`: aplica primero el descuento y después el IVA.
+**E3 ◐ · Precio final.** `precio_final(precio: float, iva: int = 21, descuento: int = 0) -> float`: aplica primero el descuento y después el IVA.
 <details><summary>Pista</summary>Calcula el precio con descuento y sobre ese resultado aplica el IVA.</details>
 <details><summary>Solución</summary>
 
@@ -460,7 +957,7 @@ print(precio_final(100, 21, 10))    # 108.9
 ```
 </details>
 
-**E4 🟡 · Contar pares.** `cuenta_pares(numeros: list[int]) -> int`.
+**E4 ◐ · Contar pares.** `cuenta_pares(numeros: list[int]) -> int`.
 <details><summary>Pista</summary>Recorre con un bucle y usa <code>% 2 == 0</code>. También vale <code>sum(1 for n in numeros if n % 2 == 0)</code>.</details>
 <details><summary>Solución</summary>
 
@@ -474,7 +971,7 @@ def cuenta_pares(numeros: list[int]) -> int:
 ```
 </details>
 
-**E5 🟡 · Módulo propio.** Crea `estadistica.py` con `media`, `maximo` y `minimo`, e impórtalo desde `principal.py`.
+**E5 ◐ · Módulo propio.** Crea `estadistica.py` con `media`, `maximo` y `minimo`, e impórtalo desde `principal.py`.
 <details><summary>Solución</summary>
 
 ```python
@@ -497,7 +994,7 @@ print(estadistica.media(datos))     # 6.0
 ```
 </details>
 
-**E6 🔴 · Redondeo a múltiplo.** `redondear_a(valor: float, multiplo: int = 5) -> int`: redondea al múltiplo más cercano.
+**E6 ● · Redondeo a múltiplo.** `redondear_a(valor: float, multiplo: int = 5) -> int`: redondea al múltiplo más cercano.
 <details><summary>Pista</summary><code>round(valor / multiplo) * multiplo</code></details>
 <details><summary>Solución</summary>
 
@@ -510,9 +1007,37 @@ print(redondear_a(23, 10))   # 20
 ```
 </details>
 
+**E7 ◐ · Contar pares.** `contar_pares(numeros: list[int]) -> int` devuelve cuántos números pares hay en la lista.
+<details><summary>Pista</summary>Un acumulador a 0 y un <code>for</code>; el resto de dividir entre 2 te dice si es par.</details>
+<details><summary>Solución</summary>
+
+```python
+def contar_pares(numeros: list[int]) -> int:
+    """Cuántos números pares hay en la lista."""
+    total: int = 0
+    for n in numeros:
+        if n % 2 == 0:
+            total += 1
+    return total
+```
+</details>
+
+**E8 ● · Resumen estadístico.** `resumen(numeros: list[float]) -> tuple[float, float, float]` devuelve mínimo, máximo y media. Con la lista vacía devuelve `(0.0, 0.0, 0.0)`.
+<details><summary>Pista</summary>Resuelve primero el caso de la lista vacía y sal con <code>return</code>; así el resto del código ya puede dar por hecho que hay datos.</details>
+<details><summary>Solución</summary>
+
+```python
+def resumen(numeros: list[float]) -> tuple[float, float, float]:
+    """Mínimo, máximo y media; (0.0, 0.0, 0.0) si la lista está vacía."""
+    if len(numeros) == 0:
+        return 0.0, 0.0, 0.0
+    return min(numeros), max(numeros), sum(numeros) / len(numeros)
+```
+</details>
+
 ---
 
-## Proyecto de la unidad ⭐
+## 11. Proyecto de la unidad
 
 Toda la práctica de esta unidad se hace sobre un **proyecto base**: un paquete de funciones reutilizables en tres módulos. Está montado
 con la estructura real de un proyecto Python y trae una **batería de tests** que puedes
@@ -549,15 +1074,34 @@ Detalles y comandos útiles en **[Proyectos](../proyectos/index.md)**.
 
 ---
 
-## 12. Retos opcionales 🚀
+## 12. Simulacro de examen
+
+Cuando tengas el proyecto terminado, mídete: el **simulacro** es un examen de mentira con
+**el mismo formato, tamaño y rúbrica** que el de verdad — y con los tests publicados.
+
+**[Simulacro RA2 · Cálculos de un viaje →](../simulacros/ra2/README.md)** · 18 tests · 45–50 min
+
+Hazlo **contrarreloj y sin ayuda**, como si fuera el examen. Al terminar, aplica la rúbrica
+y tendrás una estimación bastante fiel de tu nota.
+
+!!! warning "El examen de verdad va sin tests"
+    Allí solo tendrás los **docstrings** y unos ejemplos. Por eso, en el simulacro, intenta
+    resolver cada función leyendo solo su docstring y mira el test únicamente cuando falle.
+
+---
+
+## 13. Retos opcionales
 
 - **R1.** Añade a P1 una función `mediana(numeros: list[float]) -> float` sin usar `statistics`.
 - **R2.** Investiga `*args` y escribe `suma_todos(*numeros)` que sume cuantos números le pases.
 - **R3.** Compara tu `media` con `statistics.mean` sobre la misma lista: ¿dan exactamente lo mismo?
 
+- **R4.** Escribe `es_primo(n)` sin usar librerías y pruébala con los números del 1 al 20.
+- **R5.** Crea tu propio módulo `texto.py` con tres funciones de utilidad (contar vocales, invertir, quitar espacios) e impórtalo desde otro programa.
+- **R6.** Investiga `random.sample()` y escribe una función que devuelva 6 números distintos del 1 al 49.
 ---
 
-## 13. Autoevaluación rápida
+## 14. Autoevaluación rápida
 
 <details><summary>1. ¿Qué diferencia hay entre <code>return</code> y <code>print</code>?</summary><code>return</code> devuelve el valor a quien llamó (se puede seguir usando); <code>print</code> solo lo muestra.</details>
 <details><summary>2. ¿Qué devuelve una función sin <code>return</code>?</summary><code>None</code>.</details>
@@ -568,7 +1112,7 @@ Detalles y comandos útiles en **[Proyectos](../proyectos/index.md)**.
 
 ---
 
-## 14. Glosario
+## 15. Glosario
 
 | Término | Definición |
 |---|---|
@@ -583,22 +1127,65 @@ Detalles y comandos útiles en **[Proyectos](../proyectos/index.md)**.
 
 ---
 
-## 15. Cómo se evalúa esta unidad (RA2)
+## 16. Cómo se evalúa esta unidad (RA2)
 
-Examen **100 % práctico**: escribir un módulo de funciones que cumpla una especificación.
+El examen es **100 % práctico**: se entrega un proyecto con las funciones vacías y una
+especificación, y hay que escribir el código.
 
-| # | Qué se valora | Cómo se mide | Puntos |
-|:---:|---|---|:---:|
-| 1 | **Que las funciones funcionen** | casos de prueba superados × 7 | **7,0** |
-| 2 | **Uso de librería** | importas y usas correctamente un módulo | **1,0** |
-| 3 | **Tipado** | anotaciones y `mypy` sin errores | **1,0** |
-| 4 | **Documentación** | docstring o comentarios en cada función | **1,0** |
-| | | **TOTAL** | **10** |
+**La nota sale solo de los casos de prueba.** No hay puntos por presentación ni por
+esfuerzo: cada apartado del examen vale en proporción a los casos que tiene, de modo que
+**todos los casos valen lo mismo**.
 
-**Se supera con 5.** Los tests llaman a tus funciones directamente, así que **usa `return`**, respeta los nombres del enunciado y no dejes código suelto que pida datos.
+`nota del apartado = (casos superados ÷ casos del apartado) × puntos del apartado`
 
-### Cómo prepararte
+`nota del examen = suma de los apartados`
 
-1. Haz los ejercicios de la sección 10 y compara con las soluciones.
-2. Haz los **autocorregidos** de la sección 11: son la misma mecánica del examen.
-3. Comprueba siempre con `pytest` y `mypy`.
+### Así es el examen
+
+**Módulo de conversiones** · entrega `src/conversiones.py` · **45 min**
+
+| # | Apartado | Casos | Puntos |
+|:---:|---|:---:|:---:|
+| **A** | `km_a_millas()` | 3 | **2,50** |
+| **B** | `area_circulo()` | 3 | **2,50** |
+| **C** | `hipotenusa()` | 3 | **2,50** |
+| **D** | `media()` | 3 | **2,50** |
+| | **TOTAL** | **12** | **10,00** |
+
+Esta tabla viene en el enunciado, así que sabes desde el primer minuto **qué vale cada
+parte** y por dónde empezar si vas justo de tiempo.
+
+!!! warning "El examen se reparte sin tests"
+    La carpeta `tests/` viene vacía. La especificación son los **docstrings** de cada
+    función y los ejemplos del enunciado. Por eso conviene que en el simulacro te
+    acostumbres a resolver leyendo el docstring y no el test.
+
+### Así se corrige
+
+Alguien que entrega el examen con **10 de los 12 casos** superados
+—se le ha escapado el apartado **D**, donde falla 2 de
+3 casos—:
+
+| # | Apartado | Casos superados | Puntos |
+|:---:|---|:---:|---|
+| A | `km_a_millas()` | 3 / 3 | 2,50 / 2,50 |
+| B | `area_circulo()` | 3 / 3 | 2,50 / 2,50 |
+| C | `hipotenusa()` | 3 / 3 | 2,50 / 2,50 |
+| D | `media()` | 1 / 3 | 0,83 / 2,50  ← |
+| | | | **NOTA: 8,33** |
+
+La corrección es automática: se monta un proyecto con la batería completa más el fichero
+entregado, se ejecuta y se reparte la nota con esa cuenta. **Nadie interpreta nada.**
+
+Además recibes un informe con los casos concretos que han fallado, con el valor que
+esperaba y el que devolvió tu función.
+
+!!! note "Los tres requisitos de la entrega"
+    No puntúan por separado, pero forman parte de la especificación:
+
+    1. Entregar **el fichero de `src/`**, con ese nombre.
+    2. `mypy src` sin errores.
+    3. Cada función con su **docstring**.
+
+    Un fichero que no compila o que no se puede importar da **0 casos superados**, así que
+    en la práctica valen mucho más que unos puntos.

@@ -17,6 +17,8 @@ from pathlib import Path
 # Páginas a incluir, en orden
 PAGINAS = [
     ("index.md", None),
+    ("el-modulo.md", None),
+    ("evaluacion.md", None),
     ("ud1/index.md", None),
     ("ud2/index.md", None),
     ("ud3/index.md", None),
@@ -25,6 +27,7 @@ PAGINAS = [
     ("ud6/index.md", None),
     ("recursos/entorno.md", None),
     ("proyectos/index.md", None),
+    ("simulacros/index.md", None),
 ]
 
 MARCADOR = "<!--CONTENIDO-->"
