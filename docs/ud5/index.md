@@ -1,1021 +1,686 @@
-# Unidad 5 · Entrada/salida y ficheros
+# Unidad 5 · Misión 5: hacker bueno
 
-> **Módulo:** CMO-313 · Fundamentos de programación
-> **Resultado de aprendizaje:** RA5 · **Duración:** 6 h · **Peso:** 10 %
-> **Lenguaje:** Python 3 (tipado)
-
-Todos tus programas hasta ahora tenían un problema: **al cerrarlos, los datos desaparecían**. Esta unidad lo resuelve. Aprenderás a guardar información en ficheros y a recuperarla después, que es lo que convierte un ejercicio en una aplicación de verdad.
-
----
-
-## Mapa de la unidad
-
-<figure markdown>
-  ![Mapa de la unidad 5](../assets/diagramas/ud5-mapa.svg#only-light)
-  ![Mapa de la unidad 5](../assets/diagramas/ud5-mapa-dark.svg#only-dark)
-  <figcaption>Los ficheros permiten que los datos sobrevivan al programa.</figcaption>
-</figure>
-
-### Qué vas a saber hacer al terminar
-
-- [ ] Dar formato profesional a la salida por consola (columnas alineadas).
-- [ ] Abrir ficheros correctamente con `with open(...)`.
-- [ ] Escribir y leer **ficheros de texto**.
-- [ ] Trabajar con **CSV** usando el módulo `csv`.
-- [ ] Guardar y recuperar datos estructurados en **JSON**.
-- [ ] Gestionar los errores típicos: fichero que no existe, permisos, codificación.
-
----
-
-!!! tip "Cómo se trabaja esta unidad"
-    Cada sección de teoría termina con **Practica lo de esta sección**: tres o cuatro
-    ejercicios cortos con la solución desplegable, que solo usan lo que acabas de leer.
-
-    **Hazlos en el momento, antes de seguir.** Ese es el trato: la teoría la lees tú
-    —en casa o en clase— y el tiempo de aula se dedica a resolver dudas y a lo que de
-    verdad cuesta. Si llegas a la siguiente sección sin haber tocado el teclado, la
-    unidad se te va a hacer cuesta arriba.
-
-    Después vienen las **actividades guiadas**, el **proyecto** de la unidad y el
-    **simulacro** de examen. En ese orden.
-
----
-
-## 1. Salida por consola con formato
-
-Ya conoces las f-strings. Aquí las llevamos al punto en que la salida parece profesional.
-
-### 1.1 Alinear en columnas
-
-```python
-productos = [("Camisa", 19.99), ("Pantalón", 34.5), ("Gorra", 8.0)]
-
-print(f"{'PRODUCTO':<12}{'PRECIO':>10}")
-print("-" * 22)
-for nombre, precio in productos:
-    print(f"{nombre:<12}{precio:>10.2f}")
-```
-
-```text
-PRODUCTO        PRECIO
-----------------------
-Camisa           19.99
-Pantalón         34.50
-Gorra             8.00
-```
-
-| Formato | Efecto |
+| | |
 |---|---|
-| `:<12` | alinea a la **izquierda** en 12 caracteres |
-| `:>10` | alinea a la **derecha** en 10 |
-| `:^10` | **centra** en 10 |
-| `:>10.2f` | derecha, 10 de ancho, 2 decimales |
-| `:,` | separador de miles |
+| **Resultado de aprendizaje** | RA5 · Hacking ético en laboratorio |
+| **Trimestre** | 2.º — se evalúa con **examen práctico** (programas corregidos con tests) |
+| **Duración / peso** | 20 horas · 25 % del módulo |
+| **Necesitas** | Python 3 y `pytest` |
 
-!!! tip "Los números, siempre a la derecha"
-    Alineados a la derecha, las unidades quedan una debajo de otra y la tabla se lee de un vistazo.
+!!! quote "Jueves, 10:00. Marta te da permiso."
+    *"Hasta ahora has defendido. Hoy te toca atacar… pero del lado bueno."* Un cliente **ha firmado un contrato** que autoriza a CiberSegura a intentar entrar en sus servidores para encontrar los agujeros **antes que un delincuente**. Eso es un **hacker ético** (o *pentester*).
 
-> **Reto rápido 1.** Muestra tres nombres a la izquierda en 15 caracteres y sus edades a la derecha en 5.
+    Tu misión: construir un **escáner de puertos** que descubra qué servicios tiene abiertos una máquina. Es lo primero que hace cualquier atacante… y cualquier defensor. La diferencia entre los dos no es la técnica: es el **permiso**.
 
----
+!!! danger "Lee esto DOS veces"
+    Todo lo de esta unidad se ejecuta **solo** contra `127.0.0.1` (tu propio ordenador) o las máquinas del **laboratorio de clase**. Escanear un servidor ajeno sin permiso por escrito es delito (arts. 197 y 264 del Código Penal), **aunque no rompas nada**. Sin contrato firmado, no hay hacking ético: hay delito.
 
-### Practica lo de esta sección
+## Cómo vas a trabajar
 
-> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
+Cada concepto: 💡 **La idea** → 🐍 **En Python** → 🧪 **Pruébalo tú** → ✅ **Checkpoint**. Después, mini-proyecto, ejercicios resueltos y **ejercicios tipo examen** con tests.
 
-**1.1.** Muestra una tabla de tres productos con el nombre a la izquierda (14 huecos) y el precio a la derecha con dos decimales (8 huecos).
-<details><summary>Solución</summary>
-
-```python
-productos = [("Camisa", 19.9), ("Pantalón", 34.5), ("Gorra", 7.25)]
-
-for nombre, precio in productos:
-    print(f"{nombre:<14}{precio:>8.2f}")
-
-# -> Camisa           19.90
-# -> Pantalón         34.50
-# -> Gorra             7.25
-```
-</details>
-
-**1.2.** Añade a esa tabla una **cabecera** y una línea separadora del mismo ancho.
-<details><summary>Solución</summary>
-
-```python
-ANCHO: int = 22
-
-print(f"{'Producto':<14}{'Precio':>8}")
-print("-" * ANCHO)
-print(f"{'Camisa':<14}{19.9:>8.2f}")
-
-# -> Producto        Precio
-# -> ----------------------
-# -> Camisa           19.90
-```
-</details>
-
-**1.3.** Muestra `1234567.891` con separador de miles y dos decimales, y un porcentaje del `0.1567` con un decimal.
-<details><summary>Solución</summary>
-
-```python
-print(f"{1234567.891:,.2f}")   # -> 1,234,567.89
-print(f"{0.1567:.1%}")        # -> 15.7%
-```
-</details>
-
-
-**1.4.** Muestra un recibo de tres líneas con el concepto a la izquierda en 16 huecos y el importe a la derecha en 9 con dos decimales, y una línea de total separada por guiones.
-<details><summary>Solución</summary>
-
-```python
-ANCHO: int = 25
-
-conceptos = [("Cuota mensual", 39.9), ("Material", 12.0), ("Descuento", -5.5)]
-
-for concepto, importe in conceptos:
-    print(f"{concepto:<16}{importe:>9.2f}")
-
-total = sum(i for _, i in conceptos)
-print("-" * ANCHO)
-print(f"{'TOTAL':<16}{total:>9.2f}")
-
-# -> Cuota mensual       39.90
-# -> Material            12.00
-# -> Descuento           -5.50
-# -> -------------------------
-# -> TOTAL               46.40
-```
-</details>
-
----
-
-## 2. Abrir ficheros: `with open(...)`
-
-### 2.1 La forma correcta
-
-```python
-with open("datos.txt", "w", encoding="utf-8") as fichero:
-    fichero.write("Hola\n")
-# aquí el fichero YA está cerrado, automáticamente
+```mermaid
+flowchart LR
+    A["1-2<br/>Ética y fases"] --> B["3-4<br/>Sockets"]
+    B --> C["5-6<br/>Escaneo y severidad"]
+    C --> D["7<br/>Equipos y ATT&CK"]
+    D --> E["🛠️ Mini-proyecto"]
+    E --> F["📚 Resueltos"]
+    F --> G["🎯 Tipo examen"]
+    style E fill:#d1fae5,color:#065f46,stroke:#10b981,stroke-width:2px
+    style G fill:#dbeafe,color:#1e3a8a,stroke:#3b82f6,stroke-width:2px
 ```
 
-Tres cosas, y las tres importan:
+## 1 · Hacker ético: la línea que no se cruza
 
-| Parte | Para qué |
-|---|---|
-| `with` | **cierra el fichero solo**, incluso si hay un error |
-| `"w"` | el **modo** de apertura |
-| `encoding="utf-8"` | para que las tildes y la ñ no se rompan |
+**💡 La idea.** La misma herramienta sirve para atacar y para defender. Lo que cambia es **quién** la usa y **con qué permiso**:
 
-!!! danger "Sin `with`, tarde o temprano pierdes datos"
-    ```python
-    f = open("datos.txt", "w")
-    f.write("Hola")        # si algo falla aquí, el fichero queda abierto
-    f.close()              # ...y esto no se ejecuta: se pierde lo escrito
-    ```
-    **Usa siempre `with`.**
-
-### 2.2 Modos de apertura
-
-| Modo | Qué hace | Cuidado |
-|:---:|---|---|
-| `"r"` | **leer** (por defecto) | error si no existe |
-| `"w"` | **escribir** | **borra** el contenido anterior |
-| `"a"` | **añadir** al final | no borra |
-| `"x"` | crear nuevo | error si ya existe |
-
-!!! warning "`w` borra sin avisar"
-    Abrir con `"w"` un fichero que ya tiene datos lo deja **vacío** al instante. Si quieres conservar lo anterior, usa `"a"`.
-
-> **Reto rápido 2.** ¿Qué modo usarías para un fichero de registro (log) al que se van añadiendo líneas? *(Respuesta: `"a"`.)*
-
----
-
-### Practica lo de esta sección
-
-> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
-
-**2.1.** Escribe un texto en un fichero y vuelve a leerlo, usando `with`.
-<details><summary>Solución</summary>
-
-```python
-with open("nota.txt", "w", encoding="utf-8") as f:
-    f.write("Hola desde Python\n")
-
-with open("nota.txt", encoding="utf-8") as f:
-    print(f.read().strip())   # -> Hola desde Python
-```
-</details>
-
-**2.2.** ¿Qué diferencia hay entre los modos `"w"` y `"a"`? Compruébalo.
-<details><summary>Solución</summary>
-
-```python
-with open("log.txt", "w", encoding="utf-8") as f:
-    f.write("primera\n")
-
-with open("log.txt", "w", encoding="utf-8") as f:
-    f.write("segunda\n")     # "w" MACHACA: la primera línea ya no está
-
-with open("log.txt", "a", encoding="utf-8") as f:
-    f.write("tercera\n")     # "a" AÑADE al final
-
-with open("log.txt", encoding="utf-8") as f:
-    print(f.read().strip())
-
-# -> segunda
-# -> tercera
-```
-</details>
-
-**2.3.** ¿Por qué se usa `with` en vez de `open()` y `close()`? Explícalo y escribe el equivalente sin `with`.
-<details><summary>Solución</summary>
-
-```python
-# Sin with, hay que acordarse de cerrar... y si salta un error por el medio,
-# el close() no se ejecuta y el fichero se queda abierto (o a medio escribir).
-f = open("datos.txt", "w", encoding="utf-8")
-try:
-    f.write("contenido")
-finally:
-    f.close()
-
-# Con with, Python cierra SIEMPRE al salir del bloque, haya error o no:
-with open("datos.txt", encoding="utf-8") as g:
-    print(g.read())   # -> contenido
-```
-</details>
-
-
-**2.4.** Escribe en un fichero, léelo y **añade** una línea más, comprobando después que están las dos.
-<details><summary>Solución</summary>
-
-```python
-with open("notas.txt", "w", encoding="utf-8") as f:
-    f.write("primera\n")
-
-with open("notas.txt", "a", encoding="utf-8") as f:
-    f.write("segunda\n")
-
-with open("notas.txt", encoding="utf-8") as f:
-    print(f.read().strip())
-
-# -> primera
-# -> segunda
-```
-</details>
-
----
-
-## 3. Ficheros de texto
-
-### 3.1 Escribir
-
-```python
-lineas = ["Ada", "Linus", "Grace"]
-
-with open("nombres.txt", "w", encoding="utf-8") as f:
-    for nombre in lineas:
-        f.write(nombre + "\n")      # \n = salto de línea
-```
-
-!!! tip "`write()` no añade el salto de línea"
-    A diferencia de `print()`, hay que ponerlo a mano con `\n`. Si lo olvidas, todo queda pegado en una sola línea.
-
-### 3.2 Leer
-
-Tres formas, según lo que necesites:
-
-```python
-# a) todo el contenido en una cadena
-with open("nombres.txt", encoding="utf-8") as f:
-    contenido: str = f.read()
-
-# b) una lista con todas las líneas
-with open("nombres.txt", encoding="utf-8") as f:
-    lineas: list[str] = f.readlines()
-
-# c) línea a línea (la mejor para ficheros grandes)
-with open("nombres.txt", encoding="utf-8") as f:
-    for linea in f:
-        print(linea.rstrip())       # rstrip quita el \n final
-```
-
-!!! warning "Acuérdate de `rstrip()`"
-    Cada línea leída **incluye el `\n`**. Si comparas `linea == "Ada"` fallará, porque en realidad vale `"Ada\n"`. Límpiala con `linea.rstrip()`.
-
-### 3.3 Si el fichero no existe
-
-```python
-try:
-    with open("nombres.txt", encoding="utf-8") as f:
-        contenido = f.read()
-except FileNotFoundError:
-    print("El fichero no existe todavía")
-    contenido = ""
-```
-
----
-
-> **Reto rápido 3.** Escribe tu nombre en `yo.txt`, ciérralo y vuelve a leerlo mostrando el contenido **sin** el salto de línea final. *(Pista: `.strip()`.)*
-
-### Practica lo de esta sección
-
-> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
-
-**3.1.** Escribe tres líneas en un fichero y luego cuéntalas al leerlo.
-<details><summary>Solución</summary>
-
-```python
-with open("nombres.txt", "w", encoding="utf-8") as f:
-    for nombre in ["Ada", "Alan", "Grace"]:
-        f.write(nombre + "\n")
-
-with open("nombres.txt", encoding="utf-8") as f:
-    lineas = f.readlines()
-
-print(len(lineas))   # -> 3
-```
-</details>
-
-**3.2.** Lee un fichero línea a línea quitando el salto de línea final.
-<details><summary>Solución</summary>
-
-```python
-with open("nombres.txt", "w", encoding="utf-8") as f:
-    f.write("Ada\nAlan\n")
-
-with open("nombres.txt", encoding="utf-8") as f:
-    for linea in f:
-        print(f"[{linea.strip()}]")   # sin strip() saldría el \n dentro del corchete
-
-# -> [Ada]
-# -> [Alan]
-```
-</details>
-
-**3.3.** Lee un fichero que puede no existir sin que el programa se caiga.
-<details><summary>Solución</summary>
-
-```python
-def leer(ruta: str) -> str:
-    """Contenido del fichero; cadena vacía si no existe."""
-    try:
-        with open(ruta, encoding="utf-8") as f:
-            return f.read()
-    except FileNotFoundError:
-        return ""
-
-print(repr(leer("no_existe.txt")))   # -> ''
-
-# El fichero que no está es EL caso límite de esta unidad: sale en todos los tests.
-```
-</details>
-
-
-**3.4.** Lee un fichero y devuelve la **última** línea, sin el salto final. Cadena vacía si el fichero está vacío o no existe.
-<details><summary>Solución</summary>
-
-```python
-def ultima_linea(ruta: str) -> str:
-    """Última línea del fichero; cadena vacía si no hay o no existe."""
-    try:
-        with open(ruta, encoding="utf-8") as f:
-            lineas = f.read().splitlines()
-    except FileNotFoundError:
-        return ""
-    if not lineas:
-        return ""
-    return lineas[-1]
-
-
-with open("d.txt", "w", encoding="utf-8") as f:
-    f.write("uno\ndos\ntres\n")
-
-print(ultima_linea("d.txt"))          # -> tres
-print(repr(ultima_linea("nada.txt")))  # -> ''
-```
-</details>
-
----
-
-## 4. Ficheros CSV
-
-Un **CSV** (*comma-separated values*) es un fichero de texto con datos en forma de tabla: una fila por línea y las columnas separadas por comas. Es lo que exporta cualquier hoja de cálculo.
-
-```text
-nombre,telefono,email
-Ada,600111222,ada@ejemplo.com
-Linus,600333444,linus@ejemplo.com
-```
-
-Se puede tratar como texto, pero el módulo `csv` gestiona solo los casos peliagudos (comas dentro de un campo, comillas…).
-
-### 4.1 Escribir un CSV
-
-```python
-import csv
-
-contactos = [
-    ["Ada", "600111222", "ada@ejemplo.com"],
-    ["Linus", "600333444", "linus@ejemplo.com"],
-]
-
-with open("contactos.csv", "w", newline="", encoding="utf-8") as f:
-    escritor = csv.writer(f)
-    escritor.writerow(["nombre", "telefono", "email"])   # cabecera
-    escritor.writerows(contactos)                        # todas las filas
-```
-
-!!! tip "`newline=\"\"` no es opcional"
-    Sin él, en Windows aparece una línea en blanco entre cada fila. Póngase siempre al abrir un CSV.
-
-### 4.2 Leer un CSV
-
-```python
-import csv
-
-with open("contactos.csv", encoding="utf-8") as f:
-    lector = csv.reader(f)
-    cabecera = next(lector)          # se salta la primera fila
-    for fila in lector:
-        nombre, telefono, email = fila
-        print(f"{nombre:<10}{telefono:>12}")
-```
-
-### 4.3 Con nombres de columna: `DictReader`
-
-Más legible, porque accedes por nombre en vez de por posición:
-
-```python
-import csv
-
-with open("contactos.csv", encoding="utf-8") as f:
-    for fila in csv.DictReader(f):
-        print(fila["nombre"], fila["email"])
-```
-
-> Todo lo que se lee de un CSV es **texto**. Si una columna es numérica, hay que convertirla: `int(fila["edad"])`.
-
-> **Reto rápido 3.** ¿Por qué `csv.reader` es mejor que hacer `linea.split(",")`? *(Porque gestiona las comas que van dentro de un campo entrecomillado.)*
-
----
-
-### Practica lo de esta sección
-
-> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
-
-**4.1.** Guarda dos filas en un CSV con cabecera y vuelve a leerlas.
-<details><summary>Solución</summary>
-
-```python
-import csv
-
-filas = [("Camisa", 10), ("Gorra", 25)]
-
-with open("stock.csv", "w", newline="", encoding="utf-8") as f:
-    escritor = csv.writer(f)
-    escritor.writerow(["nombre", "cantidad"])
-    for nombre, cantidad in filas:
-        escritor.writerow([nombre, cantidad])
-
-with open("stock.csv", newline="", encoding="utf-8") as f:
-    lector = csv.reader(f)
-    next(lector)                       # saltar la cabecera
-    print([fila for fila in lector])   # -> [['Camisa', '10'], ['Gorra', '25']]
-```
-</details>
-
-**4.2.** En el ejercicio anterior la cantidad se lee como texto. Conviértela a `int` al cargar.
-<details><summary>Solución</summary>
-
-```python
-import csv
-
-with open("stock.csv", "w", newline="", encoding="utf-8") as f:
-    escritor = csv.writer(f)
-    escritor.writerow(["nombre", "cantidad"])
-    escritor.writerow(["Camisa", 10])
-
-with open("stock.csv", newline="", encoding="utf-8") as f:
-    lector = csv.reader(f)
-    next(lector, None)
-    filas = [(fila[0], int(fila[1])) for fila in lector if fila]
-
-print(filas)   # -> [('Camisa', 10)]
-
-# Todo lo que sale de un CSV es TEXTO. Si no conviertes, "10" + 5 revienta.
-```
-</details>
-
-**4.3.** Tu CSV sale con una línea en blanco entre cada fila. ¿Qué falta?
-<details><summary>Solución</summary>
-
-```python
-import csv
-
-# El culpable: abrir sin newline="". En Windows se escribe \r\n dos veces.
-with open("bien.csv", "w", newline="", encoding="utf-8") as f:
-    csv.writer(f).writerow(["a", "b"])
-
-with open("bien.csv", encoding="utf-8") as f:
-    contenido = f.read()
-
-print("\n\n" in contenido)   # -> False   sin líneas en blanco
-```
-</details>
-
-
-**4.4.** Lee un CSV y devuelve solo las filas cuya segunda columna supere un valor dado.
-<details><summary>Solución</summary>
-
-```python
-import csv
-
-
-def filtrar(ruta: str, minimo: int) -> list[tuple[str, int]]:
-    """Filas cuya segunda columna supera el mínimo."""
-    with open(ruta, newline="", encoding="utf-8") as f:
-        lector = csv.reader(f)
-        next(lector, None)
-        return [(fila[0], int(fila[1])) for fila in lector
-                if fila and int(fila[1]) > minimo]
-
-
-with open("s.csv", "w", newline="", encoding="utf-8") as f:
-    e = csv.writer(f)
-    e.writerow(["nombre", "cantidad"])
-    e.writerows([["Camisa", 10], ["Gorra", 3], ["Botas", 25]])
-
-print(filtrar("s.csv", 5))   # -> [('Camisa', 10), ('Botas', 25)]
-```
-</details>
-
----
-
-## 5. JSON
-
-**JSON** guarda datos con estructura (diccionarios y listas anidados), no solo tablas. Es el formato que usan casi todas las APIs web.
-
-```python
-import json
-
-datos = {
-    "nombre": "Ada",
-    "edad": 36,
-    "lenguajes": ["Python", "C"],
-}
-
-# guardar
-with open("datos.json", "w", encoding="utf-8") as f:
-    json.dump(datos, f, indent=2, ensure_ascii=False)
-
-# recuperar
-with open("datos.json", encoding="utf-8") as f:
-    recuperado = json.load(f)
-
-print(recuperado["nombre"])          # Ada
-print(recuperado["lenguajes"][0])    # Python
-```
-
-| Parámetro | Para qué |
-|---|---|
-| `indent=2` | lo escribe con sangría, legible para personas |
-| `ensure_ascii=False` | conserva tildes y ñ en lugar de escaparlas |
-
-### CSV o JSON, ¿cuál?
-
-| Usa **CSV** si… | Usa **JSON** si… |
-|---|---|
-| los datos son una tabla plana | hay estructura anidada |
-| se van a abrir en Excel | los consume otro programa |
-| todas las filas tienen los mismos campos | los campos varían |
-
----
-
-> **Reto rápido 5.** Guarda `{"modulo": "CMO-313", "horas": 50}` en un JSON legible y comprueba abriendo el fichero que se entiende a simple vista.
-
-### Practica lo de esta sección
-
-> Hazlos **antes** de pasar a la siguiente sección: son cortos y solo usan lo que acabas de leer. Despliega la solución cuando lo tengas resuelto — o cuando te atasques de verdad.
-
-**5.1.** Guarda un diccionario en JSON legible y con tildes, y vuelve a cargarlo.
-<details><summary>Solución</summary>
-
-```python
-import json
-
-datos = {"nombre": "Ada Lovelace", "ciudad": "Londres", "años": 36}
-
-with open("persona.json", "w", encoding="utf-8") as f:
-    json.dump(datos, f, indent=2, ensure_ascii=False)
-
-with open("persona.json", encoding="utf-8") as f:
-    print(json.load(f))   # -> {'nombre': 'Ada Lovelace', 'ciudad': 'Londres', 'años': 36}
-```
-</details>
-
-**5.2.** Comprueba qué pasa **sin** `ensure_ascii=False` y qué pasa **sin** `indent=2`.
-<details><summary>Solución</summary>
-
-```python
-import json
-
-print(json.dumps({"año": 2026}))                     # -> {"a\u00f1o": 2026}
-print(json.dumps({"año": 2026}, ensure_ascii=False))  # -> {"año": 2026}
-
-print(json.dumps({"a": 1, "b": 2}))                  # -> {"a": 1, "b": 2}
-print(json.dumps({"a": 1, "b": 2}, indent=2))        # en varias líneas, legible
-
-# Los dos ficheros son JSON válido: la diferencia es que uno lo puede leer
-# una persona y el otro no.
-```
-</details>
-
-**5.3.** ¿Cuándo usarías CSV y cuándo JSON? Da un ejemplo de cada uno.
-<details><summary>Solución</summary>
-
-```text
-CSV  -> datos TABULARES: muchas filas, siempre las mismas columnas.
-        Ejemplo: el listado de ventas del mes, las notas de un grupo.
-        Se abre en Excel y lo entiende cualquiera.
-
-JSON -> datos con ESTRUCTURA: cosas dentro de cosas, campos opcionales.
-        Ejemplo: la configuracion de una aplicacion, la respuesta de una API,
-        una ficha con listas dentro.
-
-Regla practica: si lo puedes dibujar como una tabla, CSV.
-Si tiene forma de arbol, JSON.
-```
-</details>
-
-
-**5.4.** Guarda una **lista de diccionarios** en JSON y vuelve a cargarla, comprobando que es exactamente la misma.
-<details><summary>Solución</summary>
-
-```python
-import json
-
-alumnos = [{"nombre": "Ada", "nota": 9.5}, {"nombre": "Alan", "nota": 8.0}]
-
-with open("alumnos.json", "w", encoding="utf-8") as f:
-    json.dump(alumnos, f, indent=2, ensure_ascii=False)
-
-with open("alumnos.json", encoding="utf-8") as f:
-    leidos = json.load(f)
-
-print(leidos == alumnos)   # -> True
-print(leidos[0]["nombre"])  # -> Ada
-
-# JSON no solo guarda diccionarios: también listas, y listas de diccionarios.
-```
-</details>
-
----
-
-## 6. Errores frecuentes
-
-| Síntoma | Causa | Solución |
+| Sombrero | Quién es | ¿Legal? |
 |---|---|---|
-| `FileNotFoundError` | el fichero no existe o la ruta está mal | contrólalo con `try/except` |
-| Se borró el contenido | abriste con `"w"` | usa `"a"` para añadir |
-| Todo en una sola línea | falta `\n` en `write()` | añádelo |
-| `Ada\n` al comparar | la línea conserva el salto | usa `.rstrip()` |
-| Tildes raras (`Ã¡`) | falta el encoding | `encoding="utf-8"` siempre |
-| Líneas en blanco en el CSV | falta `newline=""` | añádelo al abrir |
-| `TypeError` al sumar del CSV | los datos leídos son texto | convierte con `int()`/`float()` |
-| El fichero queda bloqueado | no usaste `with` | usa `with` |
+| 🎩 **Blanco** (white hat) | Profesional con **contrato** que busca fallos para arreglarlos | ✅ Sí |
+| 🧢 **Gris** (grey hat) | Entra sin permiso, pero "sin querer hacer daño" | ❌ No: sigue siendo delito |
+| 🕶️ **Negro** (black hat) | Delincuente | ❌ No |
 
----
+Antes de tocar nada, un pentester define el **alcance** (*scope*): qué máquinas puede tocar y cuáles no. Salirse del alcance es salirse de la ley.
 
-## 7. Practica **con** solución a la vista
+**🐍 En Python.** Un "guardarraíl" que impide escanear algo que no sea del laboratorio:
 
-### 7.1 Actividades guiadas
+```python title="guardarrail.py"
+ALCANCE = ("127.0.0.1", "localhost")
 
-#### Actividad 1 — Escribir un fichero
-Guarda tres nombres, uno por línea, en `nombres.txt`.
-<details><summary>Solución</summary>
+def objetivo_permitido(host: str) -> bool:
+    return host in ALCANCE or host.startswith("10.0.20.")   # red del laboratorio
+
+print(objetivo_permitido("127.0.0.1"))
+print(objetivo_permitido("8.8.8.8"))       # un servidor de Google: prohibido
+```
+
+```text title="Salida"
+True
+False
+```
+
+**🧪 Pruébalo tú.** El laboratorio añade una segunda red: `10.0.30.x`. Cámbialo para que también se permita, y comprueba:
 
 ```python
-nombres: list[str] = ["Ada", "Linus", "Grace"]
-with open("nombres.txt", "w", encoding="utf-8") as f:
-    for n in nombres:
-        f.write(n + "\n")
+print(objetivo_permitido("10.0.30.5"))
+```
+
+```text title="Salida esperada"
+True
+```
+
+<details class="sol"><summary>Solución</summary>
+
+```python
+def objetivo_permitido(host: str) -> bool:
+    return host in ALCANCE or host.startswith("10.0.20.") or host.startswith("10.0.30.")
 ```
 </details>
 
-#### Actividad 2 — Leerlo y contarlo
-Lee `nombres.txt` y muestra cuántas líneas tiene.
-<details><summary>Solución</summary>
+**✅ Checkpoint**
+
+- [ ] Sé qué distingue a un hacker de sombrero blanco de uno gris (el **permiso**).
+
+## 2 · Las fases de un ataque
+
+**💡 La idea.** Un pentester (y un atacante real) sigue siempre las mismas fases. Esta unidad se centra en la **segunda**: descubrir qué hay abierto.
+
+```mermaid
+flowchart LR
+    R["1 · Reconocer<br/>info pública"] --> E["2 · Enumerar<br/>puertos y servicios"]
+    E --> X["3 · Explotar<br/>el fallo encontrado"]
+    X --> P["4 · Mantenerse<br/>dentro"]
+    P --> I["5 · Informe<br/>qué arreglar"]
+```
+
+Cuando escaneas los puertos de una máquina, estás en la fase de **enumeración**: haces un inventario de puertas para ver cuáles están abiertas.
+
+**✅ Checkpoint**
+
+- [ ] Sé en qué fase del pentest encaja un escáner de puertos.
+
+## 3 · Sockets: llamar a una puerta
+
+**💡 La idea.** Un **socket** es el mecanismo con el que dos programas hablan por la red. Para saber si un puerto está abierto, tu programa **intenta conectarse**: si alguien responde, está abierto; si no, está cerrado o no existe.
+
+Es como llamar a las puertas de un edificio: si abren, hay alguien; si tras un rato nadie contesta (**timeout**), pasas a la siguiente.
+
+**🐍 En Python.** `connect_ex` devuelve `0` si conecta, y otro número si no (sin lanzar error):
+
+```python title="socket_basico.py"
+import socket
+
+def puerto_abierto(host: str, puerto: int, timeout: float = 0.5) -> bool:
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:   # (1)!
+        s.settimeout(timeout)                                       # (2)!
+        return s.connect_ex((host, puerto)) == 0
+
+print(puerto_abierto("127.0.0.1", 9999))    # casi seguro cerrado
+```
+
+1.  `AF_INET` = IPv4, `SOCK_STREAM` = TCP. El `with` cierra el socket solo al terminar.
+2.  El **timeout** es imprescindible: sin él, un puerto que no responde dejaría tu programa colgado para siempre.
+
+```text title="Salida"
+False
+```
+
+!!! tip "Casi todos los puertos están cerrados"
+    En tu ordenador, lo normal es que casi todos los puertos den `False`: solo están "abiertos" los que tienen un programa escuchando (un servidor web, una base de datos…). En los ejercicios levantaremos uno de prueba para ver un `True`.
+
+**✅ Checkpoint**
+
+- [ ] Sé por qué un escáner **siempre** pone un timeout.
+
+## 4 · Comprobarlo con un puerto de verdad abierto
+
+**💡 La idea.** Para ver un puerto abierto de verdad, montamos un pequeño servidor en `127.0.0.1` y lo escaneamos. Todo en tu máquina, todo legal.
+
+**🐍 En Python.**
+
+```python title="servidor_prueba.py"
+import socket, threading, time
+
+def levantar_servidor(puerto: int) -> None:
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    s.bind(("127.0.0.1", puerto))
+    s.listen()
+    while True:
+        conn, _ = s.accept()
+        conn.close()
+
+def puerto_abierto(host: str, puerto: int, timeout: float = 0.5) -> bool:
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.settimeout(timeout)
+        return s.connect_ex((host, puerto)) == 0
+
+threading.Thread(target=levantar_servidor, args=(9091,), daemon=True).start()
+time.sleep(0.3)   # darle tiempo a arrancar
+
+print("9091:", puerto_abierto("127.0.0.1", 9091))
+print("9092:", puerto_abierto("127.0.0.1", 9092))
+```
+
+```text title="Salida"
+9091: True
+9092: False
+```
+
+**🧪 Pruébalo tú.** Con el servidor de arriba levantado en el 9091, escribe un bucle que compruebe los puertos del 9090 al 9093 y diga cuáles están abiertos.
+
+```text title="Salida esperada"
+Abierto: 9091
+```
+
+<details class="sol"><summary>Solución</summary>
 
 ```python
-with open("nombres.txt", encoding="utf-8") as f:
-    lineas = [ln.rstrip() for ln in f]
-print(f"{len(lineas)} nombres")
+for p in range(9090, 9094):
+    if puerto_abierto("127.0.0.1", p, 0.2):
+        print("Abierto:", p)
 ```
 </details>
 
-#### Actividad 3 — Tabla con formato
-Muestra una lista de productos en columnas alineadas.
-<details><summary>Solución</summary>
+**✅ Checkpoint**
+
+- [ ] Sé montar un servidor de prueba y detectar su puerto abierto.
+
+## 5 · Escanear rápido: muchos puertos a la vez
+
+**💡 La idea.** Escanear 1.000 puertos uno a uno, esperando el timeout de cada uno, tardaría minutos. La solución es hacerlo **en paralelo**: lanzar muchas comprobaciones a la vez. Como cada una casi solo **espera**, se solapan y el escaneo tarda segundos.
+
+`ThreadPoolExecutor` reparte el trabajo entre varios "hilos" a la vez.
+
+**🐍 En Python.** (Usa `puerto_abierto` del concepto anterior.)
+
+```python title="escaneo.py"
+from concurrent.futures import ThreadPoolExecutor
+
+def escanear(host: str, puertos: list[int], timeout: float = 0.3) -> list[int]:
+    def comprobar(p: int) -> tuple[int, bool]:
+        return (p, puerto_abierto(host, p, timeout))
+    with ThreadPoolExecutor(max_workers=50) as ex:       # 50 a la vez
+        resultados = ex.map(comprobar, puertos)
+    return sorted(p for p, abierto in resultados if abierto)
+
+print(escanear("127.0.0.1", list(range(9090, 9094))))
+```
+
+```text title="Salida (si el servidor del 9091 sigue levantado)"
+[9091]
+```
+
+**🧪 Pruébalo tú.** ¿Cuántos puertos comprueba `escanear("127.0.0.1", list(range(1, 1025)))`? (No hace falta ejecutarlo: razona el número.)
+
+<details class="sol"><summary>Solución</summary>
+
+`range(1, 1025)` va del 1 al 1024 → **1024 puertos**. Gracias a la concurrencia, comprobarlos tarda un par de segundos en vez de varios minutos.
+</details>
+
+**✅ Checkpoint**
+
+- [ ] Sé por qué el escaneo concurrente es mucho más rápido que el secuencial.
+
+## 6 · No todo puerto abierto es igual de grave
+
+**💡 La idea.** Encontrar un puerto abierto es el principio: hay que **clasificarlo** por peligro. Un 443 (HTTPS) abierto es normal; un 23 (Telnet, que manda las contraseñas **sin cifrar**) es una alarma.
+
+| Severidad | Puertos de ejemplo | Por qué |
+|---|---|---|
+| 🔴 **INSEGURO** | 21 (FTP), 23 (Telnet), 3389 (Escritorio remoto) | Sin cifrar o muy atacados |
+| 🟠 **REVISAR** | 80 (HTTP sin cifrar), 8080 | Mejorables |
+| 🟢 **OK** | 443 (HTTPS), 22 (SSH) | Cifrados, bien configurados |
+
+**🐍 En Python.**
+
+```python title="severidad.py"
+INSEGUROS = {21, 23, 25, 3389}
+REVISAR = {80, 8080, 110, 143}
+
+def severidad(puerto: int) -> str:
+    if puerto in INSEGUROS:
+        return "INSEGURO"
+    if puerto in REVISAR:
+        return "REVISAR"
+    return "OK"
+
+for p in (23, 80, 443):
+    print(p, "->", severidad(p))
+```
+
+```text title="Salida"
+23 -> INSEGURO
+80 -> REVISAR
+443 -> OK
+```
+
+**🧪 Pruébalo tú.** Dada una lista de puertos abiertos, cuenta cuántos hay de cada severidad usando `Counter` (lo viste en la UD2):
 
 ```python
-productos = [("Camisa", 19.99), ("Gorra", 8.0)]
-print(f"{'PRODUCTO':<12}{'PRECIO':>10}")
-for nombre, precio in productos:
-    print(f"{nombre:<12}{precio:>10.2f}")
+abiertos = [22, 23, 80, 443, 3389]
+```
+
+```text title="Salida esperada"
+Counter({'OK': 2, 'INSEGURO': 2, 'REVISAR': 1})
+```
+
+<details class="sol"><summary>Solución</summary>
+
+```python
+from collections import Counter
+print(Counter(severidad(p) for p in abiertos))
 ```
 </details>
 
-#### Actividad 4 — CSV de ida y vuelta
-Guarda dos contactos en CSV y vuelve a leerlos.
-<details><summary>Solución</summary>
+**✅ Checkpoint**
 
-```python
-import csv
+- [ ] Sé clasificar un puerto abierto por su peligro.
 
-with open("contactos.csv", "w", newline="", encoding="utf-8") as f:
-    w = csv.writer(f)
-    w.writerow(["nombre", "telefono"])
-    w.writerow(["Ada", "600111222"])
-    w.writerow(["Linus", "600333444"])
+## 7 · Equipos de colores y MITRE ATT&CK
 
-with open("contactos.csv", encoding="utf-8") as f:
-    for fila in csv.DictReader(f):
-        print(fila["nombre"], fila["telefono"])
-```
-</details>
+**💡 La idea.** En las empresas grandes la seguridad se organiza por equipos:
 
-### 7.2 Ejercicios propuestos
-
-**E1 ○ · Guardar una lista.** `guardar(ruta: str, lineas: list[str]) -> None`.
-<details><summary>Solución</summary>
-
-```python
-def guardar(ruta: str, lineas: list[str]) -> None:
-    with open(ruta, "w", encoding="utf-8") as f:
-        for ln in lineas:
-            f.write(ln + "\n")
-```
-</details>
-
-**E2 ○ · Leer una lista.** `leer(ruta: str) -> list[str]`, devolviendo `[]` si no existe.
-<details><summary>Solución</summary>
-
-```python
-def leer(ruta: str) -> list[str]:
-    try:
-        with open(ruta, encoding="utf-8") as f:
-            return [ln.rstrip() for ln in f]
-    except FileNotFoundError:
-        return []
-```
-</details>
-
-**E3 ◐ · Añadir al final.** `anadir(ruta: str, linea: str) -> None` sin borrar lo anterior.
-<details><summary>Solución</summary>
-
-```python
-def anadir(ruta: str, linea: str) -> None:
-    with open(ruta, "a", encoding="utf-8") as f:
-        f.write(linea + "\n")
-```
-</details>
-
-**E4 ◐ · Contar líneas.** `contar_lineas(ruta: str) -> int` (0 si no existe).
-<details><summary>Solución</summary>
-
-```python
-def contar_lineas(ruta: str) -> int:
-    try:
-        with open(ruta, encoding="utf-8") as f:
-            return sum(1 for _ in f)
-    except FileNotFoundError:
-        return 0
-```
-</details>
-
-**E5 ● · Media desde CSV.** Lee un CSV con columna `nota` y devuelve la media.
-<details><summary>Pista</summary>Recuerda que <code>fila["nota"]</code> es texto: conviértelo con <code>float()</code>.</details>
-<details><summary>Solución</summary>
-
-```python
-import csv
-
-def media_csv(ruta: str) -> float:
-    notas: list[float] = []
-    with open(ruta, encoding="utf-8") as f:
-        for fila in csv.DictReader(f):
-            notas.append(float(fila["nota"]))
-    if not notas:
-        return 0.0
-    return sum(notas) / len(notas)
-```
-</details>
-
-**E6 ○ · Guardar una lista de líneas.** `guardar_lineas(ruta: str, lineas: list[str]) -> None` escribe cada texto en una línea del fichero.
-<details><summary>Pista</summary>Un <code>for</code> dentro del <code>with</code>, y acuérdate del <code>\n</code> al final de cada línea.</details>
-<details><summary>Solución</summary>
-
-```python
-def guardar_lineas(ruta: str, lineas: list[str]) -> None:
-    """Escribe cada texto en una línea del fichero."""
-    with open(ruta, "w", encoding="utf-8") as f:
-        for linea in lineas:
-            f.write(linea + "\n")
-```
-</details>
-
-**E7 ◐ · Configuración con valores por defecto.** `cargar_config(ruta: str) -> dict` lee un JSON de configuración. Si el fichero **no existe**, devuelve `{"idioma": "es", "tema": "claro"}`.
-<details><summary>Pista</summary>Captura <code>FileNotFoundError</code> y devuelve ahí el diccionario por defecto.</details>
-<details><summary>Solución</summary>
-
-```python
-import json
-
-POR_DEFECTO: dict = {"idioma": "es", "tema": "claro"}
-
-
-def cargar_config(ruta: str) -> dict:
-    """Configuración del fichero; los valores por defecto si no existe."""
-    try:
-        with open(ruta, encoding="utf-8") as f:
-            return dict(json.load(f))
-    except FileNotFoundError:
-        return dict(POR_DEFECTO)
-```
-</details>
-
-**E8 ● · Añadir una fila a un CSV.** `anadir_fila(ruta: str, fila: list) -> None` añade una fila al CSV. Si el fichero **no existe todavía**, lo crea escribiendo antes la cabecera `nombre,nota`.
-<details><summary>Pista</summary><code>os.path.exists(ruta)</code> te dice si hay que escribir la cabecera. Abre en modo <code>"a"</code> y no olvides <code>newline=""</code>.</details>
-<details><summary>Solución</summary>
-
-```python
-import csv
-import os
-
-CABECERA: list[str] = ["nombre", "nota"]
-
-
-def anadir_fila(ruta: str, fila: list) -> None:
-    """Añade una fila al CSV, creándolo con cabecera si no existía."""
-    nuevo: bool = not os.path.exists(ruta)
-    with open(ruta, "a", newline="", encoding="utf-8") as f:
-        escritor = csv.writer(f)
-        if nuevo:
-            escritor.writerow(CABECERA)
-        escritor.writerow(fila)
-```
-</details>
-
----
-
-## 8. Proyecto de la unidad
-
-Toda la práctica de esta unidad se hace sobre un **proyecto base**: una agenda que guarda y recupera datos en CSV y JSON. Está montado
-con la estructura real de un proyecto Python y trae una **batería de tests** que puedes
-ejecutar en cualquier momento para ver si va todo bien.
-
-**[Proyecto Agenda de contactos →](../proyectos/ud5/README.md)**
-
-```
-proyecto-ud5/
-├── src/      ← tu código (funciones con TODO)
-└── tests/    ← 10 tests que comprueban tu trabajo
-```
-
-### Cómo se trabaja
-
-```bash
-pip install -r requirements.txt
-pytest
-```
-
-La primera vez falla casi todo: aún no has escrito nada. A partir de ahí, lee una función,
-escríbela, vuelve a lanzar `pytest` y comprueba si ese test ya pasa. Terminas cuando está
-**todo en verde** y `mypy src` dice *Success*.
-
-!!! tip "De uno en uno"
-    `pytest -x` se detiene en el primer fallo. Arreglas esa función y sigues. Mucho más
-    llevadero que enfrentarse a todos los errores a la vez.
-
-!!! warning "Los tests son la especificación"
-    No los modifiques para que pasen: describen exactamente lo que tu código debe hacer, y
-    el examen usará una batería equivalente.
-
-Detalles y comandos útiles en **[Proyectos](../proyectos/index.md)**.
-
----
-
-## 9. Simulacro de examen
-
-Cuando tengas el proyecto terminado, mídete: el **simulacro** es un examen de mentira con
-**el mismo formato, tamaño y rúbrica** que el de verdad — y con los tests publicados.
-
-**[Simulacro RA5 · Recetario en CSV y JSON →](../simulacros/ra5/README.md)** · 13 tests · 45–50 min
-
-Hazlo **contrarreloj y sin ayuda**, como si fuera el examen. Al terminar, aplica la rúbrica
-y tendrás una estimación bastante fiel de tu nota.
-
-!!! warning "El examen de verdad va sin tests"
-    Allí solo tendrás los **docstrings** y unos ejemplos. Por eso, en el simulacro, intenta
-    resolver cada función leyendo solo su docstring y mira el test únicamente cuando falle.
-
----
-
-## 10. Retos opcionales
-
-- **R1.** Programa que lea un CSV de notas y escriba otro CSV añadiendo la columna `apto`.
-- **R2.** Registro (log): función que añada una línea con fecha y hora usando `datetime`.
-- **R3.** Convierte un CSV a JSON y comprueba que al volver atrás obtienes lo mismo.
-
-- **R4.** Programa que lea un fichero de texto y escriba otro con las líneas numeradas.
-- **R5.** Diario: función que añada una entrada al final de un fichero con la fecha y la hora delante, usando `datetime`.
-- **R6.** Lee un CSV de productos y escribe un JSON con el mismo contenido; comprueba que al volver del JSON al CSV obtienes exactamente el fichero de partida.
----
-
-## 11. Autoevaluación rápida
-
-<details><summary>1. ¿Por qué usar <code>with open(...)</code>?</summary>Cierra el fichero automáticamente, incluso si hay un error.</details>
-<details><summary>2. Diferencia entre los modos <code>"w"</code> y <code>"a"</code>.</summary><code>"w"</code> borra el contenido; <code>"a"</code> añade al final.</details>
-<details><summary>3. ¿Qué excepción salta si el fichero no existe?</summary><code>FileNotFoundError</code>.</details>
-<details><summary>4. ¿Por qué <code>newline=""</code> al abrir un CSV?</summary>Para que no aparezcan líneas en blanco entre filas.</details>
-<details><summary>5. ¿De qué tipo son los datos leídos de un CSV?</summary>Texto (<code>str</code>): hay que convertirlos.</details>
-<details><summary>6. ¿Cuándo JSON en vez de CSV?</summary>Cuando los datos tienen estructura anidada, no forma de tabla.</details>
-
----
-
-## 12. Glosario
-
-| Término | Definición |
+| Equipo | Qué hace |
 |---|---|
-| **Fichero de texto** | Archivo con caracteres legibles. |
-| **Modo de apertura** | `r` leer, `w` escribir, `a` añadir, `x` crear. |
-| **`with`** | Bloque que cierra el recurso automáticamente. |
-| **Encoding** | Cómo se codifican los caracteres (`utf-8`). |
-| **CSV** | Texto con valores separados por comas: una tabla. |
-| **JSON** | Formato de datos estructurados y anidados. |
-| **Persistencia** | Que los datos sobrevivan al cierre del programa. |
+| 🔴 **Rojo** | Ataca (con permiso) para encontrar fallos — lo de esta unidad |
+| 🔵 **Azul** | Defiende y detecta — lo de la UD2 |
+| 🟣 **Púrpura** | Junta a los dos para que aprendan el uno del otro |
 
----
+Y para hablar todos el mismo idioma existe **MITRE ATT&CK**: un catálogo público de técnicas de ataque reales, ordenadas por fases. Un escaneo de puertos está catalogado como *"Reconocimiento activo"*.
 
-## 13. Cómo se evalúa esta unidad (RA5)
+**✅ Checkpoint**
 
-El examen es **100 % práctico**: se entrega un proyecto con las funciones vacías y una
-especificación, y hay que escribir el código.
+- [ ] Sé qué hace el equipo rojo, el azul y el púrpura.
 
-**La nota sale solo de los casos de prueba.** No hay puntos por presentación ni por
-esfuerzo: cada apartado del examen vale en proporción a los casos que tiene, de modo que
-**todos los casos valen lo mismo**.
+## 🧾 Resumen
 
-`nota del apartado = (casos superados ÷ casos del apartado) × puntos del apartado`
+| Idea | En una línea |
+|---|---|
+| White / grey / black hat | Con permiso / sin permiso / delincuente |
+| Alcance (scope) | Qué máquinas puedo tocar; salirse = delito |
+| Fases del pentest | Reconocer · **enumerar** · explotar · mantenerse · informar |
+| Socket | Canal de red; `connect_ex` devuelve `0` si el puerto está abierto |
+| Timeout | Imprescindible: sin él, el escaneo se cuelga |
+| `connect_ex` | Devuelve `0` (abierto) sin lanzar error |
+| `ThreadPoolExecutor` | Escanea muchos puertos a la vez → mucho más rápido |
+| Severidad | INSEGURO (sin cifrar) · REVISAR · OK |
+| Equipos | Rojo ataca · azul defiende · púrpura une |
+| MITRE ATT&CK | Catálogo de técnicas de ataque |
 
-`nota del examen = suma de los apartados`
+## 🛠️ Mini-proyecto guiado: el escáner de puertos
 
-### Así es el examen
+El cliente autorizado quiere saber qué expone su servidor de laboratorio. Tu escáner lo descubre, clasifica cada puerto por peligro y saca un informe — **con el guardarraíl ético metido en el código** para que sea imposible escanear algo fuera del alcance. En 4 pasos:
 
-**Inventario en CSV y JSON** · entrega `src/inventario.py` · **50 min**
+1. **`objetivo_permitido`**: el guardarraíl (concepto 1).
+2. **`puerto_abierto`** con socket y timeout (concepto 3).
+3. **`escanear`** concurrente que **rechaza** objetivos fuera del alcance (concepto 5).
+4. **Severidad, informe** y órdenes desde la terminal (conceptos 6).
 
-| # | Apartado | Casos | Puntos |
-|:---:|---|:---:|:---:|
-| **A** | Formato de salida | 1 | **0,83** |
-| **B** | Ficheros CSV | 7 | **5,83** |
-| **C** | Ficheros JSON | 4 | **3,34** |
-| | **TOTAL** | **12** | **10,00** |
+```python title="escaner.py"
+import argparse, socket
+from concurrent.futures import ThreadPoolExecutor
+from pathlib import Path
 
-Esta tabla viene en el enunciado, así que sabes desde el primer minuto **qué vale cada
-parte** y por dónde empezar si vas justo de tiempo.
+INSEGUROS = {21, 23, 25, 3389}
+REVISAR = {80, 8080, 110, 143}
 
-!!! warning "El examen se reparte sin tests"
-    La carpeta `tests/` viene vacía. La especificación son los **docstrings** de cada
-    función y los ejemplos del enunciado. Por eso conviene que en el simulacro te
-    acostumbres a resolver leyendo el docstring y no el test.
+def objetivo_permitido(host: str) -> bool:
+    return host in ("127.0.0.1", "localhost") or host.startswith("10.0.20.")
 
-### Así se corrige
+def puerto_abierto(host: str, puerto: int, timeout: float = 0.5) -> bool:
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.settimeout(timeout)
+        return s.connect_ex((host, puerto)) == 0
 
-Alguien que entrega el examen con **9 de los 12 casos** superados
-—se le ha escapado el apartado **B**, donde falla 3 de
-7 casos—:
+def escanear(host: str, puertos: list[int], timeout: float = 0.3) -> list[int]:
+    if not objetivo_permitido(host):
+        raise ValueError(f"objetivo no autorizado: {host} (solo laboratorio)")
+    def comprobar(p: int) -> tuple[int, bool]:
+        return (p, puerto_abierto(host, p, timeout))
+    with ThreadPoolExecutor(max_workers=50) as ex:
+        resultados = ex.map(comprobar, puertos)
+    return sorted(p for p, abierto in resultados if abierto)
 
-| # | Apartado | Casos superados | Puntos |
-|:---:|---|:---:|---|
-| A | Formato de salida | 1 / 1 | 0,83 / 0,83 |
-| B | Ficheros CSV | 4 / 7 | 3,33 / 5,83  ← |
-| C | Ficheros JSON | 4 / 4 | 3,34 / 3,34 |
-| | | | **NOTA: 7,50** |
+def severidad(puerto: int) -> str:
+    if puerto in INSEGUROS:
+        return "INSEGURO"
+    if puerto in REVISAR:
+        return "REVISAR"
+    return "OK"
 
-La corrección es automática: se monta un proyecto con la batería completa más el fichero
-entregado, se ejecuta y se reparte la nota con esa cuenta. **Nadie interpreta nada.**
+def generar_informe(host: str, abiertos: list[int]) -> list[str]:
+    orden = {"INSEGURO": 0, "REVISAR": 1, "OK": 2}
+    lineas = [f"Informe de {host}"]
+    for p in sorted(abiertos, key=lambda p: (orden[severidad(p)], p)):
+        lineas.append(f"[{severidad(p):9}] puerto {p}")
+    if not abiertos:
+        lineas.append("(ningun puerto abierto en el rango escaneado)")
+    return lineas
 
-Además recibes un informe con los casos concretos que han fallado, con el valor que
-esperaba y el que devolvió tu función.
+def main() -> None:
+    ap = argparse.ArgumentParser(prog="escaner", description="Escaner de puertos de laboratorio")
+    ap.add_argument("host")
+    ap.add_argument("--desde", type=int, default=1)
+    ap.add_argument("--hasta", type=int, default=1024)
+    args = ap.parse_args()
+    abiertos = escanear(args.host, list(range(args.desde, args.hasta + 1)))
+    for linea in generar_informe(args.host, abiertos):
+        print(linea)
 
-!!! note "Los tres requisitos de la entrega"
-    No puntúan por separado, pero forman parte de la especificación:
+if __name__ == "__main__":
+    main()
+```
 
-    1. Entregar **el fichero de `src/`**, con ese nombre.
-    2. `mypy src` sin errores.
-    3. Cada función con su **docstring**.
+**Pruébalo de principio a fin.** Levanta un servidor de prueba y escanéalo:
 
-    Un fichero que no compila o que no se puede importar da **0 casos superados**, así que
-    en la práctica valen mucho más que unos puntos.
+```python title="objetivo_prueba.py"
+import socket, threading, time
+def servidor(puerto):
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    s.bind(("127.0.0.1", puerto)); s.listen()
+    while True:
+        conn, _ = s.accept(); conn.close()
+threading.Thread(target=servidor, args=(8080,), daemon=True).start()
+time.sleep(0.3)
+import escaner
+print(escaner.generar_informe("127.0.0.1", escaner.escanear("127.0.0.1", [22, 80, 8080, 3389])))
+```
+
+```text title="Salida"
+['Informe de 127.0.0.1', '[REVISAR  ] puerto 8080']
+```
+
+(Solo el 8080 está abierto, porque es el único con servidor; se clasifica como REVISAR.)
+
+Y el guardarraíl en acción:
+
+```python title="prohibido.py"
+import escaner
+escaner.escanear("8.8.8.8", [80])     # objetivo fuera del alcance
+```
+
+```text title="Salida"
+ValueError: objetivo no autorizado: 8.8.8.8 (solo laboratorio)
+```
+
+!!! success "🏅 Misión 5 cumplida"
+    Entregas al cliente el informe con el puerto 8080 marcado para revisar (debería usar HTTPS). Has atacado para defender, sin salirte ni un milímetro del alcance.
+
+## 📚 Ejercicios prácticos resueltos
+
+> De fácil a difícil: 🟢 · 🟡 · 🟠 · 🔴. Intenta cada uno **antes** de abrir la solución, y ejecútalo para comprobarlo.
+
+**1 · 🟢 Severidad de un puerto** — `severidad(p: int) -> str`.
+<details class="sol"><summary>Solución</summary>
+
+```python
+def severidad(p: int) -> str:
+    if p in {21, 23, 25, 135, 445, 3389}: return "INSEGURO"
+    if p in {80, 8080, 110, 143}: return "REVISAR"
+    return "OK"
+```
+</details>
+
+**2 · 🟢 Rango de puertos válido** — `rango(ini: int, fin: int) -> list[int]`, lanza `ValueError` si `ini > fin`.
+<details class="sol"><summary>Solución</summary>
+
+```python
+def rango(ini: int, fin: int) -> list[int]:
+    if ini > fin:
+        raise ValueError("ini > fin")
+    return list(range(ini, fin + 1))
+```
+</details>
+
+**3 · 🟢 Nombre de servicio conocido** — `servicio_de(puerto: int) -> str` para 22/80/443/3389, `"desconocido"` si no.
+<details class="sol"><summary>Solución</summary>
+
+```python
+def servicio_de(puerto: int) -> str:
+    return {22: "SSH", 80: "HTTP", 443: "HTTPS", 3389: "RDP"}.get(puerto, "desconocido")
+```
+</details>
+
+**4 · 🟢 ¿Puerto abierto?** — `puerto_abierto(host, puerto, timeout=0.5) -> bool` con `socket`.
+<details class="sol"><summary>Solución</summary>
+
+```python
+import socket
+def puerto_abierto(host: str, puerto: int, timeout: float = 0.5) -> bool:
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.settimeout(timeout)
+        return s.connect_ex((host, puerto)) == 0
+```
+</details>
+
+**5 · 🟡 Escaneo secuencial** — `escanea_secuencial(host, puertos) -> list[int]`.
+<details class="sol"><summary>Solución</summary>
+
+```python
+def escanea_secuencial(host: str, puertos: list[int]) -> list[int]:
+    return sorted(p for p in puertos if puerto_abierto(host, p, 0.2))
+```
+</details>
+
+**6 · 🟡 Escaneo concurrente** — `escanea(host, puertos) -> list[int]` con `ThreadPoolExecutor`.
+<details class="sol"><summary>Solución</summary>
+
+```python
+from concurrent.futures import ThreadPoolExecutor
+def escanea(host: str, puertos: list[int]) -> list[int]:
+    with ThreadPoolExecutor(max_workers=50) as ex:
+        res = ex.map(lambda p: (p, puerto_abierto(host, p, 0.2)), puertos)
+    return sorted(p for p, ok in res if ok)
+```
+</details>
+
+**7 · 🟡 Clasificar abiertos** — `clasificar(abiertos: list[int]) -> dict[int,str]`.
+<details class="sol"><summary>Solución</summary>
+
+```python
+def clasificar(abiertos: list[int]) -> dict[int, str]:
+    return {p: severidad(p) for p in abiertos}
+```
+</details>
+
+**8 · 🟡 Contar por severidad** — `resumen(clasificado: dict[int,str]) -> dict[str,int]`.
+<details class="sol"><summary>Solución</summary>
+
+```python
+from collections import Counter
+def resumen(clasificado: dict[int, str]) -> dict[str, int]:
+    return dict(Counter(clasificado.values()))
+```
+</details>
+
+**9 · 🟠 Informe ordenado por gravedad** — `informe(clasificado) -> list[str]`, INSEGURO primero.
+<details class="sol"><summary>Solución</summary>
+
+```python
+def informe(clasificado: dict[int, str]) -> list[str]:
+    orden = {"INSEGURO": 0, "REVISAR": 1, "OK": 2}
+    return [f"{p}: {s}" for p, s in sorted(clasificado.items(), key=lambda kv: (orden[kv[1]], kv[0]))]
+```
+</details>
+
+**10 · 🟠 Solo los graves** — `solo_inseguros(clasificado: dict[int,str]) -> list[int]`.
+<details class="sol"><summary>Solución</summary>
+
+```python
+def solo_inseguros(clasificado: dict[int, str]) -> list[int]:
+    return sorted(p for p, s in clasificado.items() if s == "INSEGURO")
+```
+</details>
+
+**11 · 🟠 Comparar dos escaneos** — `nuevos_puertos(anterior: list[int], actual: list[int]) -> list[int]`: puertos que se han abierto desde el último escaneo (detección de cambios, como el HIDS de la UT1).
+<details class="sol"><summary>Solución</summary>
+
+```python
+def nuevos_puertos(anterior: list[int], actual: list[int]) -> list[int]:
+    return sorted(set(actual) - set(anterior))
+```
+</details>
+
+**12 · 🔴 Tiempo estimado de un escaneo** — `tiempo_estimado(n_puertos: int, hilos: int, timeout: float) -> float`: cuánto tardaría en el peor caso (todo cerrado).
+<details class="sol"><summary>Solución</summary>
+
+```python
+import math
+def tiempo_estimado(n_puertos: int, hilos: int, timeout: float) -> float:
+    tandas = math.ceil(n_puertos / hilos)
+    return round(tandas * timeout, 2)
+```
+</details>
+
+**13 · 🔴 Banner grabbing simplificado** — `intenta_leer_banner(host, puerto, timeout=1.0) -> str`: conecta y lee hasta 100 bytes que el servicio pueda enviar al conectar (sin enviar nada), o `""` si no hay nada.
+<details class="sol"><summary>Solución</summary>
+
+```python
+import socket
+def intenta_leer_banner(host: str, puerto: int, timeout: float = 1.0) -> str:
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.settimeout(timeout)
+            s.connect((host, puerto))
+            datos = s.recv(100)
+            return datos.decode(errors="replace")
+    except (socket.timeout, OSError):
+        return ""
+```
+</details>
+
+**14 · 🔴 Validar un objetivo de laboratorio** — `es_objetivo_valido(host: str) -> bool`: solo permite `127.0.0.1`, `localhost` o direcciones que empiecen por `10.0.20.` (tu red de laboratorio).
+<details class="sol"><summary>Solución</summary>
+
+```python
+def es_objetivo_valido(host: str) -> bool:
+    return host in ("127.0.0.1", "localhost") or host.startswith("10.0.20.")
+```
+</details>
+
+**15 · 🔴 Escaneo con guardarraíl ético** — `escaneo_seguro(host, puertos) -> list[int]`: usa `es_objetivo_valido`; si el host no es válido, lanza `ValueError` en vez de escanear.
+<details class="sol"><summary>Solución</summary>
+
+```python
+def escaneo_seguro(host: str, puertos: list[int]) -> list[int]:
+    if not es_objetivo_valido(host):
+        raise ValueError(f"objetivo no autorizado: {host}")
+    return escanea(host, puertos)
+```
+</details>
+
+## 🎯 Ejercicios tipo examen
+
+> Así es el examen práctico: te damos el **enunciado** y los **tests**; tú escribes el código hasta que pasen.
+> **Tu nota = tests superados ÷ tests totales × 10.**
+
+Para cada ejercicio:
+
+1. Crea el fichero del enunciado (por ejemplo `lista_blanca.py`) con las funciones o clases que se piden.
+2. Copia los tests en un fichero `test_....py` **en la misma carpeta**.
+3. Ejecuta `pytest` y ve arreglando hasta que todo salga en verde.
+
+```bash title="Terminal"
+pip install pytest
+pytest -v
+```
+
+!!! tip "Cómo atacar un ejercicio de examen"
+    Lee **primero los tests**: son la especificación exacta. Cada `assert` te dice qué tiene que devolver tu código, y cada `pytest.raises` qué error tiene que lanzar. Haz pasar los tests de uno en uno.
+
+### Examen tipo 1 · Clasificador de severidad
+
+⏱️ 25 minutos · 5 tests
+
+Crea `clasificador.py` con:
+
+- **`severidad(puerto)`** → `"INSEGURO"` (21, 23, 25, 3389), `"REVISAR"` (80, 8080, 110, 143) u `"OK"` (el resto). Si el puerto no está entre 1 y 65535, lanza `ValueError`.
+- **`resumen(puertos)`** → un diccionario `{"INSEGURO": n, "REVISAR": n, "OK": n}` (las tres claves siempre, aunque valgan 0).
+- **`solo_inseguros(puertos)`** → lista **ordenada** de los puertos inseguros.
+
+```python title="test_clasificador.py"
+import pytest
+from clasificador import severidad, resumen, solo_inseguros
+
+@pytest.mark.parametrize("puerto,esperado", [(23, "INSEGURO"), (3389, "INSEGURO"), (80, "REVISAR"), (443, "OK"), (22, "OK")])
+def test_severidad(puerto, esperado):
+    assert severidad(puerto) == esperado
+
+@pytest.mark.parametrize("malo", [0, -5, 70000])
+def test_puerto_invalido(malo):
+    with pytest.raises(ValueError):
+        severidad(malo)
+
+def test_resumen():
+    assert resumen([22, 23, 80, 443, 3389]) == {"INSEGURO": 2, "REVISAR": 1, "OK": 2}
+
+def test_resumen_vacio():
+    assert resumen([]) == {"INSEGURO": 0, "REVISAR": 0, "OK": 0}
+
+def test_solo_inseguros_ordenados():
+    assert solo_inseguros([3389, 443, 23, 80]) == [23, 3389]
+```
+
+### Examen tipo 2 · Guardarraíl de alcance
+
+⏱️ 25 minutos · 3 tests
+
+Crea `alcance.py` con:
+
+- **`objetivo_permitido(host)`** → `True` solo para `127.0.0.1`, `localhost` y las redes `10.0.20.x` y `10.0.30.x`.
+- **`validar_objetivos(hosts)`** → devuelve la lista tal cual si **todos** están permitidos; si hay alguno prohibido, lanza `ValueError`.
+
+```python title="test_alcance.py"
+import pytest
+from alcance import objetivo_permitido, validar_objetivos
+
+@pytest.mark.parametrize("host,ok", [
+    ("127.0.0.1", True), ("localhost", True), ("10.0.20.5", True),
+    ("10.0.30.9", True), ("8.8.8.8", False), ("192.168.1.1", False)])
+def test_objetivo_permitido(host, ok):
+    assert objetivo_permitido(host) is ok
+
+def test_validar_todos_ok():
+    assert validar_objetivos(["127.0.0.1", "10.0.20.7"]) == ["127.0.0.1", "10.0.20.7"]
+
+def test_validar_rechaza_uno_malo():
+    with pytest.raises(ValueError):
+        validar_objetivos(["127.0.0.1", "8.8.8.8"])
+```
+
+### Examen tipo 3 · Comparar dos escaneos
+
+⏱️ 30 minutos · 4 tests
+
+Crea `diff_escaneos.py` con:
+
+- **`cambios(antes, ahora)`** → un diccionario `{"nuevos": [...], "cerrados": [...]}` con los puertos que aparecen y los que desaparecen entre dos escaneos (ambas listas ordenadas). *Pista: usa conjuntos.*
+- **`hay_alerta(antes, ahora)`** → `True` si hay algún puerto **nuevo** (un puerto que se abre de repente es sospechoso).
+
+```python title="test_diff_escaneos.py"
+from diff_escaneos import cambios, hay_alerta
+
+def test_puertos_nuevos_y_cerrados():
+    assert cambios([22, 80], [22, 443]) == {"nuevos": [443], "cerrados": [80]}
+
+def test_sin_cambios():
+    assert cambios([22, 80], [80, 22]) == {"nuevos": [], "cerrados": []}
+
+def test_alerta_si_hay_nuevos():
+    assert hay_alerta([22], [22, 3389])
+
+def test_sin_alerta_si_solo_se_cierran():
+    assert not hay_alerta([22, 80], [22])
+```
+
+## Cómo se evalúa esta unidad
+
+Las UD3 a UD6 forman el **2.º trimestre** y se evalúan con un **examen práctico**: ejercicios como los de "tipo examen", con sus tests.
+
+!!! tip "La nota, sin sorpresas"
+    **Nota = (tests superados ÷ tests totales) × 10.** Se aprueba con un 5.
+
+El corrector también te informa, **sin que cuente para la nota**, de si tu código pasa `mypy` y está documentado: son buenas prácticas que te pedirán en cualquier empresa.
