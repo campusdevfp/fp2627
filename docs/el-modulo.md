@@ -19,11 +19,11 @@ estudia, se practica y se evalúa por separado.
 |:---:|---|---|:---:|:---:|
 | **1** | **RA1** · Reconoce la estructura de un programa | Declarar variables tipadas, usar operadores, convertir tipos y dar formato a la salida. Montar un entorno de trabajo con `venv` y `pip`. | 8 h | **15 %** |
 | **2** | **RA2** · Escribe y prueba programas sencillos | Partir un problema en funciones, usar parámetros y `return`, manejar listas y aprovechar la librería estándar. | 8 h | **15 %** |
-| **3** | **RA3** · Escribe y depura código con estructuras de control | Decidir con `if`, repetir con `while` y `for`, usar diccionarios, controlar errores con excepciones y depurar. | 12 h | **25 %** |
+| **3** | **RA3** · Escribe y depura código con estructuras de control | Decidir con `if`, repetir con `while` y `for`, usar diccionarios, controlar errores con excepciones y depurar. | 12 h | **15 %** |
 | **4** | **RA4** · Conoce los fundamentos de la POO | Escribir clases con atributos validados, métodos y herencia. | 8 h | **15 %** |
-| **5** | **RA5** · Realiza operaciones de E/S con ficheros | Guardar y recuperar información en ficheros de texto, CSV y JSON. | 6 h | **10 %** |
-| **6** | **RA6** · Gestiona bases de datos relacionales | Crear tablas en SQLite, hacer el CRUD completo y escribir consultas seguras. | 8 h | **10 %** |
-| **—** | **FFE** · Fase de Formación en Empresa | — | — | **10 %** |
+| **5** | **RA5** · Realiza operaciones de E/S con ficheros | Guardar y recuperar información en ficheros de texto, CSV y JSON. | 6 h | **20 %** |
+| **6** | **RA6** · Gestiona bases de datos relacionales | Crear tablas en SQLite, hacer el CRUD completo y escribir consultas seguras. | 8 h | **20 %** |
+| **—** | **FFE** · Fase de Formación en Empresa | — | — | **10 % = 5% del RA5 + 5% del RA6** |
 | | | | **50 h** | **100 %** |
 
 **Las unidades van en orden y cada una se apoya en la anterior.** No se puede saltar la UD2

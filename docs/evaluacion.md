@@ -42,9 +42,9 @@ RA se califica por separado de 0 a 10**. Un RA está superado con **5**.
 | Trimestre | RA que se examinan | Peso de cada uno | Instrumento |
 |:---:|---|---|---|
 | **1.º** | RA1 y RA2 | 15 % + 15 % | test de código |
-| **2.º** | RA3 y RA4 | 25 % + 15 % | reto de programación |
-| **3.º** | RA5 y RA6 | 10 % + 10 % | reto de programación |
-| — | **FFE** (Fase de Formación en Empresa) | 10 % |
+| **2.º** | RA3 y RA4 | 15 % + 15 % | reto de programación |
+| **3.º** | RA5 y RA6 | 15 % + 15 % | reto de programación |
+| — | **FFE** (Fase de Formación en Empresa) | 10 % = 5% del RA5 + 5 % del RA6 |
 
 **Cada trimestre hay un examen de cada uno de sus dos RA.** En ninguno hay teoría ni
 preguntas de desarrollo: o lees código y dices qué hace, o lo escribes.
@@ -58,8 +58,8 @@ La nota que aparece en el boletín de cada trimestre es la media ponderada de su
 | Trimestre | RA | Instrumento |
 |:---:|---|---|
 | **1.º** | RA1, RA2 | **Test de código**: 12 preguntas de opción múltiple sobre fragmentos de código |
-| **2.º** | RA3, RA4 | **Reto de programación**: escribir código, corregido con casos de prueba |
-| **3.º** | RA5, RA6 | **Reto de programación** |
+| **2.º** | RA3, RA4 | **Ejercicio Práctico/Test Práctico**: escribir código, corregido con casos de prueba |
+| **3.º** | RA5, RA6 | **Ejercicio Práctico/Test Práctico** |
 
 El primer trimestre es para **arrancar**: se evalúa que sepas **leer** código y predecir qué
 hace, que es el paso previo a escribirlo. A partir del segundo ya se trata de escribirlo.
@@ -80,7 +80,7 @@ correcta. Ninguna de definiciones.
 opciones: **marcar al azar no compensa**. Si dudas entre dos, marca; si no tienes ni idea,
 déjalo en blanco.
 
-### Segundo y tercer trimestre: reto de programación
+### Segundo y tercer trimestre: reto de programación (también se puede optar por un test práctico)
 
 Siempre con la misma rúbrica, la conoces desde el primer día:
 
@@ -156,7 +156,7 @@ el RA5 en la ordinaria para que el módulo quede superado con su nota real.
 
 ### La FFE pondera, pero no bloquea
 
-La **FFE** aporta su 10 % a la media. **No tiene que estar aprobada** para superar el
+La **FFE** aporta su 10 % a la media sacando el 5% de cada RA5 y RA6 respectivamente. **No tiene que estar aprobada** para superar el
 módulo: el candado son los seis RA. Al revés tampoco funciona: una FFE de 10 no rescata un
 RA suspenso.
 

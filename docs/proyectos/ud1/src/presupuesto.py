@@ -7,13 +7,13 @@ IVA: int = 21
 def a_entero(texto: str) -> int:
     """Convierte un texto a número entero."""
     # TODO: input() devuelve texto; conviértelo a int
-    raise NotImplementedError
+    return int(texto)
 
 
 def a_decimal(texto: str) -> float:
     """Convierte un texto a número decimal."""
     # TODO
-    raise NotImplementedError
+    return float(texto)
 
 
 def calcular_subtotal(unidades: int, precio: float) -> float:
