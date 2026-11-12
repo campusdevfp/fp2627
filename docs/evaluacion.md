@@ -72,8 +72,7 @@ correcta. Ninguna de definiciones.
 
 | | |
 |---|---|
-| Acierto | **+0,83** |
-| Error | **−0,28** |
+| Pregunta Incorrecta | **−0,33** |
 | En blanco | 0 |
 
 `nota = (aciertos − errores ÷ 3) × 0,83`, con mínimo 0. Se resta porque hay cuatro
