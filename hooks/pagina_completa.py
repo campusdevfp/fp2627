@@ -29,6 +29,7 @@ PAGINAS = [
     ("recursos/entorno.md", None),
     ("proyectos/index.md", None),
     ("simulacros/index.md", None),
+    ("repaso-primer-trimestre.md", None),
 ]
 
 MARCADOR = "<!--CONTENIDO-->"

@@ -25,6 +25,7 @@ Las unidades van en orden: cada una se apoya en la anterior.
 - **[Puesta en marcha](recursos/puesta-en-marcha.md)** — instalar Python, VS Code, el entorno virtual y `mypy`. Se hace en la sesión 2.
 - **[Entorno de trabajo](recursos/entorno.md)** — chuleta de entornos virtuales, `pip` y `mypy`.
 - **[Proyectos](proyectos/index.md)** — los **6 proyectos base** con sus tests, uno por unidad.
+- **[Repaso del primer trimestre](repaso-primer-trimestre.md)** — 20 ejercicios que mezclan conceptos de la UD1 y la UD2, y dos simulacros de 20 preguntas.
 - **[Simulacros de examen](simulacros/index.md)** — un examen de mentira por RA, con los tests publicados, para medirte antes de la prueba real.
 - **[Todo el material en una página](completo.md)** — para leer del tirón o exportar a PDF.
 

@@ -33,7 +33,7 @@ Igual que la UD1, y en este orden:
 
 **lees la sección** → **reto rápido** → **ejercicios de esa sección** (con solución
 desplegable, al final de cada una) → en clase, dudas y **actividades guiadas** (sección 10)
-→ **proyecto** con sus tests → **test de práctica** → examen (que en este trimestre es un **test de código**).
+→ **simulacro tipo test** → examen (que en este trimestre es un **test de código**).
 
 !!! tip "Los ejercicios de sección son la clave"
     Están justo después de cada explicación y solo usan lo que acabas de leer. Hazlos en
@@ -331,18 +331,15 @@ def media(notas: list[float]) -> float:
     """Devuelve la media de una lista de notas."""
     return sum(notas) / len(notas)
 
-
 def aprueba(nota: float) -> bool:
     """Indica si una nota es de aprobado."""
     return nota >= 5
-
 
 def main() -> None:
     notas: list[float] = [6.0, 7.0, 4.0]
     nota_final: float = media(notas)
     print(f"Media: {nota_final:.2f}")
     print("Aprobado" if aprueba(nota_final) else "Suspenso")
-
 
 if __name__ == "__main__":
     main()
@@ -381,7 +378,6 @@ no tres semanas después.
 !!! warning "Intenta antes de desplegar"
     Abrir la solución sin haberlo intentado da sensación de aprender, y no enseña nada. Si
     llevas quince minutos sin avanzar, mírala. Si llevas dos, no.
-
 
 ### Tema 1 · Por qué funciones
 
@@ -427,7 +423,6 @@ Buenos nombres: verbo + complemento, en minusculas y con guion bajo:
 ```python
 IVA: int = 21
 
-
 def con_iva(precio: float) -> float:
     """Devuelve el precio con el IVA aplicado."""
     return precio * (1 + IVA / 100)
@@ -437,7 +432,6 @@ print(f"{con_iva(25):.2f}")   # -> 30.25
 print(f"{con_iva(99):.2f}")   # -> 119.79
 ```
 </details>
-
 
 ### Tema 2 · Definir y llamar funciones
 
@@ -467,7 +461,6 @@ def a(x: int) -> None:
     """Muestra el doble por pantalla."""
     print(x * 2)
 
-
 def b(x: int) -> int:
     """Devuelve el doble."""
     return x * 2
@@ -496,7 +489,6 @@ print(mayor(-2, -7))   # -> -2
 print(mayor(4, 4))     # -> 4
 ```
 </details>
-
 
 ### Tema 3 · Parámetros
 
@@ -544,7 +536,6 @@ print(potencia(2, 10))  # -> 1024
 ```
 </details>
 
-
 ### Tema 4 · Ámbito de las variables
 
 **4.1.** ¿Qué imprime este programa? Piénsalo antes de ejecutarlo.
@@ -560,7 +551,6 @@ print(x)
 
 ```python
 x = 10
-
 
 def f() -> None:
     x = 99          # esta x es NUEVA y solo vive dentro de f()
@@ -608,7 +598,6 @@ print(original)   # -> [1, 2]
 print(nueva)      # -> [1, 2, 3]
 ```
 </details>
-
 
 ### Tema 5 · Listas
 
@@ -658,7 +647,6 @@ print(media([]))                # -> 0.0
 ```
 </details>
 
-
 ### Tema 6 · Librería estándar
 
 **6.1.** Calcula la raíz cuadrada de 144 y el área de un círculo de radio 3 usando `math`.
@@ -704,7 +692,6 @@ print(hoy.strftime("%d/%m/%Y"))
 ```
 </details>
 
-
 ### Tema 7 · Módulos y `__main__`
 
 **7.1.** Añade a un módulo con la función `doble()` el bloque `if __name__ == "__main__":` para poder probarlo directamente.
@@ -713,11 +700,9 @@ print(hoy.strftime("%d/%m/%Y"))
 ```python
 """Módulo de ejemplo."""
 
-
 def doble(n: int) -> int:
     """Devuelve el doble."""
     return n * 2
-
 
 if __name__ == "__main__":
     # Esto solo se ejecuta si lanzas ESTE fichero, no al importarlo
@@ -753,7 +738,6 @@ if __name__ == "__main__":
 ```
 </details>
 
-
 ### Tema 8 · Descomponer un problema
 
 **8.1.** Descompón en funciones el problema «calcular la nota final de un alumno a partir de sus notas y decir si aprueba». No escribas el cuerpo todavía: solo las firmas.
@@ -764,11 +748,9 @@ def media(notas: list[float]) -> float:
     """Media de las notas."""
     ...
 
-
 def redondear_nota(nota: float) -> float:
     """Nota redondeada a dos decimales."""
     ...
-
 
 def aprueba(nota: float) -> bool:
     """Indica si la nota llega a 5."""
@@ -789,11 +771,9 @@ def media(notas: list[float]) -> float:
         return 0.0
     return sum(notas) / len(notas)
 
-
 def redondear_nota(nota: float) -> float:
     """Nota redondeada a dos decimales."""
     return round(nota, 2)
-
 
 def aprueba(nota: float) -> bool:
     """Indica si la nota llega a 5."""
@@ -823,7 +803,6 @@ def media(notas: list[float]) -> float:
         return 0.0
     return sum(notas) / len(notas)
 
-
 def mostrar_media(notas: list[float]) -> None:
     """Solo muestra."""
     print(f"Media: {media(notas):.2f}")
@@ -834,7 +813,6 @@ mostrar_media([5.0, 8.0])   # -> Media: 6.50
 # probar con un test y reutilizar en cualquier otro sitio.
 ```
 </details>
-
 
 ### Actividades guiadas
 
@@ -1014,64 +992,15 @@ práctica con **8 preguntas por cada tema** de la unidad y la respuesta explicad
 
 **[Simulacro tipo test RA2](../simulacros/ra2/README.md)**
 
+Y cuando tengas las dos unidades del trimestre vistas, el
+**[repaso del primer trimestre](../repaso-primer-trimestre.md)**: ejercicios que mezclan
+conceptos de la UD1 y la UD2, y un simulacro de 20 preguntas de cada una.
+
 Hazlo cuando termines los ejercicios, contrarreloj y sin ordenador. Después comprueba en
 Python las que hayas fallado: ahí es donde de verdad se aprende.
 
 ---
-
-## 12. Proyecto de la unidad
-
-Toda la práctica de esta unidad se hace sobre un **proyecto base**: un paquete de funciones reutilizables en tres módulos. Está montado
-con la estructura real de un proyecto Python y trae una **batería de tests** que puedes
-ejecutar en cualquier momento para ver si va todo bien.
-
-**[Proyecto Biblioteca de utilidades →](../proyectos/ud2/README.md)**
-
-```
-proyecto-ud2/
-├── src/      ← tu código (funciones con TODO)
-└── tests/    ← 31 tests que comprueban tu trabajo
-```
-
-### Cómo se trabaja
-
-```bash
-pip install -r requirements.txt
-pytest
-```
-
-La primera vez falla casi todo: aún no has escrito nada. A partir de ahí, lee una función,
-escríbela, vuelve a lanzar `pytest` y comprueba si ese test ya pasa. Terminas cuando está
-**todo en verde** y `mypy src` dice *Success*.
-
-!!! tip "De uno en uno"
-    `pytest -x` se detiene en el primer fallo. Arreglas esa función y sigues. Mucho más
-    llevadero que enfrentarse a todos los errores a la vez.
-
-!!! warning "Los tests son la especificación"
-    No los modifiques para que pasen: describen exactamente lo que tu código debe hacer, y
-    el examen usará una batería equivalente.
-
-Detalles y comandos útiles en **[Proyectos](../proyectos/index.md)**.
-
----
-
----
-
-## 13. Retos opcionales
-
-- **R1.** Añade a P1 una función `mediana(numeros: list[float]) -> float` sin usar `statistics`.
-- **R2.** Investiga `*args` y escribe `suma_todos(*numeros)` que sume cuantos números le pases.
-- **R3.** Compara tu `media` con `statistics.mean` sobre la misma lista: ¿dan exactamente lo mismo?
-
-- **R4.** Escribe `es_primo(n)` sin usar librerías y pruébala con los números del 1 al 20.
-- **R5.** Crea tu propio módulo `texto.py` con tres funciones de utilidad (contar vocales, invertir, quitar espacios) e impórtalo desde otro programa.
-- **R6.** Investiga `random.sample()` y escribe una función que devuelva 6 números distintos del 1 al 49.
----
-
----
-
-## 14. Autoevaluación rápida
+## 12. Autoevaluación rápida
 
 <details><summary>1. ¿Qué diferencia hay entre <code>return</code> y <code>print</code>?</summary><code>return</code> devuelve el valor a quien llamó (se puede seguir usando); <code>print</code> solo lo muestra.</details>
 <details><summary>2. ¿Qué devuelve una función sin <code>return</code>?</summary><code>None</code>.</details>
@@ -1084,7 +1013,7 @@ Detalles y comandos útiles en **[Proyectos](../proyectos/index.md)**.
 
 ---
 
-## 15. Glosario
+## 13. Glosario
 
 | Término | Definición |
 |---|---|
@@ -1101,7 +1030,7 @@ Detalles y comandos útiles en **[Proyectos](../proyectos/index.md)**.
 
 ---
 
-## 16. Cómo se evalúa esta unidad (RA2)
+## 14. Cómo se evalúa esta unidad (RA2)
 
 El RA2 es del **primer trimestre**, y ahí el examen es un **test de 12 preguntas de
 opción múltiple**. Pero no de definiciones: **todas las preguntas son de código**.
@@ -1156,10 +1085,10 @@ voleo se queda a cero. **No es lo mismo dudar que adivinar.**
 
 ### Cómo prepararte
 
-1. Los **ejercicios de sección** y los **ejercicios largos**: el test pregunta justo eso.
-2. El **proyecto de la unidad**: escribir el código es lo que te enseña a leerlo.
-3. El **[test de práctica](../simulacros/ra2/README.md)**, con las mismas 12 preguntas
-   de formato y las respuestas al final.
+1. Los **ejercicios** de la unidad, agrupados por tema: el test pregunta justo eso.
+2. El **[simulacro tipo test](../simulacros/ra2/README.md)**, 8 preguntas por tema con la
+   respuesta explicada. Hazlo tema a tema, no de golpe.
+3. El **[repaso del primer trimestre](../repaso-primer-trimestre.md)**, que mezcla UD1 y UD2.
 
 !!! tip "Lee el código antes de ejecutarlo"
    Durante el curso, cada vez que vayas a ejecutar algo, predice primero qué va a salir.

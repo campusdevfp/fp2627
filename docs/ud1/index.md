@@ -1055,7 +1055,6 @@ print(i, round(precio, 2))   # -> 1 121.0
 ```python
 """Conversiones entre unidades de longitud."""
 
-
 def metros_a_km(metros: float) -> float:
     """Convierte metros a kilómetros."""
     return metros / 1000
@@ -1218,7 +1217,6 @@ def linea_ticket(producto: str, unidades: int, precio: float) -> str:
 ```python
 IVA: int = 21
 
-
 def desglose(unidades: int, precio: float) -> tuple[float, float, float]:
     """Base, IVA y total de una compra, redondeados a 2 decimales."""
     base: float = unidades * precio
@@ -1241,6 +1239,10 @@ respuesta y la explicación desplegables:
 
 **[Simulacro tipo test RA1](../simulacros/ra1/README.md)**
 
+Y cuando tengas las dos unidades del trimestre vistas, el
+**[repaso del primer trimestre](../repaso-primer-trimestre.md)**: ejercicios que mezclan
+conceptos de la UD1 y la UD2, y un simulacro de 20 preguntas de cada una.
+
 !!! tip "Cómo sacarle partido"
     Haz **un tema cada vez**, justo después de leerlo y hacer sus ejercicios. No los 48 de
     golpe el día antes: así sabes qué tema tienes flojo cuando todavía hay margen.
@@ -1249,60 +1251,7 @@ respuesta y la explicación desplegables:
     hayas fallado y mira por qué.
 
 ---
-
-## 10. Proyecto de la unidad
-
-Toda la práctica de esta unidad se hace sobre un **proyecto base**: una calculadora de presupuestos con IVA. Está montado
-con la estructura real de un proyecto Python y trae una **batería de tests** que puedes
-ejecutar en cualquier momento para ver si va todo bien.
-
-**[Proyecto Presupuesto de tienda →](../proyectos/ud1/README.md)**
-
-```
-proyecto-ud1/
-├── src/      ← tu código (funciones con TODO)
-└── tests/    ← 16 tests que comprueban tu trabajo
-```
-
-### Cómo se trabaja
-
-```bash
-pip install -r requirements.txt
-pytest
-```
-
-La primera vez falla casi todo: aún no has escrito nada. A partir de ahí, lee una función,
-escríbela, vuelve a lanzar `pytest` y comprueba si ese test ya pasa. Terminas cuando está
-**todo en verde** y `mypy src` dice *Success*.
-
-!!! tip "De uno en uno"
-    `pytest -x` se detiene en el primer fallo. Arreglas esa función y sigues. Mucho más
-    llevadero que enfrentarse a todos los errores a la vez.
-
-!!! warning "Los tests son la especificación"
-    No los modifiques para que pasen: describen exactamente lo que tu código debe hacer, y
-    el examen usará una batería equivalente.
-
-Detalles y comandos útiles en **[Proyectos](../proyectos/index.md)**.
-
----
-
----
-
-## 11. Retos opcionales
-
-- **R1.** Amplía E5 para que, además de la media, diga `Aprobado`/`Suspenso` comparándola con 5.
-- **R2.** Investiga `divmod(a, b)` (devuelve cociente y resto a la vez) y reescribe E3 con él.
-- **R3.** Formatea un pequeño ticket con los precios alineados a la derecha (`:>8`), en columnas.
-- **R4.** Añade anotaciones de tipo a **todos** tus ejercicios y consigue que `mypy` diga *Success* en cada uno.
-
-- **R5.** Convierte una cantidad de segundos introducida por teclado a días, horas, minutos y segundos, y muéstralo como `2d 3h 04m 05s`.
-- **R6.** Formatea un ticket de tres productos con los importes alineados a la derecha y una línea de total separada por guiones del mismo ancho.
----
-
----
-
-## 12. Autoevaluación rápida
+## 10. Autoevaluación rápida
 
 <details><summary>1. ¿Qué muestra <code>print(7 // 2)</code>?</summary><code>3</code> (división entera).</details>
 <details><summary>2. ¿Qué tipo devuelve siempre <code>input()</code>?</summary><code>str</code>.</details>
@@ -1316,7 +1265,7 @@ Detalles y comandos útiles en **[Proyectos](../proyectos/index.md)**.
 
 ---
 
-## 13. Glosario
+## 11. Glosario
 
 | Término | Definición |
 |---|---|
@@ -1336,7 +1285,7 @@ Detalles y comandos útiles en **[Proyectos](../proyectos/index.md)**.
 
 ---
 
-## 14. Cómo se evalúa esta unidad (RA1)
+## 12. Cómo se evalúa esta unidad (RA1)
 
 El RA1 es del **primer trimestre**, y ahí el examen es un **test de 12 preguntas de
 opción múltiple**. Pero no de definiciones: **todas las preguntas son de código**.
@@ -1391,10 +1340,11 @@ voleo se queda a cero. **No es lo mismo dudar que adivinar.**
 
 ### Cómo prepararte
 
-1. Los **ejercicios de sección** y los **ejercicios largos**: el test pregunta justo eso.
-2. El **proyecto de la unidad**: escribir el código es lo que te enseña a leerlo.
-3. El **[test de práctica](../simulacros/ra1/README.md)**, con las mismas 12 preguntas
-   de formato y las respuestas al final.
+1. Los **ejercicios** de la unidad, agrupados por tema: el test pregunta justo eso.
+2. El **[simulacro tipo test](../simulacros/ra1/README.md)**, 8 preguntas por tema con la
+   respuesta explicada. Hazlo tema a tema, no de golpe.
+3. El **[repaso del primer trimestre](../repaso-primer-trimestre.md)**, cuando también
+   tengas vista la UD2.
 
 !!! tip "Lee el código antes de ejecutarlo"
    Durante el curso, cada vez que vayas a ejecutar algo, predice primero qué va a salir.
@@ -1408,6 +1358,6 @@ voleo se queda a cero. **No es lo mismo dudar que adivinar.**
 
 ### Material de apoyo de la unidad
 
-- **[Proyecto de la unidad](../proyectos/ud1/README.md)** — `presupuesto`, 16 tests.
-- **[Test de práctica](../simulacros/ra1/README.md)** — 12 preguntas de código, con respuestas.
+- **[Simulacro tipo test](../simulacros/ra1/README.md)** — 48 preguntas, 8 por tema, con la respuesta explicada.
+- **[Repaso del primer trimestre](../repaso-primer-trimestre.md)** — ejercicios que mezclan UD1 y UD2, y dos simulacros de 20.
 - **[Entorno de trabajo](../recursos/entorno.md)** — chuleta de `venv`, `pip` y `mypy`.

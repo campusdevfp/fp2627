@@ -53,6 +53,7 @@ nav:
       - Entorno de trabajo: recursos/entorno.md
       - Proyectos: proyectos/index.md
       - Simulacros de examen: simulacros/index.md
+      - Repaso del primer trimestre: repaso-primer-trimestre.md
   - Todo el material (PDF): completo.md
 
 plugins:

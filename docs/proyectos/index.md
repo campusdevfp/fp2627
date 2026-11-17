@@ -1,13 +1,17 @@
 # Proyectos
 
-Cada unidad tiene un **proyecto base**: un pequeño programa con estructura real, ya montado, en el que tú escribes el código y **ejecutas los tests para comprobar que va todo bien**.
+Desde la **UD3** cada unidad tiene un **proyecto base**: un pequeño programa con estructura real, ya montado, en el que tú escribes el código y **ejecutas los tests para comprobar que va todo bien**.
+
+!!! note "El primer trimestre no lleva proyecto"
+    La UD1 y la UD2 se evalúan con un **test de código**, así que su práctica son los
+    ejercicios del temario, el **simulacro tipo test** de cada unidad y el
+    **[repaso del primer trimestre](../repaso-primer-trimestre.md)**. Los proyectos
+    empiezan en la UD3, cuando el examen pasa a ser un reto de programación.
 
 No es un ejercicio suelto: es la forma en que se trabaja de verdad — un repositorio con su `src/`, sus `tests/` y su `README`.
 
 | UD | Proyecto | Qué practicas | Tests | Descargar |
 |:---:|---|---|:---:|:---:|
-| **1** | [Presupuesto de tienda](ud1/README.md) | variables, constantes, operadores, conversión y formato | 16 | [descargar](proyecto-ud1.zip) |
-| **2** | [Biblioteca de utilidades](ud2/README.md) | funciones, parámetros, `math` y módulos | 31 | [descargar](proyecto-ud2.zip) |
 | **3** | [Gestor de notas](ud3/README.md) | condiciones, bucles y excepciones | 31 | [descargar](proyecto-ud3.zip) |
 | **4** | [Flota de vehículos](ud4/README.md) | clases, `property` y herencia | 13 | [descargar](proyecto-ud4.zip) |
 | **5** | [Agenda de contactos](ud5/README.md) | ficheros de texto, CSV y JSON | 10 | [descargar](proyecto-ud5.zip) |

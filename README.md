@@ -51,7 +51,7 @@ repo-alumno/
     ├── ud1/ … ud6/index.md       # las 6 unidades (teoría + ejercicios)
     ├── proyectos/
     │   ├── index.md              # cómo se trabaja un proyecto
-    │   ├── ud1/ … ud6/           # los 6 proyectos base con sus tests
+    │   ├── ud3/ … ud6/           # los 4 proyectos base con sus tests
     │   └── proyecto-udN.zip      # el mismo proyecto, listo para descargar
     ├── simulacros/
     │   ├── index.md              # qué es un simulacro y cómo usarlo
@@ -69,7 +69,7 @@ repo-alumno/
    con la solución desplegable, que solo usan lo que acabas de leer. **136 en todo el
    módulo.** Hazlos antes de seguir.
 3. En clase: dudas, **4 actividades guiadas** y **8 ejercicios largos** por unidad.
-4. **Proyecto de la unidad**: estructura real de proyecto Python, con tests que ejecutas tú.
+4. **Proyecto de la unidad** (de la UD3 en adelante): estructura real de proyecto Python, con tests que ejecutas tú.
 5. **Simulacro**: un examen de mentira con el mismo formato y rúbrica, y con los tests
    publicados.
 6. **Examen**: igual que el simulacro, pero **sin tests**.
