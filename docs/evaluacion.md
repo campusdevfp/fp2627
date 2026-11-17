@@ -42,9 +42,8 @@ RA se califica por separado de 0 a 10**. Un RA está superado con **5**.
 | Trimestre | RA que se examinan | Peso de cada uno | Instrumento |
 |:---:|---|---|---|
 | **1.º** | RA1 y RA2 | 15 % + 15 % | test de código |
-| **2.º** | RA3 y RA4 | 25 % + 15 % | reto de programación |
-| **3.º** | RA5 y RA6 | 10 % + 10 % | reto de programación |
-| — | **FFE** (Fase de Formación en Empresa) | 10 % |
+| **2.º** | RA3 y RA4 | 20 % + 15 % | reto de programación |
+| **3.º** | RA5 y RA6 | 25 % + 15 % | reto de programación |
 
 **Cada trimestre hay un examen de cada uno de sus dos RA.** En ninguno hay teoría ni
 preguntas de desarrollo: o lees código y dices qué hace, o lo escribes.
@@ -72,11 +71,11 @@ correcta. Ninguna de definiciones.
 
 | | |
 |---|---|
-| Acierto | **+0,83** |
-| Error | **−0,28** |
-| En blanco | 0 |
+| Acierto | **+0,67** |
+| Incorrecta | **−0,33** |
+| En blanco o nula | 0 |
 
-`nota = (aciertos − errores ÷ 3) × 0,83`, con mínimo 0. Se resta porque hay cuatro
+`nota = (aciertos * 0.67) - (Incorrectas * 0.33)`, con mínimo 0. Se resta porque hay cuatro
 opciones: **marcar al azar no compensa**. Si dudas entre dos, marca; si no tienes ni idea,
 déjalo en blanco.
 
