@@ -11,10 +11,9 @@ Conviene no confundirlas, porque solo una pone nota.
 
 | | Evaluación **formativa** | Evaluación **calificativa** |
 |---|---|---|
-| Qué es | Los ejercicios de clase, el proyecto de cada unidad y los simulacros. | Los exámenes prácticos y la FFE. |
+| Qué es | Los ejercicios de clase, el proyecto de cada unidad y los simulacros. | Los exámenes prácticos |
 | Para qué | Que compruebes **por ti mismo** si vas bien, y a tiempo de arreglarlo. | Poner la nota del módulo. |
-| ¿Puntúa? | **No.** | **Sí.** |
-| ¿Obligatoria? | Sí: se hace en clase y se comprueba. | Sí. |
+
 
 ### La formativa no puntúa, pero decide tu nota
 
@@ -43,7 +42,7 @@ RA se califica por separado de 0 a 10**. Un RA está superado con **5**.
 |:---:|---|---|---|
 | **1.º** | RA1 y RA2 | 15 % + 15 % | test de código |
 | **2.º** | RA3 y RA4 | 20 % + 15 % | reto de programación |
-| **3.º** | RA5 y RA6 | 25 % + 15 % | reto de programación |
+| **3.º** | RA5 y RA6 | 20 % + 15 % | reto de programación |
 
 **Cada trimestre hay un examen de cada uno de sus dos RA.** En ninguno hay teoría ni
 preguntas de desarrollo: o lees código y dices qué hace, o lo escribes.
@@ -69,15 +68,13 @@ hace, que es el paso previo a escribirlo. A partir del segundo ya se trata de es
 error da, cuánto vale una expresión o cuál de cuatro versiones de una función es la
 correcta. Ninguna de definiciones.
 
-| | |
-|---|---|
-| Acierto | **+0,67** |
-| Incorrecta | **−0,33** |
-| En blanco o nula | 0 |
+La fórmula para el test es:
 
-`nota = (aciertos * 0.67) - (Incorrectas * 0.33)`, con mínimo 0. Se resta porque hay cuatro
-opciones: **marcar al azar no compensa**. Si dudas entre dos, marca; si no tienes ni idea,
-déjalo en blanco.
+`nota = ( aciertos * valor_pregunta ) - ( Incorrectas * penalización )`
+
+Si son 20 preguntas cada RA:
+
+`nota = ( aciertos * 0.5 ) - ( Incorrectas * 0.167 )`
 
 ### Segundo y tercer trimestre: reto de programación
 
